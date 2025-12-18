@@ -1,56 +1,57 @@
 ---
-// Hero.astro - Version Mood Digital
+// Hero.astro - Version Mood Digital (Grid & Glow)
 ---
 
 <section class="hero-wrapper">
-  <!-- Fond d'ambiance animé -->
-  <div class="bg-glow"></div>
+  
+  <!-- FOND : La Grille Technique + Le Glow -->
+  <div class="grid-bg"></div>
+  <div class="spotlight"></div>
 
   <div class="container">
     
-    <!-- Badge Status Agence -->
-    <div class="badge-container float-slow">
-      <div class="badge-pill fade-in">
-        <span class="badge-dot"></span>
-        <span class="badge-text">Agence Créative & Technique</span>
+    <!-- TOP : Badge Status -->
+    <div class="status-pill fade-in">
+      <span class="status-dot"></span>
+      <span class="status-text">Available for new projects</span>
+    </div>
+
+    <!-- CENTRE : Titre Monumental -->
+    <div class="hero-content">
+      <h1 class="fade-in delay-1">
+        We craft <span class="highlight">digital</span><br />
+        <span class="outline">experiences.</span>
+      </h1>
+
+      <p class="subtitle fade-in delay-2">
+        Mood Digital transforme votre vision en interface d'exception.<br class="desktop-br"/>
+        Design stratégique. Développement créatif. Impact réel.
+      </p>
+
+      <!-- BOUTONS : Style "Glass" très fin -->
+      <div class="cta-group fade-in delay-3">
+        <a href="#contact" class="btn btn-primary">
+          Start a project
+        </a>
+        <a href="#work" class="btn btn-ghost">
+          View work
+        </a>
       </div>
     </div>
 
-    <!-- Titre Principal (Marque) -->
-    <h1 class="fade-in delay-1">
-      Mood <span class="text-gradient">Digital</span>.
-    </h1>
-
-    <!-- Sous-titre -->
-    <p class="subtitle fade-in delay-2">
-      Nous transformons votre vision en expérience digitale immersive.<br class="desktop-br"/>
-      Design haute couture, développement sans faille.
-    </p>
-
-    <!-- Boutons d'action -->
-    <div class="cta-group fade-in delay-3">
-      <a href="#contact" class="btn btn-primary">
-        <span>Lancer un projet</span>
-        <svg class="icon-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-      </a>
-      <a href="#work" class="btn btn-secondary">
-        Nos réalisations
-      </a>
-    </div>
-
-    <!-- Stats / Preuve (Plus discret pour une agence) -->
-    <div class="trust-container fade-in delay-4">
-      <div class="rating-badge float-delayed">
-        <div class="avatars">
-           <!-- Petits cercles abstraits pour simuler des clients/équipe -->
-           <span class="avatar"></span>
-           <span class="avatar"></span>
-           <span class="avatar"></span>
-        </div>
-        <div class="trust-text">
-            <span class="score">100+</span>
-            <span class="reviews">Projets livrés avec succès</span>
-        </div>
+    <!-- BOTTOM : Infos Techniques (Style Moodboard) -->
+    <div class="hero-footer fade-in delay-4">
+      <div class="spec-item">
+        <span class="label">Location</span>
+        <span class="val">Paris, FR</span>
+      </div>
+      <div class="spec-item">
+        <span class="label">Specialty</span>
+        <span class="val">Web & Mobile</span>
+      </div>
+      <div class="spec-item">
+        <span class="label">Est.</span>
+        <span class="val">2024</span>
       </div>
     </div>
 
@@ -60,230 +61,225 @@
 <style>
   /* --- 1. CONFIGURATION --- */
   :root {
-    --bg-dark: #070607;
-    --text-main: #f3f3f4;
-    --text-muted: #b3b3b8;
-    --accent-gold: #d9a441;
-    --accent-light: #ffcc6a;
-    --glass-border: rgba(255, 255, 255, 0.08);
-    
-    /* Courbe de fluidité Apple-like */
-    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --bg-dark: #050505; /* Noir presque pur */
+    --grid-color: rgba(255, 255, 255, 0.03);
+    --glow-color: rgba(60, 100, 255, 0.15); /* Bleu électrique très subtil */
+    --text-main: #ffffff;
+    --text-muted: #888888;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --ease-smooth: cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
-  /* --- 2. STRUCTURE --- */
+  /* --- 2. STRUCTURE & FOND --- */
   .hero-wrapper {
     position: relative;
     background-color: var(--bg-dark);
     color: var(--text-main);
-    overflow: hidden;
-    padding: 9rem 1rem 7rem; /* Un peu plus d'espace en haut */
-    min-height: 90vh; /* Prend presque tout l'écran */
+    min-height: 100vh; /* Plein écran */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--font-main, system-ui, sans-serif);
+    overflow: hidden;
+    padding-top: 80px; /* Pour le header */
+  }
+
+  /* La Grille (L'effet Moodboard) */
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 60px 60px; /* Taille des carreaux */
+    z-index: 1;
+    mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+  }
+
+  /* Le Spot lumineux central */
+  .spotlight {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+    filter: blur(80px);
+    z-index: 0;
+    animation: pulse 8s ease-in-out infinite alternate;
   }
 
   .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    text-align: center;
     position: relative;
     z-index: 10;
-    perspective: 1000px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    justify-content: center;
   }
 
-  /* --- 3. FOND ANIMÉ --- */
-  .bg-glow {
-    position: absolute;
-    top: -40%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120vw;
-    height: 1000px;
-    /* Dégradé un peu plus mystérieux/sombre pour Mood Digital */
-    background: radial-gradient(circle, rgba(217,164,65,0.08) 0%, rgba(7,6,7,0) 60%);
-    z-index: 0;
-    pointer-events: none;
-    animation: breathe 10s ease-in-out infinite alternate;
-    will-change: opacity, transform;
-  }
-
-  @keyframes breathe {
-    0% { opacity: 0.6; transform: translateX(-50%) scale(1); }
-    100% { opacity: 0.4; transform: translateX(-50%) scale(1.15); }
-  }
-
-  /* --- 4. ÉLÉMENTS --- */
+  /* --- 3. TYPOGRAPHIE & CONTENU --- */
   
-  /* Badge Haut */
-  .badge-container { display: flex; justify-content: center; margin-bottom: 2rem; }
-  
-  .badge-pill {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--glass-border);
-    padding: 0.5rem 1.2rem;
-    border-radius: 99px;
-    font-size: 0.8rem;
+  /* Badge Status */
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(5px);
+  }
+  .status-dot {
+    width: 6px; height: 6px;
+    background-color: #22c55e; /* Vert status */
+    border-radius: 50%;
+    box-shadow: 0 0 8px #22c55e;
+  }
+  .status-text {
+    font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    font-weight: 600;
-    color: var(--accent-light);
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    backdrop-filter: blur(12px);
-    transition: transform 0.3s var(--ease-out-expo), border-color 0.3s;
-  }
-  .badge-pill:hover { border-color: rgba(255, 255, 255, 0.15); transform: scale(1.02); }
-  
-  .badge-dot {
-    width: 6px; height: 6px;
-    background-color: var(--accent-gold);
-    border-radius: 50%;
-    box-shadow: 0 0 10px var(--accent-gold);
-    animation: pulse-dot 2s infinite;
-  }
-  @keyframes pulse-dot {
-    0% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.8); }
-    100% { opacity: 1; transform: scale(1); }
+    color: var(--text-muted);
+    font-weight: 500;
   }
 
-  /* Titre Massif */
+  /* Titre H1 */
   h1 {
-    font-size: clamp(3.5rem, 8vw, 7rem); /* Beaucoup plus gros */
-    font-weight: 800;
-    line-height: 1.0;
-    letter-spacing: -0.04em;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 1.05;
+    font-weight: 700;
+    letter-spacing: -0.03em;
     margin-bottom: 1.5rem;
   }
-  .text-gradient {
-    background: linear-gradient(135deg, #fff 30%, var(--accent-gold) 100%);
+  
+  .highlight {
+    color: #fff;
+    /* Petit effet de dégradé sur le texte */
+    background: linear-gradient(to bottom right, #fff 30%, #999 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    /* Petit effet d'ombre portée subtil sur le texte */
-    filter: drop-shadow(0 0 30px rgba(217, 164, 65, 0.2));
+  }
+  
+  /* Texte contour (Outline) pour le style architectural */
+  .outline {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+    opacity: 0.8;
   }
 
   .subtitle {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-size: clamp(1rem, 2vw, 1.25rem);
     color: var(--text-muted);
-    max-width: 680px;
+    max-width: 600px;
+    line-height: 1.6;
     margin: 0 auto 3rem;
-    line-height: 1.5;
-    font-weight: 400;
   }
-  
-  /* Cache le saut de ligne sur mobile */
-  @media (max-width: 768px) { .desktop-br { display: none; } }
 
-  /* Boutons */
+  /* --- 4. BOUTONS (Style Minimaliste) --- */
   .cta-group {
     display: flex;
-    gap: 1.2rem;
+    gap: 16px;
     justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 3rem;
   }
-  
+
   .btn {
-    padding: 1rem 2.2rem;
-    border-radius: 99px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.5s var(--ease-out-expo);
-    display: inline-flex;
+    height: 48px;
+    padding: 0 32px;
+    display: flex;
     align-items: center;
-    gap: 0.8rem;
-    font-size: 1rem;
+    justify-content: center;
+    border-radius: 6px; /* Coins moins ronds pour faire "Tech" */
+    font-weight: 500;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.3s var(--ease-smooth);
   }
 
   .btn-primary {
     background: #fff;
     color: #000;
-    border: 1px solid #fff;
   }
   .btn-primary:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 15px 50px -10px rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
   }
-  .btn-primary:hover .icon-arrow { transform: translateX(4px); }
-  .icon-arrow { transition: transform 0.3s var(--ease-out-expo); }
 
-  .btn-secondary {
+  .btn-ghost {
     background: transparent;
+    border: 1px solid var(--border-color);
     color: #fff;
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(5px);
   }
-  .btn-secondary:hover {
+  .btn-ghost:hover {
     background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-4px);
+    border-color: #fff;
   }
 
-  /* Badge Bas (Style Agence) */
-  .trust-container { display: flex; justify-content: center; margin-top: 1rem; }
-  
-  .rating-badge {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    padding: 0.6rem 1.2rem 0.6rem 0.8rem;
-    border-radius: 99px;
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
-    backdrop-filter: blur(10px);
+  /* --- 5. FOOTER DU HERO (Grid Specs) --- */
+  .hero-footer {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+    max-width: 1200px;
+    left: 50%;
+    transform: translateX(-50%);
   }
-  
-  .avatars { display: flex; align-items: center; margin-left: 5px; }
-  .avatar {
-    width: 24px; height: 24px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #333, #555);
-    border: 2px solid var(--bg-dark);
-    margin-left: -8px;
+
+  .spec-item {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 4px;
   }
-  .avatar:nth-child(1) { background: #444; z-index: 3; margin-left: 0; }
-  .avatar:nth-child(2) { background: #666; z-index: 2; }
-  .avatar:nth-child(3) { background: var(--accent-gold); z-index: 1; }
+  .spec-item .label {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #555;
+    letter-spacing: 0.1em;
+  }
+  .spec-item .val {
+    font-size: 13px;
+    color: #fff;
+    font-family: monospace; /* Touche technique */
+  }
 
-  .trust-text { display: flex; flex-direction: column; line-height: 1.1; text-align: left; }
-  .score { color: #fff; font-weight: 700; font-size: 0.9rem; }
-  .reviews { color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  /* --- 6. ANIMATIONS --- */
+  @keyframes pulse {
+    0% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+  }
 
-  /* --- 5. ANIMATIONS --- */
   .fade-in {
     opacity: 0;
-    transform: translateY(40px) scale(0.96);
-    filter: blur(8px);
-    animation: smoothReveal 1.4s var(--ease-out-expo) forwards;
-    will-change: opacity, transform, filter;
+    transform: translateY(20px);
+    animation: reveal 1s var(--ease-smooth) forwards;
   }
-
   .delay-1 { animation-delay: 0.1s; }
-  .delay-2 { animation-delay: 0.25s; }
-  .delay-3 { animation-delay: 0.4s; }
-  .delay-4 { animation-delay: 0.55s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.8s; }
 
-  @keyframes smoothReveal {
-    to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-  }
-
-  .float-slow { animation: float 8s ease-in-out infinite; }
-  .float-delayed { animation: float 9s ease-in-out 1.5s infinite; }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+  @keyframes reveal {
+    to { opacity: 1; transform: translateY(0); }
   }
 
   /* Mobile */
   @media (max-width: 768px) {
-    .hero-wrapper { padding-top: 7rem; min-height: 80vh; }
-    h1 { font-size: 3.5rem; letter-spacing: -0.02em; }
-    .btn { width: 100%; justify-content: center; }
-    .badge-pill { font-size: 0.7rem; }
+    .desktop-br { display: none; }
+    .hero-footer { display: none; } /* On cache les specs sur mobile */
+    .grid-bg { background-size: 40px 40px; }
   }
 </style>
