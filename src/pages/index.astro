@@ -1,4 +1,5 @@
 ---
+// Importation des composants
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 ---
@@ -9,11 +10,17 @@ import Hero from '../components/Hero.astro';
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Ma Landing Page</title>
+		<title>Lyvora | Landing Page</title>
+        
+        <style>
+            body { margin: 0; background-color: #070607; }
+        </style>
 	</head>
 	<body>
-        
-		<Hero />
 
-	</body>
+        <Header />
+        
+        <Hero />
+        
+        </body>
 </html>
