@@ -1,121 +1,69 @@
 ---
-// Hero.astro - Mood Digital Style (moodboard + editorial copy)
+// Hero.astro
+// Mood Digital: warm palette + editorial type + animated grid/checker background
 ---
 
-<section class="hero-wrapper mood">
-  <div class="bg" aria-hidden="true"></div>
-  <div class="grain" aria-hidden="true"></div>
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-fade" aria-hidden="true"></div>
 
-  <div class="container">
+  <div class="wrap">
     <div class="grid">
       <div class="copy">
         <div class="pill fade-in">
-          <span class="dot"></span>
-          <span class="pill-text">MOOD SHIFT v2.0</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="pill-text">Canva. Business. Identite.</span>
         </div>
 
         <h1 class="fade-in delay-1">
-          Direction créative <span class="highlight">premium</span><br />
-          pour des landing pages qui vendent.
+          Tu n'as pas besoin de faire plus.
+          <span class="h1-break"><br /></span>
+          Tu as besoin d'un <span class="accent">cadre</span>.
         </h1>
 
         <p class="subtitle fade-in delay-2">
-          Moins de bruit. Plus d'identité. Une structure conversion-first et un code Astro propre, modulaire, prêt pour Vercel.
+          Formation Canva et accompagnements business pour creatrices qui veulent une image forte,
+          des visuels coherents, et une structure qui tient. Moins de "jolis visuels". Plus d'identite.
         </p>
 
-        <div class="cta-group fade-in delay-3">
-          <a href="#pricing" class="btn btn-primary">
-            <span>Voir les offres</span>
-            <svg class="icon-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14"></path>
-              <path d="m12 5 7 7-7 7"></path>
-            </svg>
+        <div class="cta fade-in delay-3">
+          <a class="btn btn-primary" href="#kit" aria-label="Recevoir le kit gratuit">
+            Recevoir le Kit Mood Express
+            <span class="btn-icon" aria-hidden="true">→</span>
           </a>
-
-          <a href="#demo" class="btn btn-secondary">Voir la démo</a>
+          <a class="btn btn-secondary" href="#formation" aria-label="Voir la formation Canva">
+            Voir la formation
+          </a>
         </div>
 
-        <div class="meta fade-in delay-4">
-          <div class="meta-card">
-            <span class="meta-k">Focus</span>
-            <span class="meta-v">Brand + conversion</span>
+        <div class="meta fade-in delay-4" role="list">
+          <div class="chip" role="listitem">
+            <span class="k">Pour</span>
+            <span class="v">Entrepreneuses, creatrices</span>
           </div>
-          <div class="meta-card">
-            <span class="meta-k">Stack</span>
-            <span class="meta-v">Astro + Vercel</span>
+          <div class="chip" role="listitem">
+            <span class="k">Focus</span>
+            <span class="v">Brand + system Canva</span>
           </div>
-          <div class="meta-card">
-            <span class="meta-k">Note</span>
-            <span class="meta-v">Code clean, sections</span>
+          <div class="chip" role="listitem">
+            <span class="k">Resultat</span>
+            <span class="v">Identite stable, contenu rapide</span>
           </div>
         </div>
       </div>
 
       <div class="visual" aria-hidden="true">
-        <div class="mood-board" id="moodBoard">
-          <div class="tile t-brown"></div>
-          <div class="tile t-green"></div>
+        <div class="board" id="moodBoard">
+          <div class="tile t-cocoa"></div>
+          <div class="tile t-moss"></div>
 
           <div class="tile t-lilac"></div>
           <div class="tile t-wood"></div>
 
           <div class="tile t-lamp">
-            <div class="lamp-wrap">
-              <svg class="lamp" viewBox="0 0 140 240" role="presentation">
-                <defs>
-                  <linearGradient id="lampG" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stop-color="rgba(255,255,255,0.35)" />
-                    <stop offset="1" stop-color="rgba(0,0,0,0.18)" />
-                  </linearGradient>
-                  <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
-                    <feGaussianBlur stdDeviation="6" result="blur" />
-                    <feColorMatrix in="blur" type="matrix"
-                      values="1 0 0 0 0
-                              0 1 0 0 0
-                              0 0 1 0 0
-                              0 0 0 0.65 0" />
-                    <feMerge>
-                      <feMergeNode />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-                </defs>
-
-                <path
-                  d="M70 14
-                     C92 30 98 50 84 66
-                     C72 80 72 92 86 106
-                     C104 124 102 144 84 160
-                     C70 172 70 188 86 204
-                     C104 226 90 236 70 238
-                     C50 236 36 226 54 204
-                     C70 188 70 172 56 160
-                     C38 144 36 124 54 106
-                     C68 92 68 80 56 66
-                     C42 50 48 30 70 14 Z"
-                  fill="var(--accent-orange)"
-                  filter="url(#softGlow)"
-                />
-                <path
-                  d="M70 20
-                     C86 34 90 48 80 60
-                     C70 72 70 92 84 108
-                     C96 122 94 140 80 152
-                     C68 162 68 188 84 206
-                     C92 216 86 226 70 228
-                     C54 226 48 216 56 206
-                     C72 188 72 162 60 152
-                     C46 140 44 122 56 108
-                     C70 92 70 72 60 60
-                     C50 48 54 34 70 20 Z"
-                  fill="url(#lampG)"
-                  opacity="0.9"
-                />
-                <ellipse cx="70" cy="218" rx="46" ry="10" fill="rgba(0,0,0,0.25)" />
-              </svg>
-
-              <div class="lamp-base"></div>
-            </div>
+            <div class="lamp-glow"></div>
+            <div class="lamp"></div>
+            <div class="base"></div>
           </div>
 
           <div class="tile t-checker"></div>
@@ -123,18 +71,20 @@
 
           <div class="star">
             <svg viewBox="0 0 100 100" class="star-svg" role="presentation">
-              <polygon
-                points="50,6 58,28 80,20 72,42 94,50 72,58 80,80 58,72 50,94 42,72 20,80 28,58 6,50 28,42 20,20 42,28"
-                fill="var(--accent-orange)"
-                opacity="0.95"
-              />
+              <polygon points="50,6 58,28 80,20 72,42 94,50 72,58 80,80 58,72 50,94 42,72 20,80 28,58 6,50 28,42 20,20 42,28" />
             </svg>
+          </div>
+
+          <div class="stamp">
+            <span class="stamp-top">moodigital.co</span>
+            <span class="stamp-mid">canva mood</span>
+            <span class="stamp-bot">direction creatrice</span>
           </div>
         </div>
 
         <div class="caption">
-          <span class="cap-1">Moins "communication".</span>
-          <span class="cap-2">Plus direction créative.</span>
+          <span class="cap-1">Moins communication.</span>
+          <span class="cap-2">Plus creation d'univers.</span>
         </div>
       </div>
     </div>
@@ -142,97 +92,147 @@
 </section>
 
 <script is:inline>
-  const board = document.getElementById("moodBoard");
-  if (board) {
+  // Grid and board react on desktop, drift on mobile.
+  const root = document.documentElement;
+  const hero = document.querySelector(".hero");
+
+  const isFinePointer = window.matchMedia && window.matchMedia("(pointer:fine)").matches;
+  const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (hero && isFinePointer && !reduceMotion) {
     let raf = 0;
-
-    const setTilt = (clientX, clientY) => {
-      const r = board.getBoundingClientRect();
-      const px = (clientX - r.left) / r.width;
-      const py = (clientY - r.top) / r.height;
-
-      const ry = (px - 0.5) * 10;
-      const rx = (0.5 - py) * 8;
-
-      board.style.setProperty("--rx", rx.toFixed(2) + "deg");
-      board.style.setProperty("--ry", ry.toFixed(2) + "deg");
-      board.style.setProperty("--sx", ((px - 0.5) * 12).toFixed(2) + "px");
-      board.style.setProperty("--sy", ((py - 0.5) * 12).toFixed(2) + "px");
+    const onMove = (e) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const r = hero.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        const y = (e.clientY - r.top) / r.height;
+        root.style.setProperty("--mx", x.toFixed(3));
+        root.style.setProperty("--my", y.toFixed(3));
+      });
     };
 
-    board.addEventListener("pointermove", (e) => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => setTilt(e.clientX, e.clientY));
-    });
-
-    board.addEventListener("pointerleave", () => {
-      board.style.setProperty("--rx", "0deg");
-      board.style.setProperty("--ry", "0deg");
-      board.style.setProperty("--sx", "0px");
-      board.style.setProperty("--sy", "0px");
+    hero.addEventListener("pointermove", onMove);
+    hero.addEventListener("pointerleave", () => {
+      root.style.setProperty("--mx", "0.5");
+      root.style.setProperty("--my", "0.35");
     });
   }
 </script>
 
 <style>
-  .hero-wrapper.mood {
+  :root {
+    --mx: 0.5;
+    --my: 0.35;
+
     --bg-0: #070607;
-    --bg-1: #0e0c0a;
+    --bg-1: #0c0a08;
 
     --text: #f3f3f4;
-    --muted: rgba(243, 243, 244, 0.72);
+    --muted: rgba(243, 243, 244, 0.74);
 
     --cream: #e3dbcf;
     --lilac: #bbadb5;
     --cocoa: #7e441e;
     --moss: #223026;
-    --accent-orange: #e6730a;
+    --orange: #e6730a;
 
-    --glass: rgba(255, 255, 255, 0.08);
+    --glass: rgba(255,255,255,0.10);
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
 
+  .hero {
     position: relative;
-    overflow: hidden;
-    padding: 7.5rem 1.25rem 6rem;
-    min-height: 86vh;
-    display: flex;
+    overflow: clip;
+    padding: 7.5rem 1.25rem 6.25rem;
+    min-height: 88vh;
+    display: grid;
     align-items: center;
     color: var(--text);
-    background: radial-gradient(1200px 700px at 20% 10%, rgba(230, 115, 10, 0.10), transparent 60%),
-                radial-gradient(900px 650px at 75% 35%, rgba(34, 48, 38, 0.18), transparent 62%),
-                linear-gradient(180deg, var(--bg-1), var(--bg-0));
-    font-family: system-ui, -apple-system, sans-serif;
+    background: transparent;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   }
 
-  .bg {
+  /* Background layers (animated grid + checker + color washes). */
+  .hero-bg {
     position: absolute;
-    inset: -1px;
-    pointer-events: none;
-    opacity: 0.9;
+    inset: -2px;
+    z-index: -2;
+
     background:
-      radial-gradient(700px 500px at 55% 20%, rgba(187, 173, 181, 0.10), transparent 65%),
-      radial-gradient(900px 650px at 50% 85%, rgba(126, 68, 30, 0.18), transparent 60%);
-    filter: blur(0px);
+      radial-gradient(900px 700px at calc(var(--mx) * 100%) calc(var(--my) * 100%), rgba(230,115,10,0.14), transparent 60%),
+      radial-gradient(900px 650px at calc((1 - var(--mx)) * 100%) 20%, rgba(34,48,38,0.22), transparent 62%),
+      radial-gradient(700px 520px at 18% 18%, rgba(187,173,181,0.14), transparent 66%),
+      linear-gradient(180deg, var(--bg-1), var(--bg-0));
+
+    /* Grid on top of gradients */
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 78%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 78%, transparent 100%);
   }
 
-  .grain {
+  .hero-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, rgba(227,219,207,0.08) 0 1px, transparent 1px 54px),
+      repeating-linear-gradient(90deg, rgba(227,219,207,0.08) 0 1px, transparent 1px 54px);
+
+    opacity: 0.55;
+    transform: translate3d(0, 0, 0);
+    animation: gridDrift 10s var(--ease) infinite alternate;
+  }
+
+  .hero-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    /* Checker accent like Mood Digital, softly blended */
+    background:
+      linear-gradient(45deg, rgba(0,0,0,0.84) 25%, transparent 25%) 0 0 / 44px 44px,
+      linear-gradient(-45deg, rgba(0,0,0,0.84) 25%, transparent 25%) 0 22px / 44px 44px,
+      linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.84) 75%) 22px -22px / 44px 44px,
+      linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.84) 75%) 22px 0 / 44px 44px;
+
+    opacity: 0.14;
+    mix-blend-mode: overlay;
+    transform: translate3d(calc((var(--mx) - 0.5) * -18px), calc((var(--my) - 0.5) * -16px), 0);
+    filter: blur(0.15px);
+  }
+
+  @keyframes gridDrift {
+    0% { transform: translate3d(-18px, -12px, 0); opacity: 0.45; }
+    100% { transform: translate3d(18px, 10px, 0); opacity: 0.60; }
+  }
+
+  /* Bottom fade so the next section never cuts hard. */
+  .hero-fade {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(1200px 520px at 50% 0%, rgba(0,0,0,0.40), transparent 55%),
+      linear-gradient(to bottom, transparent 0%, transparent 68%, rgba(7,6,7,0.95) 92%, rgba(7,6,7,1) 100%);
+  }
+
+  /* Soft grain, subtle but premium. */
+  .hero::before {
+    content: "";
     position: absolute;
     inset: 0;
     pointer-events: none;
+    z-index: -1;
     opacity: 0.10;
     mix-blend-mode: overlay;
     background-image:
-      repeating-radial-gradient(circle at 20% 30%, rgba(255,255,255,0.35) 0 1px, transparent 1px 6px),
-      repeating-radial-gradient(circle at 80% 60%, rgba(0,0,0,0.45) 0 1px, transparent 1px 7px);
+      repeating-radial-gradient(circle at 20% 30%, rgba(255,255,255,0.35) 0 1px, transparent 1px 7px),
+      repeating-radial-gradient(circle at 80% 60%, rgba(0,0,0,0.45) 0 1px, transparent 1px 8px);
     filter: blur(0.2px);
   }
 
-  .container {
-    width: min(1180px, 100%);
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-  }
+  .wrap { width: min(1180px, 100%); margin: 0 auto; }
 
   .grid {
     display: grid;
@@ -241,8 +241,6 @@
     align-items: center;
   }
 
-  .copy { max-width: 680px; }
-
   .pill {
     display: inline-flex;
     align-items: center;
@@ -250,47 +248,46 @@
     padding: 0.55rem 1rem;
     border-radius: 999px;
     border: 1px solid var(--glass);
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.25);
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 16px 50px rgba(0,0,0,0.28);
     margin-bottom: 1.6rem;
-    transform-origin: center;
     transition: transform 0.35s var(--ease), border-color 0.35s var(--ease);
   }
-
   .pill:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.16); }
 
   .dot {
     width: 8px;
     height: 8px;
     border-radius: 999px;
-    background: var(--accent-orange);
-    box-shadow: 0 0 0 5px rgba(230, 115, 10, 0.12);
+    background: var(--orange);
+    box-shadow: 0 0 0 5px rgba(230,115,10,0.12);
     animation: pulse 2.4s ease-in-out infinite;
   }
 
   @keyframes pulse {
     0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(0.88); opacity: 0.6; }
+    50% { transform: scale(0.88); opacity: 0.62; }
   }
 
   .pill-text {
-    font-size: 0.85rem;
+    font-size: 0.84rem;
     letter-spacing: 0.10em;
     text-transform: uppercase;
-    color: rgba(227, 219, 207, 0.92);
+    color: rgba(227,219,207,0.92);
   }
 
   h1 {
-    font-size: clamp(2.6rem, 5.2vw, 4.7rem);
-    line-height: 1.03;
+    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    font-weight: 780;
+    font-size: clamp(2.65rem, 5.4vw, 4.9rem);
+    line-height: 1.02;
     letter-spacing: -0.04em;
-    margin: 0 0 1.25rem;
-    font-weight: 860;
+    margin: 0 0 1.2rem;
   }
 
-  .highlight {
-    background: linear-gradient(135deg, var(--cream) 0%, rgba(230, 115, 10, 0.95) 70%);
+  .accent {
+    background: linear-gradient(135deg, var(--cream) 0%, rgba(230,115,10,0.95) 72%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -300,22 +297,22 @@
     color: var(--muted);
     font-size: clamp(1.05rem, 2.0vw, 1.2rem);
     line-height: 1.65;
-    max-width: 56ch;
+    max-width: 58ch;
   }
 
-  .cta-group {
+  .cta {
     display: flex;
     gap: 0.9rem;
     flex-wrap: wrap;
     align-items: center;
-    margin-bottom: 1.8rem;
+    margin-bottom: 1.7rem;
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    padding: 0.92rem 1.8rem;
+    gap: 0.7rem;
+    padding: 0.95rem 1.8rem;
     border-radius: 999px;
     text-decoration: none;
     font-weight: 650;
@@ -327,30 +324,34 @@
   .btn-primary {
     background: var(--cream);
     color: #0b0a08;
-    border-color: rgba(227, 219, 207, 0.75);
-    box-shadow: 0 18px 55px rgba(0, 0, 0, 0.35);
+    border-color: rgba(227,219,207,0.75);
+    box-shadow: 0 18px 55px rgba(0,0,0,0.35);
   }
 
   .btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 28px 75px rgba(0, 0, 0, 0.48);
+    box-shadow: 0 28px 75px rgba(0,0,0,0.48);
   }
 
-  .btn-primary:hover .icon-arrow { transform: translateX(4px); }
-  .icon-arrow { transition: transform 0.3s var(--ease); }
-
   .btn-secondary {
-    background: rgba(255, 255, 255, 0.035);
+    background: rgba(255,255,255,0.035);
     color: var(--text);
-    border-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255,255,255,0.12);
     backdrop-filter: blur(10px);
   }
 
   .btn-secondary:hover {
     transform: translateY(-3px);
-    border-color: rgba(255, 255, 255, 0.22);
-    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255,255,255,0.22);
+    background: rgba(255,255,255,0.06);
   }
+
+  .btn-icon {
+    display: inline-block;
+    transition: transform 0.28s var(--ease);
+  }
+
+  .btn-primary:hover .btn-icon { transform: translateX(4px); }
 
   .meta {
     display: grid;
@@ -358,61 +359,60 @@
     gap: 0.75rem;
   }
 
-  .meta-card {
+  .chip {
     padding: 0.9rem 1rem;
     border-radius: 18px;
     border: 1px solid rgba(255,255,255,0.08);
     background: rgba(255,255,255,0.02);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
     transition: transform 0.35s var(--ease), border-color 0.35s var(--ease);
   }
 
-  .meta-card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.16); }
+  .chip:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.16); }
 
-  .meta-k {
+  .k {
     display: block;
     font-size: 0.78rem;
     letter-spacing: 0.10em;
     text-transform: uppercase;
-    color: rgba(227, 219, 207, 0.82);
+    color: rgba(227,219,207,0.82);
     margin-bottom: 0.25rem;
   }
 
-  .meta-v {
+  .v {
     display: block;
     font-size: 0.98rem;
     color: rgba(243,243,244,0.92);
     font-weight: 620;
   }
 
-  .visual {
-    position: relative;
-    justify-self: end;
-    width: min(520px, 100%);
-  }
+  .visual { width: min(520px, 100%); justify-self: end; }
 
-  .mood-board {
-    --rx: 0deg;
-    --ry: 0deg;
-    --sx: 0px;
-    --sy: 0px;
-
+  .board {
     position: relative;
     border-radius: 28px;
     padding: 14px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow: 0 30px 90px rgba(0,0,0,0.55);
     backdrop-filter: blur(14px);
 
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 120px;
+    grid-auto-rows: 118px;
     gap: 12px;
 
-    transform: perspective(1200px) rotateX(var(--rx)) rotateY(var(--ry)) translate3d(calc(var(--sx) * 0.25), calc(var(--sy) * 0.25), 0);
+    transform: perspective(1200px)
+      rotateX(calc((0.5 - var(--my)) * 8deg))
+      rotateY(calc((var(--mx) - 0.5) * 10deg))
+      translate3d(calc((var(--mx) - 0.5) * 10px), calc((var(--my) - 0.5) * 10px), 0);
+
     transition: transform 0.25s var(--ease);
     will-change: transform;
+
+    /* Edge fade so the card feels integrated. */
+    mask-image: radial-gradient(120% 120% at 50% 20%, #000 66%, transparent 100%);
+    -webkit-mask-image: radial-gradient(120% 120% at 50% 20%, #000 66%, transparent 100%);
   }
 
   .tile {
@@ -424,9 +424,9 @@
     transform: translateZ(0);
   }
 
-  .t-brown { background: linear-gradient(135deg, rgba(126, 68, 30, 0.95), rgba(92, 45, 13, 0.95)); }
-  .t-green { background: linear-gradient(135deg, rgba(34, 48, 38, 0.95), rgba(16, 23, 18, 0.95)); }
-  .t-lilac { background: linear-gradient(135deg, rgba(187, 173, 181, 0.98), rgba(227, 219, 207, 0.75)); }
+  .t-cocoa { background: linear-gradient(135deg, rgba(126,68,30,0.95), rgba(92,45,13,0.95)); }
+  .t-moss { background: linear-gradient(135deg, rgba(34,48,38,0.95), rgba(16,23,18,0.95)); }
+  .t-lilac { background: linear-gradient(135deg, rgba(187,173,181,0.98), rgba(227,219,207,0.76)); }
 
   .t-wood {
     background:
@@ -440,36 +440,71 @@
         rgba(140, 86, 50, 0.88) 26px,
         rgba(140, 86, 50, 0.88) 38px
       );
-    filter: saturate(1.08);
+    filter: saturate(1.06);
   }
 
   .t-lamp {
-    background: radial-gradient(220px 140px at 60% 35%, rgba(230,115,10,0.18), transparent 70%),
-                linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.60));
+    background:
+      radial-gradient(220px 160px at 60% 35%, rgba(230,115,10,0.20), transparent 70%),
+      linear-gradient(180deg, rgba(0,0,0,0.26), rgba(0,0,0,0.62));
   }
 
-  .lamp-wrap {
+  .lamp-glow {
     position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
+    inset: -40px;
+    background: radial-gradient(circle at 55% 40%, rgba(230,115,10,0.26), transparent 60%);
+    filter: blur(10px);
+    opacity: 0.9;
   }
 
   .lamp {
-    width: 66%;
-    height: auto;
-    transform: translateY(-4px);
+    position: absolute;
+    left: 50%;
+    top: 18px;
+    width: 70px;
+    height: 150px;
+    transform: translateX(-50%);
+    border-radius: 40px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(0,0,0,0.18)), var(--orange);
+    box-shadow: 0 22px 65px rgba(230,115,10,0.22);
+
+    /* wavy silhouette */
+    clip-path: polygon(
+      50% 0%,
+      66% 6%,
+      78% 16%,
+      70% 26%,
+      54% 34%,
+      66% 44%,
+      78% 56%,
+      66% 66%,
+      52% 74%,
+      70% 84%,
+      78% 92%,
+      50% 100%,
+      22% 92%,
+      30% 84%,
+      48% 74%,
+      34% 66%,
+      22% 56%,
+      34% 44%,
+      46% 34%,
+      30% 26%,
+      22% 16%,
+      34% 6%
+    );
   }
 
-  .lamp-base {
+  .base {
     position: absolute;
-    bottom: 14px;
-    width: 64%;
-    height: 16px;
+    left: 50%;
+    bottom: 12px;
+    width: 120px;
+    height: 18px;
+    transform: translateX(-50%);
     border-radius: 999px;
-    background: linear-gradient(90deg, rgba(227,219,207,0.25), rgba(255,255,255,0.08), rgba(227,219,207,0.18));
+    background: linear-gradient(90deg, rgba(227,219,207,0.24), rgba(255,255,255,0.08), rgba(227,219,207,0.18));
     border: 1px solid rgba(255,255,255,0.10);
-    filter: blur(0.2px);
   }
 
   .t-checker {
@@ -479,13 +514,13 @@
       linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.92) 75%) 20px -20px / 40px 40px,
       linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.92) 75%) 20px 0 / 40px 40px,
       linear-gradient(135deg, rgba(243,243,244,0.95), rgba(227,219,207,0.92));
-    filter: contrast(1.05);
+    filter: contrast(1.03);
   }
 
   .t-metal {
     background:
       repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0 2px, rgba(0,0,0,0.06) 2px 5px),
-      linear-gradient(90deg, rgba(207, 211, 215, 0.92), rgba(154, 160, 167, 0.78), rgba(227, 230, 234, 0.90));
+      linear-gradient(90deg, rgba(207,211,215,0.92), rgba(154,160,167,0.78), rgba(227,230,234,0.90));
   }
 
   .star {
@@ -500,25 +535,46 @@
     pointer-events: none;
   }
 
+  .star-svg polygon { fill: var(--orange); opacity: 0.96; }
+
   @keyframes floatStar {
     0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
     50% { transform: translate(-50%, calc(-50% - 8px)) rotate(6deg); }
   }
 
-  .star-svg { width: 100%; height: 100%; }
+  .stamp {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    padding: 0.75rem 0.9rem;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(0,0,0,0.22);
+    backdrop-filter: blur(10px);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    line-height: 1.2;
+    color: rgba(227,219,207,0.88);
+    box-shadow: 0 18px 55px rgba(0,0,0,0.40);
+  }
+
+  .stamp-top { display: block; font-size: 0.68rem; opacity: 0.9; }
+  .stamp-mid { display: block; font-size: 0.78rem; font-weight: 700; color: rgba(243,243,244,0.92); margin: 0.18rem 0; }
+  .stamp-bot { display: block; font-size: 0.68rem; opacity: 0.85; }
 
   .caption {
     margin-top: 0.9rem;
     display: flex;
     gap: 0.5rem;
     justify-content: center;
-    color: rgba(227, 219, 207, 0.85);
+    color: rgba(227,219,207,0.85);
     font-size: 0.95rem;
   }
 
   .cap-1 { opacity: 0.82; }
   .cap-2 { opacity: 1; font-weight: 700; }
 
+  /* Reveal animations */
   .fade-in {
     opacity: 0;
     transform: translateY(26px) scale(0.985);
@@ -536,24 +592,28 @@
     to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
   }
 
+  /* Mobile behavior: drift stays automatic even without hover. */
   @media (max-width: 980px) {
     .grid { grid-template-columns: 1fr; gap: 2.2rem; }
     .visual { justify-self: start; width: min(560px, 100%); }
     .meta { grid-template-columns: 1fr; }
+    .hero-bg::before { animation-duration: 8.5s; }
   }
 
   @media (max-width: 560px) {
-    .hero-wrapper.mood { padding-top: 5.6rem; min-height: auto; }
-    .cta-group { flex-direction: column; align-items: stretch; }
+    .hero { padding-top: 5.6rem; min-height: auto; }
+    .cta { flex-direction: column; align-items: stretch; }
     .btn { justify-content: center; width: 100%; }
-    .mood-board { grid-auto-rows: 110px; }
+    .board { grid-auto-rows: 110px; }
     .star { width: 56px; height: 56px; }
+    .h1-break { display: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .fade-in { animation: none; opacity: 1; transform: none; filter: none; }
     .star { animation: none; }
     .dot { animation: none; }
-    .mood-board { transition: none; transform: none; }
+    .hero-bg::before { animation: none; }
+    .board { transition: none; transform: none; }
   }
 </style>
