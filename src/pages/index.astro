@@ -1,4 +1,5 @@
 ---
+// src/pages/index.astro
 import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
 import MoodDigitalCestQuoi from "../components/MoodDigitalCestQuoi.astro";
@@ -10,16 +11,33 @@ import MoodDigitalCestQuoi from "../components/MoodDigitalCestQuoi.astro";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Lyvora | Landing Page</title>
-
+    <title>Mood Digital</title>
     <style>
-      body { margin: 0; background-color: #070607; }
+      body { margin: 0; background: #070707; }
     </style>
   </head>
 
   <body>
-    <Header />
+    <Header
+      brand="MOODIGITAL"
+      nav={[
+        { label: "Offres", href: "#offres" },
+        { label: "Process", href: "#process" },
+        { label: "FAQ", href: "#faq" },
+      ]}
+      ctaLabel="Reserver une demo"
+      ctaHref="https://calendar.app.google/WB2zRZTbEGVMECN38"
+    />
+
     <Hero />
-    <MoodDigitalCestQuoi />
+
+    <main id="content">
+      <MoodDigitalCestQuoi
+        ctaHref="https://calendar.app.google/WB2zRZTbEGVMECN38"
+        ctaLabel="Reserve ton appel decouverte"
+        secondaryHref="#offres"
+        secondaryLabel="Voir les offres"
+      />
+    </main>
   </body>
 </html>
