@@ -52,12 +52,12 @@ const icons = {
       <h2 class="mood-title reveal"><span set:html={title} /></h2>
       <p class="mood-lead reveal">{lead}</p>
       <div class="mood-actions reveal">
-        <a class="btn primary" href={ctaHref}>
+        <a class="btn primary magnetic" href={ctaHref}>
           <span>{ctaLabel}</span>
           <span class="arrow" aria-hidden="true">→</span>
-          <div class="shine"></div>
+          <span class="btn-shine" aria-hidden="true"></span>
         </a>
-        <a class="btn ghost" href={secondaryHref}>
+        <a class="btn ghost magnetic" href={secondaryHref}>
           <span>{secondaryLabel}</span>
         </a>
       </div>
@@ -115,187 +115,332 @@ const icons = {
 </script>
 
 <style>
-  :root {
-    --bg: #050505;
-    --card-bg: #0a0a0a; /* Fond opaque nécessaire pour la technique sandwich */
-    --text: #ffffff;
-    --text-muted: rgba(255, 255, 255, 0.65);
-    --amber: rgb(220, 140, 60);
-  }
-
   .mood-section {
+    --bg0: #070607;
+    --bg1: #0c0a08;
+    --text: #f3f3f4;
+    --muted: rgba(243, 243, 244, 0.74);
+    --cream: #e3dbcf;
+    --orange: #e6730a;
+    --glass: rgba(255, 255, 255, 0.06);
+    --grid: clamp(38px, 6vw, 58px);
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --mx: 50%;
+    --my: 38%;
     position: relative;
     isolation: isolate;
     overflow: hidden;
     color: var(--text);
-    background: var(--bg);
-    margin-top: -56px;
-    padding: calc(clamp(44px, 6vw, 86px) + 56px) 0 clamp(56px, 7vw, 96px);
-    --mx: 50%; --my: 0%;
+    background:
+      radial-gradient(1100px 760px at 12% 14%, rgba(187,173,181,0.12), transparent 62%),
+      radial-gradient(1200px 820px at 88% 16%, rgba(34,48,38,0.16), transparent 65%),
+      linear-gradient(180deg, var(--bg1), var(--bg0));
+    margin-top: -42px;
+    padding: clamp(4.8rem, 7vw, 6.5rem) 1.25rem clamp(5.4rem, 7vw, 6.9rem);
+  }
+
+  .mood-section::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background:
+      repeating-linear-gradient(0deg, rgba(227,219,207,0.07) 0 1px, transparent 1px var(--grid)),
+      repeating-linear-gradient(90deg, rgba(227,219,207,0.07) 0 1px, transparent 1px var(--grid));
+    opacity: 0.4;
+    mix-blend-mode: soft-light;
+    z-index: 0;
+    transform: translate3d(0,0,0);
+  }
+
+  .mood-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(1200px 780px at var(--mx) calc(var(--my) + 60px), rgba(230,115,10,0.12), transparent 62%),
+      radial-gradient(900px 640px at 50% 96%, rgba(0,0,0,0.72), transparent 80%);
+    pointer-events: none;
+    z-index: 1;
   }
 
   .mood-noise {
-    position: absolute; inset: 0; z-index: 0; opacity: 0.04; pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.10;
+    mix-blend-mode: overlay;
+    background-image:
+      repeating-radial-gradient(circle at 24% 26%, rgba(255,255,255,0.35) 0 1px, transparent 1px 8px),
+      repeating-radial-gradient(circle at 78% 52%, rgba(0,0,0,0.45) 0 1px, transparent 1px 8px);
+    filter: blur(0.2px);
   }
 
   .mood-bridge {
-    position: absolute; left: 0; right: 0; top: -140px; height: 300px; pointer-events: none; z-index: 1;
-    background: radial-gradient(ellipse at top, rgba(20,20,20,1) 0%, rgba(5,5,5,0) 70%);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -120px;
+    height: 240px;
+    pointer-events: none;
+    z-index: 2;
+    background: radial-gradient(90% 70% at 50% 0%, rgba(7,6,7,0.9), transparent 80%);
   }
   
-  /* Glow global de la section */
-  .mood-section::after {
-    content: ""; position: absolute; inset: -100px; pointer-events: none; z-index: 1;
-    background: radial-gradient(600px circle at var(--mx) var(--my), rgba(220, 140, 60, 0.08), transparent 40%);
-    mix-blend-mode: screen;
-  }
-
   .mood-wrap {
-    width: min(1120px, calc(100% - 40px));
+    width: min(1040px, 100%);
     margin: 0 auto;
     position: relative;
     z-index: 3;
   }
 
-  .mood-head { text-align: center; margin-bottom: clamp(40px, 6vw, 64px); }
+  .mood-head {
+    text-align: center;
+    display: grid;
+    gap: 0.65rem;
+    margin-bottom: clamp(2.2rem, 6vw, 3rem);
+  }
 
   .mood-eyebrow {
-    display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(255, 255, 255, 0.02);
-    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--glass);
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 18px 65px rgba(0,0,0,0.35);
+    font-size: 0.84rem;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: rgba(227,219,207,0.92);
+    margin: 0 auto;
   }
-  .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--orange);
+    box-shadow: 0 0 0 6px rgba(230,115,10,0.12);
+  }
 
   .mood-title {
-    margin: 24px auto 0; max-width: 20ch; font-size: clamp(32px, 6vw, 64px);
-    line-height: 1.1; font-weight: 700;
-    background: linear-gradient(to bottom right, #ffffff 30%, #a0a0a0 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin: 0.4rem auto 0;
+    max-width: 22ch;
+    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    font-weight: 820;
+    font-size: clamp(2.1rem, 4.8vw, 3.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, var(--cream) 0%, rgba(230,115,10,0.96) 72%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
-  .mood-lead { margin: 20px auto 0; max-width: 60ch; font-size: clamp(16px, 1.8vw, 19px); color: var(--text-muted); }
+  .mood-lead {
+    margin: 0.35rem auto 0;
+    max-width: 62ch;
+    color: var(--muted);
+    font-size: clamp(1.02rem, 2.05vw, 1.18rem);
+    line-height: 1.65;
+  }
 
-  .mood-actions { margin-top: 32px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .mood-actions {
+    margin-top: 1.45rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(0.6rem, 2vw, 0.9rem);
+    flex-wrap: wrap;
+  }
 
   .btn {
-    position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 12px;
-    padding: 16px 28px; border-radius: 999px; text-decoration: none; font-weight: 600; font-size: 15px;
-    transition: all 0.3s ease; overflow: hidden;
-  }
-  .btn.primary { background: #ece4d6; color: #0f0f0f; }
-  .btn.primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-  .btn.ghost { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1); }
-  .btn.ghost:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
-
-  .shine {
-    position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-    background: linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent);
-    transform: skewX(-25deg); transition: 0.5s;
-  }
-  .btn.primary:hover .shine { left: 150%; transition: 0.7s ease-in-out; }
-
-  /* --- GRID --- */
-  .mood-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
-
-  /* --- CARD REFAITE A NEUF --- */
-  .mood-card {
-    grid-column: span 4;
     position: relative;
-    border-radius: 24px;
-    /* Plus de padding ici, il est dans .card-content */
-    background: transparent; 
-    overflow: hidden; /* Coupe le gradient qui dépasse */
-    isolation: isolate; /* Force un nouveau contexte pour le z-index */
-    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: clamp(0.82rem, 2.6vw, 0.98rem) clamp(1.05rem, 4.2vw, 1.85rem);
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 680;
+    border: 1px solid transparent;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), background 0.35s var(--ease), border-color 0.35s var(--ease);
+    will-change: transform;
+    transform: translate3d(0,0,0);
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    font-size: clamp(0.98rem, 2.2vw, 1.05rem);
+    line-height: 1.15;
+    text-align: center;
+    flex-wrap: wrap;
   }
 
-  .mood-card:hover {
-    transform: translateY(-5px);
+  .primary {
+    background: var(--cream);
+    color: #0b0a08;
+    border-color: rgba(227,219,207,0.78);
+    box-shadow: 0 22px 75px rgba(0,0,0,0.45);
+    overflow: hidden;
   }
 
-  /* 1. L'ANIMATION ROTATIVE (Derrière) */
+  .ghost {
+    background: rgba(255,255,255,0.035);
+    color: var(--text);
+    border-color: rgba(255,255,255,0.12);
+    backdrop-filter: blur(10px);
+  }
+
+  .primary:hover { box-shadow: 0 32px 95px rgba(0,0,0,0.58); }
+
+  .ghost:hover {
+    border-color: rgba(255,255,255,0.22);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .arrow {
+    display: inline-block;
+    transition: transform 0.28s var(--ease);
+    flex: 0 0 auto;
+  }
+
+  .primary:hover .arrow { transform: translateX(4px); }
+
+  .btn-shine {
+    position: absolute;
+    inset: -2px;
+    pointer-events: none;
+    background:
+      linear-gradient(115deg,
+        transparent 0%,
+        rgba(255,255,255,0.00) 38%,
+        rgba(255,255,255,0.35) 50%,
+        rgba(255,255,255,0.00) 62%,
+        transparent 100%
+      );
+    transform: translateX(-120%);
+    opacity: 0.7;
+  }
+
+  .primary:hover .btn-shine { animation: shine 0.9s var(--ease) forwards; }
+
+  @keyframes shine { to { transform: translateX(120%); } }
+
+  .mood-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: clamp(1rem, 2.2vw, 1.35rem);
+  }
+
+  .mood-card {
+    position: relative;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    isolation: isolate;
+    transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+    box-shadow: 0 18px 55px rgba(0,0,0,0.35);
+  }
+
   .card-border-gradient {
     position: absolute;
-    top: 50%; left: 50%;
-    /* On fait un carré géant centré pour que la rotation soit régulière */
-    width: 200%; 
-    height: 200%; 
-    transform: translate(-50%, -50%);
-    
-    /* Le dégradé conique : Transparent > Orange > Transparent */
+    inset: -1px;
+    border-radius: inherit;
     background: conic-gradient(
-      transparent 0deg, 
-      transparent 80deg, 
-      var(--amber) 120deg, 
-      transparent 160deg, 
-      transparent 360deg
+      from 180deg,
+      rgba(227,219,207,0.18),
+      rgba(230,115,10,0.35),
+      rgba(227,219,207,0.12),
+      rgba(230,115,10,0.28),
+      rgba(227,219,207,0.18)
     );
-    
-    opacity: 0; /* Invisible par défaut */
+    opacity: 0.18;
+    filter: blur(12px);
+    transition: opacity 0.35s var(--ease), transform 0.6s linear;
     z-index: 0;
-    transition: opacity 0.3s ease;
-    will-change: transform;
+    pointer-events: none;
   }
 
-  /* On active l'animation au survol */
-  .mood-card:hover .card-border-gradient {
-    opacity: 1;
-    animation: spin 3s linear infinite;
-  }
-
-  @keyframes spin {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to { transform: translate(-50%, -50%) rotate(360deg); }
-  }
-
-  /* 2. LE CONTENU (Devant) */
   .card-content {
     position: relative;
-    /* C'est ici qu'on définit l'épaisseur de la bordure : 1.5px */
-    inset: 1.5px; 
-    height: calc(100% - 3px); /* Ajustement pour hauteur totale */
-    background: rgba(20, 20, 20, 0.95); /* Fond très sombre mais pas noir total */
-    border-radius: 23px; /* Juste un peu moins que le parent */
-    padding: 32px 24px;
-    z-index: 1; /* Passe devant le gradient */
-    
-    /* Touches visuelles */
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
-  }
-
-  /* Pour mobile/réduit : bordure statique propre */
-  @media (prefers-reduced-motion: reduce), (hover: none) {
-    .mood-card { border: 1px solid rgba(255,255,255,0.1); }
-    .card-border-gradient { display: none; }
-    .card-content { inset: 0; height: 100%; border-radius: 24px; background: rgba(255,255,255,0.03); }
+    z-index: 1;
+    padding: 1.35rem 1.25rem 1.4rem;
+    display: grid;
+    gap: 0.6rem;
   }
 
   .card-highlight {
-    position: absolute; top: 0; left: 20%; right: 20%; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    position: absolute;
+    top: 0;
+    left: 18%;
+    right: 18%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+    opacity: 0.6;
   }
 
-  /* Icones */
-  .icon-wrap { width: 48px; height: 48px; margin-bottom: 20px; position: relative; display: grid; place-items: center; }
-  .icon {
-    width: 100%; height: 100%; border-radius: 14px; z-index: 2;
+  .icon-wrap {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    position: relative;
     background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.01));
-    border: 1px solid rgba(255,255,255,0.08);
-    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
   }
-  .icon-glow {
-    position: absolute; inset: 0; background: var(--amber); filter: blur(20px);
-    opacity: 0; transition: opacity 0.3s; z-index: 1;
-  }
-  .mood-card:hover .icon-glow { opacity: 0.25; }
-  .icon :global(svg) { width: 22px; height: 22px; fill: #fff; }
 
-  .card-title { margin: 0 0 10px; font-size: 20px; font-weight: 600; color: #fff; }
-  .card-desc { margin: 0; color: var(--text-muted); line-height: 1.6; font-size: 15px; }
+  .icon {
+    width: 22px;
+    height: 22px;
+    color: #fff;
+  }
+
+  .icon :global(svg) { width: 100%; height: 100%; fill: currentColor; }
+
+  .icon-glow {
+    position: absolute;
+    inset: 0;
+    background: var(--orange);
+    filter: blur(22px);
+    opacity: 0;
+    transition: opacity 0.35s var(--ease);
+    z-index: 0;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .card-desc {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
+    font-size: 0.98rem;
+  }
+
+  .mood-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,0.16);
+    box-shadow: 0 32px 95px rgba(0,0,0,0.55);
+  }
+
+  .mood-card:hover .card-border-gradient { opacity: 0.32; transform: rotate(6deg); }
+  .mood-card:hover .icon-glow { opacity: 0.35; }
 
   /* Reveal */
-  .reveal { opacity: 0; transform: translateY(20px); transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
   .in .reveal { opacity: 1; transform: translateY(0); }
   .in .mood-eyebrow { transition-delay: 0.1s; }
   .in .mood-title { transition-delay: 0.2s; }
@@ -305,6 +450,16 @@ const icons = {
   .in .mood-card:nth-child(2) { transition-delay: 0.6s; }
   .in .mood-card:nth-child(3) { transition-delay: 0.7s; }
 
-  @media (max-width: 980px) { .mood-card { grid-column: span 6; } }
-  @media (max-width: 640px) { .mood-card { grid-column: span 12; } .mood-title { font-size: 36px; } .btn { width: 100%; } }
+  @media (max-width: 640px) {
+    .mood-section { margin-top: -26px; padding-inline: 1rem; }
+    .mood-actions { flex-direction: column; align-items: stretch; }
+    .btn { width: 100%; }
+    .mood-title { font-size: clamp(1.9rem, 7vw, 2.6rem); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { transition: none; opacity: 1; transform: none; }
+    .card-border-gradient { transition: none; }
+    .mood-card, .btn { transition: none; }
+  }
 </style>
