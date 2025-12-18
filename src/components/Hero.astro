@@ -1,4 +1,238 @@
-<section style="background-color: #333; color: white; padding: 4rem; text-align: center;">
-  <h1>Bienvenue sur ma Landing Page</h1>
-  <p>Ceci est mon bloc Héros, totalement indépendant !</p>
+---
+// Hero.astro
+---
+
+<section class="hero-wrapper">
+  <div class="bg-glow"></div>
+
+  <div class="container">
+    
+    <div class="badge-container fade-in">
+      <div class="badge-pill">
+        <span class="badge-dot"></span>
+        <span class="badge-text">Nouvelle version disponible v2.0</span>
+      </div>
+    </div>
+
+    <h1 class="fade-in delay-1">
+      Une Landing Page <span class="text-gradient">Premium</span><br />
+      qui convertit vos visiteurs.
+    </h1>
+
+    <p class="subtitle fade-in delay-2">
+      Un design haut de gamme, une structure orientée ventes et une performance optimale.
+      Repartez avec un code propre, modulaire et prêt à l'emploi.
+    </p>
+
+    <div class="cta-group fade-in delay-3">
+      <a href="#pricing" class="btn btn-primary">
+        Voir les offres
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      </a>
+      <a href="#demo" class="btn btn-secondary">
+        Voir la démo
+      </a>
+    </div>
+
+    <div class="trust-badges fade-in delay-3">
+      <div class="rating">
+        <span class="stars">★★★★★</span>
+        <span class="score">4.9/5</span>
+        <span class="reviews">(120+ avis)</span>
+      </div>
+      <div class="logos">
+        <span>Google</span>
+        <span>Stripe</span>
+        <span>Shopify</span>
+      </div>
+    </div>
+
+  </div>
 </section>
+
+<style>
+  /* --- 1. CONFIGURATION (Variables) --- */
+  :root {
+    --bg-dark: #070607;
+    --text-main: #f3f3f4;
+    --text-muted: #b3b3b8;
+    --accent-gold: #d9a441;
+    --accent-light: #ffcc6a;
+    --glass-border: rgba(255, 255, 255, 0.08);
+  }
+
+  /* --- 2. STRUCTURE --- */
+  .hero-wrapper {
+    position: relative;
+    background-color: #070607;
+    color: #f3f3f4;
+    overflow: hidden;
+    padding: 8rem 1rem 6rem; /* Espacement haut/bas */
+    min-height: 80vh; /* Prend au moins 80% de la hauteur d'écran */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+  }
+
+  /* --- 3. FOND (Background) --- */
+  .bg-glow {
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(217,164,65,0.15) 0%, rgba(7,6,7,0) 70%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* --- 4. TYPOGRAPHIE & ELEMENTS --- */
+  
+  /* Badge */
+  .badge-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  .badge-pill {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    padding: 0.5rem 1rem;
+    border-radius: 99px;
+    font-size: 0.85rem;
+    color: var(--accent-light);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    backdrop-filter: blur(10px);
+  }
+  .badge-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-gold);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-gold);
+  }
+
+  /* Titre H1 */
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem); /* Taille fluide responsive */
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .text-gradient {
+    background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Sous-titre */
+  .subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.6;
+  }
+
+  /* Boutons */
+  .cta-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+  
+  .btn {
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-primary {
+    background: linear-gradient(90deg, var(--accent-gold), var(--accent-light));
+    color: #0f0f12;
+    border: 1px solid transparent;
+    box-shadow: 0 4px 20px rgba(217, 164, 65, 0.3);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(217, 164, 65, 0.4);
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    border: 1px solid var(--glass-border);
+  }
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Trust Badges */
+  .trust-badges {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+  .stars { color: var(--accent-gold); }
+  .score { color: #fff; font-weight: bold; }
+  .logos {
+    display: flex;
+    gap: 1.5rem;
+    opacity: 0.5;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+
+  /* --- 5. ANIMATIONS --- */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+  .delay-1 { animation-delay: 0.2s; }
+  .delay-2 { animation-delay: 0.4s; }
+  .delay-3 { animation-delay: 0.6s; }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Mobile Tweaks */
+  @media (max-width: 768px) {
+    .hero-wrapper { padding-top: 6rem; }
+    .bg-glow { width: 100%; top: -10%; }
+  }
+</style>
