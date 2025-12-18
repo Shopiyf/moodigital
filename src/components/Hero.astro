@@ -1,285 +1,559 @@
 ---
-// Hero.astro - Version Mood Digital (Grid & Glow)
+// Hero.astro - Mood Digital Style (moodboard + editorial copy)
 ---
 
-<section class="hero-wrapper">
-  
-  <!-- FOND : La Grille Technique + Le Glow -->
-  <div class="grid-bg"></div>
-  <div class="spotlight"></div>
+<section class="hero-wrapper mood">
+  <div class="bg" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
 
   <div class="container">
-    
-    <!-- TOP : Badge Status -->
-    <div class="status-pill fade-in">
-      <span class="status-dot"></span>
-      <span class="status-text">Available for new projects</span>
-    </div>
+    <div class="grid">
+      <div class="copy">
+        <div class="pill fade-in">
+          <span class="dot"></span>
+          <span class="pill-text">MOOD SHIFT v2.0</span>
+        </div>
 
-    <!-- CENTRE : Titre Monumental -->
-    <div class="hero-content">
-      <h1 class="fade-in delay-1">
-        We craft <span class="highlight">digital</span><br />
-        <span class="outline">experiences.</span>
-      </h1>
+        <h1 class="fade-in delay-1">
+          Direction créative <span class="highlight">premium</span><br />
+          pour des landing pages qui vendent.
+        </h1>
 
-      <p class="subtitle fade-in delay-2">
-        Mood Digital transforme votre vision en interface d'exception.<br class="desktop-br"/>
-        Design stratégique. Développement créatif. Impact réel.
-      </p>
+        <p class="subtitle fade-in delay-2">
+          Moins de bruit. Plus d'identité. Une structure conversion-first et un code Astro propre, modulaire, prêt pour Vercel.
+        </p>
 
-      <!-- BOUTONS : Style "Glass" très fin -->
-      <div class="cta-group fade-in delay-3">
-        <a href="#contact" class="btn btn-primary">
-          Start a project
-        </a>
-        <a href="#work" class="btn btn-ghost">
-          View work
-        </a>
+        <div class="cta-group fade-in delay-3">
+          <a href="#pricing" class="btn btn-primary">
+            <span>Voir les offres</span>
+            <svg class="icon-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+
+          <a href="#demo" class="btn btn-secondary">Voir la démo</a>
+        </div>
+
+        <div class="meta fade-in delay-4">
+          <div class="meta-card">
+            <span class="meta-k">Focus</span>
+            <span class="meta-v">Brand + conversion</span>
+          </div>
+          <div class="meta-card">
+            <span class="meta-k">Stack</span>
+            <span class="meta-v">Astro + Vercel</span>
+          </div>
+          <div class="meta-card">
+            <span class="meta-k">Note</span>
+            <span class="meta-v">Code clean, sections</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="visual" aria-hidden="true">
+        <div class="mood-board" id="moodBoard">
+          <div class="tile t-brown"></div>
+          <div class="tile t-green"></div>
+
+          <div class="tile t-lilac"></div>
+          <div class="tile t-wood"></div>
+
+          <div class="tile t-lamp">
+            <div class="lamp-wrap">
+              <svg class="lamp" viewBox="0 0 140 240" role="presentation">
+                <defs>
+                  <linearGradient id="lampG" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="rgba(255,255,255,0.35)" />
+                    <stop offset="1" stop-color="rgba(0,0,0,0.18)" />
+                  </linearGradient>
+                  <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+                    <feGaussianBlur stdDeviation="6" result="blur" />
+                    <feColorMatrix in="blur" type="matrix"
+                      values="1 0 0 0 0
+                              0 1 0 0 0
+                              0 0 1 0 0
+                              0 0 0 0.65 0" />
+                    <feMerge>
+                      <feMergeNode />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+
+                <path
+                  d="M70 14
+                     C92 30 98 50 84 66
+                     C72 80 72 92 86 106
+                     C104 124 102 144 84 160
+                     C70 172 70 188 86 204
+                     C104 226 90 236 70 238
+                     C50 236 36 226 54 204
+                     C70 188 70 172 56 160
+                     C38 144 36 124 54 106
+                     C68 92 68 80 56 66
+                     C42 50 48 30 70 14 Z"
+                  fill="var(--accent-orange)"
+                  filter="url(#softGlow)"
+                />
+                <path
+                  d="M70 20
+                     C86 34 90 48 80 60
+                     C70 72 70 92 84 108
+                     C96 122 94 140 80 152
+                     C68 162 68 188 84 206
+                     C92 216 86 226 70 228
+                     C54 226 48 216 56 206
+                     C72 188 72 162 60 152
+                     C46 140 44 122 56 108
+                     C70 92 70 72 60 60
+                     C50 48 54 34 70 20 Z"
+                  fill="url(#lampG)"
+                  opacity="0.9"
+                />
+                <ellipse cx="70" cy="218" rx="46" ry="10" fill="rgba(0,0,0,0.25)" />
+              </svg>
+
+              <div class="lamp-base"></div>
+            </div>
+          </div>
+
+          <div class="tile t-checker"></div>
+          <div class="tile t-metal"></div>
+
+          <div class="star">
+            <svg viewBox="0 0 100 100" class="star-svg" role="presentation">
+              <polygon
+                points="50,6 58,28 80,20 72,42 94,50 72,58 80,80 58,72 50,94 42,72 20,80 28,58 6,50 28,42 20,20 42,28"
+                fill="var(--accent-orange)"
+                opacity="0.95"
+              />
+            </svg>
+          </div>
+        </div>
+
+        <div class="caption">
+          <span class="cap-1">Moins "communication".</span>
+          <span class="cap-2">Plus direction créative.</span>
+        </div>
       </div>
     </div>
-
-    <!-- BOTTOM : Infos Techniques (Style Moodboard) -->
-    <div class="hero-footer fade-in delay-4">
-      <div class="spec-item">
-        <span class="label">Location</span>
-        <span class="val">Paris, FR</span>
-      </div>
-      <div class="spec-item">
-        <span class="label">Specialty</span>
-        <span class="val">Web & Mobile</span>
-      </div>
-      <div class="spec-item">
-        <span class="label">Est.</span>
-        <span class="val">2024</span>
-      </div>
-    </div>
-
   </div>
 </section>
 
-<style>
-  /* --- 1. CONFIGURATION --- */
-  :root {
-    --bg-dark: #050505; /* Noir presque pur */
-    --grid-color: rgba(255, 255, 255, 0.03);
-    --glow-color: rgba(60, 100, 255, 0.15); /* Bleu électrique très subtil */
-    --text-main: #ffffff;
-    --text-muted: #888888;
-    --border-color: rgba(255, 255, 255, 0.1);
-    --ease-smooth: cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
+<script is:inline>
+  const board = document.getElementById("moodBoard");
+  if (board) {
+    let raf = 0;
 
-  /* --- 2. STRUCTURE & FOND --- */
-  .hero-wrapper {
+    const setTilt = (clientX, clientY) => {
+      const r = board.getBoundingClientRect();
+      const px = (clientX - r.left) / r.width;
+      const py = (clientY - r.top) / r.height;
+
+      const ry = (px - 0.5) * 10;
+      const rx = (0.5 - py) * 8;
+
+      board.style.setProperty("--rx", rx.toFixed(2) + "deg");
+      board.style.setProperty("--ry", ry.toFixed(2) + "deg");
+      board.style.setProperty("--sx", ((px - 0.5) * 12).toFixed(2) + "px");
+      board.style.setProperty("--sy", ((py - 0.5) * 12).toFixed(2) + "px");
+    };
+
+    board.addEventListener("pointermove", (e) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => setTilt(e.clientX, e.clientY));
+    });
+
+    board.addEventListener("pointerleave", () => {
+      board.style.setProperty("--rx", "0deg");
+      board.style.setProperty("--ry", "0deg");
+      board.style.setProperty("--sx", "0px");
+      board.style.setProperty("--sy", "0px");
+    });
+  }
+</script>
+
+<style>
+  .hero-wrapper.mood {
+    --bg-0: #070607;
+    --bg-1: #0e0c0a;
+
+    --text: #f3f3f4;
+    --muted: rgba(243, 243, 244, 0.72);
+
+    --cream: #e3dbcf;
+    --lilac: #bbadb5;
+    --cocoa: #7e441e;
+    --moss: #223026;
+    --accent-orange: #e6730a;
+
+    --glass: rgba(255, 255, 255, 0.08);
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
     position: relative;
-    background-color: var(--bg-dark);
-    color: var(--text-main);
-    min-height: 100vh; /* Plein écran */
+    overflow: hidden;
+    padding: 7.5rem 1.25rem 6rem;
+    min-height: 86vh;
     display: flex;
     align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    padding-top: 80px; /* Pour le header */
+    color: var(--text);
+    background: radial-gradient(1200px 700px at 20% 10%, rgba(230, 115, 10, 0.10), transparent 60%),
+                radial-gradient(900px 650px at 75% 35%, rgba(34, 48, 38, 0.18), transparent 62%),
+                linear-gradient(180deg, var(--bg-1), var(--bg-0));
+    font-family: system-ui, -apple-system, sans-serif;
   }
 
-  /* La Grille (L'effet Moodboard) */
-  .grid-bg {
+  .bg {
+    position: absolute;
+    inset: -1px;
+    pointer-events: none;
+    opacity: 0.9;
+    background:
+      radial-gradient(700px 500px at 55% 20%, rgba(187, 173, 181, 0.10), transparent 65%),
+      radial-gradient(900px 650px at 50% 85%, rgba(126, 68, 30, 0.18), transparent 60%);
+    filter: blur(0px);
+  }
+
+  .grain {
     position: absolute;
     inset: 0;
-    background-image: 
-      linear-gradient(var(--grid-color) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-    background-size: 60px 60px; /* Taille des carreaux */
-    z-index: 1;
-    mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-  }
-
-  /* Le Spot lumineux central */
-  .spotlight {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 800px;
-    height: 800px;
-    background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
-    filter: blur(80px);
-    z-index: 0;
-    animation: pulse 8s ease-in-out infinite alternate;
+    pointer-events: none;
+    opacity: 0.10;
+    mix-blend-mode: overlay;
+    background-image:
+      repeating-radial-gradient(circle at 20% 30%, rgba(255,255,255,0.35) 0 1px, transparent 1px 6px),
+      repeating-radial-gradient(circle at 80% 60%, rgba(0,0,0,0.45) 0 1px, transparent 1px 7px);
+    filter: blur(0.2px);
   }
 
   .container {
+    width: min(1180px, 100%);
+    margin: 0 auto;
     position: relative;
-    z-index: 10;
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    height: 100%;
-    justify-content: center;
+    z-index: 2;
   }
 
-  /* --- 3. TYPOGRAPHIE & CONTENU --- */
-  
-  /* Badge Status */
-  .status-pill {
+  .grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 3.2rem;
+    align-items: center;
+  }
+
+  .copy { max-width: 680px; }
+
+  .pill {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px 12px;
+    gap: 0.6rem;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--glass);
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-color);
-    border-radius: 100px;
-    margin-bottom: 2rem;
-    backdrop-filter: blur(5px);
-  }
-  .status-dot {
-    width: 6px; height: 6px;
-    background-color: #22c55e; /* Vert status */
-    border-radius: 50%;
-    box-shadow: 0 0 8px #22c55e;
-  }
-  .status-text {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    font-weight: 500;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.25);
+    margin-bottom: 1.6rem;
+    transform-origin: center;
+    transition: transform 0.35s var(--ease), border-color 0.35s var(--ease);
   }
 
-  /* Titre H1 */
-  h1 {
-    font-size: clamp(3rem, 8vw, 6.5rem);
-    line-height: 1.05;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    margin-bottom: 1.5rem;
+  .pill:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.16); }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--accent-orange);
+    box-shadow: 0 0 0 5px rgba(230, 115, 10, 0.12);
+    animation: pulse 2.4s ease-in-out infinite;
   }
-  
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(0.88); opacity: 0.6; }
+  }
+
+  .pill-text {
+    font-size: 0.85rem;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: rgba(227, 219, 207, 0.92);
+  }
+
+  h1 {
+    font-size: clamp(2.6rem, 5.2vw, 4.7rem);
+    line-height: 1.03;
+    letter-spacing: -0.04em;
+    margin: 0 0 1.25rem;
+    font-weight: 860;
+  }
+
   .highlight {
-    color: #fff;
-    /* Petit effet de dégradé sur le texte */
-    background: linear-gradient(to bottom right, #fff 30%, #999 100%);
+    background: linear-gradient(135deg, var(--cream) 0%, rgba(230, 115, 10, 0.95) 70%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  
-  /* Texte contour (Outline) pour le style architectural */
-  .outline {
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
-    opacity: 0.8;
-  }
 
   .subtitle {
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    color: var(--text-muted);
-    max-width: 600px;
-    line-height: 1.6;
-    margin: 0 auto 3rem;
+    margin: 0 0 2.2rem;
+    color: var(--muted);
+    font-size: clamp(1.05rem, 2.0vw, 1.2rem);
+    line-height: 1.65;
+    max-width: 56ch;
   }
 
-  /* --- 4. BOUTONS (Style Minimaliste) --- */
   .cta-group {
     display: flex;
-    gap: 16px;
-    justify-content: center;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1.8rem;
   }
 
   .btn {
-    height: 48px;
-    padding: 0 32px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 6px; /* Coins moins ronds pour faire "Tech" */
-    font-weight: 500;
-    font-size: 15px;
+    gap: 0.6rem;
+    padding: 0.92rem 1.8rem;
+    border-radius: 999px;
     text-decoration: none;
-    transition: all 0.3s var(--ease-smooth);
+    font-weight: 650;
+    border: 1px solid transparent;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), background 0.35s var(--ease), border-color 0.35s var(--ease);
+    will-change: transform;
   }
 
   .btn-primary {
-    background: #fff;
-    color: #000;
+    background: var(--cream);
+    color: #0b0a08;
+    border-color: rgba(227, 219, 207, 0.75);
+    box-shadow: 0 18px 55px rgba(0, 0, 0, 0.35);
   }
+
   .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 28px 75px rgba(0, 0, 0, 0.48);
   }
 
-  .btn-ghost {
-    background: transparent;
-    border: 1px solid var(--border-color);
-    color: #fff;
-  }
-  .btn-ghost:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: #fff;
+  .btn-primary:hover .icon-arrow { transform: translateX(4px); }
+  .icon-arrow { transition: transform 0.3s var(--ease); }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.035);
+    color: var(--text);
+    border-color: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
   }
 
-  /* --- 5. FOOTER DU HERO (Grid Specs) --- */
-  .hero-footer {
-    position: absolute;
-    bottom: 40px;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 40px;
-    border-top: 1px solid var(--border-color);
-    padding-top: 20px;
-    max-width: 1200px;
-    left: 50%;
-    transform: translateX(-50%);
+  .btn-secondary:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.06);
   }
 
-  .spec-item {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    gap: 4px;
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
   }
-  .spec-item .label {
-    font-size: 10px;
+
+  .meta-card {
+    padding: 0.9rem 1rem;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(10px);
+    transition: transform 0.35s var(--ease), border-color 0.35s var(--ease);
+  }
+
+  .meta-card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.16); }
+
+  .meta-k {
+    display: block;
+    font-size: 0.78rem;
+    letter-spacing: 0.10em;
     text-transform: uppercase;
-    color: #555;
-    letter-spacing: 0.1em;
-  }
-  .spec-item .val {
-    font-size: 13px;
-    color: #fff;
-    font-family: monospace; /* Touche technique */
+    color: rgba(227, 219, 207, 0.82);
+    margin-bottom: 0.25rem;
   }
 
-  /* --- 6. ANIMATIONS --- */
-  @keyframes pulse {
-    0% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-    100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+  .meta-v {
+    display: block;
+    font-size: 0.98rem;
+    color: rgba(243,243,244,0.92);
+    font-weight: 620;
   }
+
+  .visual {
+    position: relative;
+    justify-self: end;
+    width: min(520px, 100%);
+  }
+
+  .mood-board {
+    --rx: 0deg;
+    --ry: 0deg;
+    --sx: 0px;
+    --sy: 0px;
+
+    position: relative;
+    border-radius: 28px;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(14px);
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 120px;
+    gap: 12px;
+
+    transform: perspective(1200px) rotateX(var(--rx)) rotateY(var(--ry)) translate3d(calc(var(--sx) * 0.25), calc(var(--sy) * 0.25), 0);
+    transition: transform 0.25s var(--ease);
+    will-change: transform;
+  }
+
+  .tile {
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+    overflow: hidden;
+    position: relative;
+    transform: translateZ(0);
+  }
+
+  .t-brown { background: linear-gradient(135deg, rgba(126, 68, 30, 0.95), rgba(92, 45, 13, 0.95)); }
+  .t-green { background: linear-gradient(135deg, rgba(34, 48, 38, 0.95), rgba(16, 23, 18, 0.95)); }
+  .t-lilac { background: linear-gradient(135deg, rgba(187, 173, 181, 0.98), rgba(227, 219, 207, 0.75)); }
+
+  .t-wood {
+    background:
+      linear-gradient(90deg, rgba(0,0,0,0.18), transparent 45%),
+      repeating-linear-gradient(
+        90deg,
+        rgba(126, 68, 30, 0.92) 0px,
+        rgba(126, 68, 30, 0.92) 14px,
+        rgba(92, 45, 13, 0.90) 14px,
+        rgba(92, 45, 13, 0.90) 26px,
+        rgba(140, 86, 50, 0.88) 26px,
+        rgba(140, 86, 50, 0.88) 38px
+      );
+    filter: saturate(1.08);
+  }
+
+  .t-lamp {
+    background: radial-gradient(220px 140px at 60% 35%, rgba(230,115,10,0.18), transparent 70%),
+                linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.60));
+  }
+
+  .lamp-wrap {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+  }
+
+  .lamp {
+    width: 66%;
+    height: auto;
+    transform: translateY(-4px);
+  }
+
+  .lamp-base {
+    position: absolute;
+    bottom: 14px;
+    width: 64%;
+    height: 16px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(227,219,207,0.25), rgba(255,255,255,0.08), rgba(227,219,207,0.18));
+    border: 1px solid rgba(255,255,255,0.10);
+    filter: blur(0.2px);
+  }
+
+  .t-checker {
+    background:
+      linear-gradient(45deg, rgba(0,0,0,0.92) 25%, transparent 25%) 0 0 / 40px 40px,
+      linear-gradient(-45deg, rgba(0,0,0,0.92) 25%, transparent 25%) 0 20px / 40px 40px,
+      linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.92) 75%) 20px -20px / 40px 40px,
+      linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.92) 75%) 20px 0 / 40px 40px,
+      linear-gradient(135deg, rgba(243,243,244,0.95), rgba(227,219,207,0.92));
+    filter: contrast(1.05);
+  }
+
+  .t-metal {
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0 2px, rgba(0,0,0,0.06) 2px 5px),
+      linear-gradient(90deg, rgba(207, 211, 215, 0.92), rgba(154, 160, 167, 0.78), rgba(227, 230, 234, 0.90));
+  }
+
+  .star {
+    position: absolute;
+    left: 46%;
+    top: 44%;
+    width: 64px;
+    height: 64px;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 16px 40px rgba(0,0,0,0.35));
+    animation: floatStar 6.5s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes floatStar {
+    0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+    50% { transform: translate(-50%, calc(-50% - 8px)) rotate(6deg); }
+  }
+
+  .star-svg { width: 100%; height: 100%; }
+
+  .caption {
+    margin-top: 0.9rem;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    color: rgba(227, 219, 207, 0.85);
+    font-size: 0.95rem;
+  }
+
+  .cap-1 { opacity: 0.82; }
+  .cap-2 { opacity: 1; font-weight: 700; }
 
   .fade-in {
     opacity: 0;
-    transform: translateY(20px);
-    animation: reveal 1s var(--ease-smooth) forwards;
+    transform: translateY(26px) scale(0.985);
+    filter: blur(10px);
+    animation: reveal 1.15s var(--ease) forwards;
+    will-change: opacity, transform, filter;
   }
-  .delay-1 { animation-delay: 0.1s; }
-  .delay-2 { animation-delay: 0.2s; }
-  .delay-3 { animation-delay: 0.3s; }
-  .delay-4 { animation-delay: 0.8s; }
+
+  .delay-1 { animation-delay: 0.12s; }
+  .delay-2 { animation-delay: 0.26s; }
+  .delay-3 { animation-delay: 0.40s; }
+  .delay-4 { animation-delay: 0.54s; }
 
   @keyframes reveal {
-    to { opacity: 1; transform: translateY(0); }
+    to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
   }
 
-  /* Mobile */
-  @media (max-width: 768px) {
-    .desktop-br { display: none; }
-    .hero-footer { display: none; } /* On cache les specs sur mobile */
-    .grid-bg { background-size: 40px 40px; }
+  @media (max-width: 980px) {
+    .grid { grid-template-columns: 1fr; gap: 2.2rem; }
+    .visual { justify-self: start; width: min(560px, 100%); }
+    .meta { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 560px) {
+    .hero-wrapper.mood { padding-top: 5.6rem; min-height: auto; }
+    .cta-group { flex-direction: column; align-items: stretch; }
+    .btn { justify-content: center; width: 100%; }
+    .mood-board { grid-auto-rows: 110px; }
+    .star { width: 56px; height: 56px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in { animation: none; opacity: 1; transform: none; filter: none; }
+    .star { animation: none; }
+    .dot { animation: none; }
+    .mood-board { transition: none; transform: none; }
   }
 </style>
