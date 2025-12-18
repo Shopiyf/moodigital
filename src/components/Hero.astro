@@ -34,16 +34,12 @@
       </a>
     </div>
 
-    <div class="trust-badges fade-in delay-3">
-      <div class="rating">
+    <div class="trust-container fade-in delay-3">
+      <div class="rating-badge">
         <span class="stars">★★★★★</span>
+        <span class="separator">|</span>
         <span class="score">4.9/5</span>
         <span class="reviews">(120+ avis)</span>
-      </div>
-      <div class="logos">
-        <span>Google</span>
-        <span>Stripe</span>
-        <span>Shopify</span>
       </div>
     </div>
 
@@ -67,8 +63,8 @@
     background-color: #070607;
     color: #f3f3f4;
     overflow: hidden;
-    padding: 8rem 1rem 6rem; /* Espacement haut/bas */
-    min-height: 80vh; /* Prend au moins 80% de la hauteur d'écran */
+    padding: 8rem 1rem 6rem;
+    min-height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -98,7 +94,7 @@
 
   /* --- 4. TYPOGRAPHIE & ELEMENTS --- */
   
-  /* Badge */
+  /* Badge du HAUT (Nouveauté) */
   .badge-container {
     display: flex;
     justify-content: center;
@@ -124,9 +120,43 @@
     box-shadow: 0 0 10px var(--accent-gold);
   }
 
+  /* Badge du BAS (Avis Clients - Nouveau style) */
+  .trust-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  .rating-badge {
+    background: rgba(255, 255, 255, 0.03); /* Fond plus léger que le haut */
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px; /* Un peu moins arrondi pour différencier */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.9rem;
+    backdrop-filter: blur(5px);
+  }
+  .stars { 
+    color: var(--accent-gold); 
+    letter-spacing: 2px;
+  }
+  .separator {
+    color: var(--glass-border);
+    font-weight: 300;
+  }
+  .score { 
+    color: #fff; 
+    font-weight: bold; 
+  }
+  .reviews {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
   /* Titre H1 */
   h1 {
-    font-size: clamp(2.5rem, 5vw, 4.5rem); /* Taille fluide responsive */
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.02em;
@@ -153,7 +183,7 @@
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem; /* Réduit un peu l'espace avant les avis */
   }
   
   .btn {
@@ -186,27 +216,6 @@
   .btn-secondary:hover {
     background: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.2);
-  }
-
-  /* Trust Badges */
-  .trust-badges {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-  }
-  .stars { color: var(--accent-gold); }
-  .score { color: #fff; font-weight: bold; }
-  .logos {
-    display: flex;
-    gap: 1.5rem;
-    opacity: 0.5;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
   }
 
   /* --- 5. ANIMATIONS --- */
