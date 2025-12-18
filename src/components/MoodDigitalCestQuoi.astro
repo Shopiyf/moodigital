@@ -1,0 +1,391 @@
+---
+/**
+ * MoodDigitalCestQuoi.astro
+ * Section "Moodigital.co c'est quoi ?" + piliers + CTA
+ *
+ * Usage:
+ * <MoodDigitalCestQuoi
+ *   ctaHref="https://calendar.app.google/WB2zRZTbEGVMECN38"
+ *   ctaLabel="Réserve ton appel découverte"
+ * />
+ */
+
+const {
+  id = "mood-cest-quoi",
+  eyebrow = "MOODIGITAL.CO",
+  title = "Moodigital, c'est un cadre. Pas une checklist.",
+  lead = "Ici, on ne te donne pas une checklist. On te reconnecte à ce que tu portes déjà. Moodigital, c'est un espace de transformation business, vibratoire et profond. Avec du feu doux, des plans concrets, et des templates qui claquent.",
+  pillars = [
+    {
+      title: "Pas de blablas inutiles",
+      desc: "On va droit à l'essentiel. Une stratégie simple, nette, actionnable.",
+      icon: "gem",
+    },
+    {
+      title: "On avance à ton rythme",
+      desc: "Structuré, sans pression. Mais sans te laisser fuir.",
+      icon: "pulse",
+    },
+    {
+      title: "De l'humain avant tout",
+      desc: "Coaching incarné, suivi réel, et un cadre qui tient dans le temps.",
+      icon: "star",
+    },
+  ],
+  ctaHref = "#",
+  ctaLabel = "Réserve ton appel découverte",
+  secondaryHref = "#offres",
+  secondaryLabel = "Voir les offres",
+} = Astro.props;
+
+const icons = {
+  gem: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.2 3.5h7.6c.4 0 .8.2 1 .5l4 6a1.2 1.2 0 0 1-.1 1.5l-8.1 9.6a1.2 1.2 0 0 1-1.8 0L2.8 11.5A1.2 1.2 0 0 1 2.7 10l4-6c.2-.3.6-.5 1-.5Zm.6 2.2L5.5 10h3.3l2-4.3Zm6.4 0L13.2 10h3.3l2.6-4.3Zm-4.5 0L9 10h6l-1.7-4.3Zm-5.1 6.5 6.4 7.6 6.4-7.6H5.6Z"/></svg>`,
+  pulse: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 13.2h3.9l1.3-3.6c.2-.6 1-.6 1.2 0l1.6 5.3 2-6.7c.2-.6 1-.6 1.2 0l1.3 4.9h3.5a1 1 0 1 1 0 2h-4.3c-.5 0-.8-.3-.9-.7l-.5-2-2 6.7c-.2.6-1 .6-1.2 0l-1.6-5.3-.6 1.7c-.1.4-.5.7-.9.7H3.5a1 1 0 1 1 0-2Z"/></svg>`,
+  star: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c.4 0 .8.2 1 .6l2.6 5.2 5.7.8c.9.1 1.2 1.2.6 1.8l-4.1 4 1 5.7c.2.9-.8 1.5-1.6 1.1L12 18.9 6.8 21.7c-.8.4-1.8-.2-1.6-1.1l1-5.7-4.1-4c-.6-.6-.3-1.7.6-1.8l5.7-.8 2.6-5.2c.2-.4.6-.6 1-.6Zm0 4 1.7 3.4c.2.3.5.6.9.6l3.7.5-2.7 2.6c-.3.2-.4.6-.3 1l.6 3.7-3.3-1.7a1.1 1.1 0 0 0-1 0l-3.3 1.7.6-3.7c.1-.4-.1-.8-.3-1L5.7 11l3.7-.5c.4 0 .7-.3.9-.6L12 6.5Z"/></svg>`,
+};
+---
+
+<section id={id} class="mood-section" data-glow>
+  <div class="mood-wrap">
+    <header class="mood-head">
+      <div class="mood-eyebrow">
+        <span class="dot" aria-hidden="true"></span>
+        <span>{eyebrow}</span>
+      </div>
+
+      <h2 class="mood-title">{title}</h2>
+      <p class="mood-lead">{lead}</p>
+
+      <div class="mood-actions">
+        <a class="btn primary" href={ctaHref} target={ctaHref?.startsWith("http") ? "_blank" : undefined} rel={ctaHref?.startsWith("http") ? "noreferrer" : undefined}>
+          <span>{ctaLabel}</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a class="btn ghost" href={secondaryHref}>
+          <span>{secondaryLabel}</span>
+        </a>
+      </div>
+    </header>
+
+    <div class="mood-grid" role="list">
+      {pillars.map((p) => (
+        <article class="mood-card" role="listitem">
+          <div class="icon" aria-hidden="true" set:html={icons[p.icon] ?? icons.star} />
+          <h3 class="card-title">{p.title}</h3>
+          <p class="card-desc">{p.desc}</p>
+          <div class="card-edge" aria-hidden="true"></div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const section = document.querySelector("[data-glow]");
+  if (section) {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const setPos = (x, y) => {
+      section.style.setProperty("--mx", `${x}px`);
+      section.style.setProperty("--my", `${y}px`);
+    };
+
+    // Desktop: glow suit la souris
+    if (!prefersReduced) {
+      const onMove = (e) => {
+        const r = section.getBoundingClientRect();
+        setPos(e.clientX - r.left, e.clientY - r.top);
+      };
+      section.addEventListener("mousemove", onMove, { passive: true });
+
+      // Mobile: glow auto (pas dépendant du touch)
+      const drift = () => {
+        const r = section.getBoundingClientRect();
+        const t = Date.now() / 1000;
+        const x = r.width * (0.5 + 0.25 * Math.sin(t * 0.7));
+        const y = r.height * (0.35 + 0.18 * Math.cos(t * 0.8));
+        setPos(x, y);
+        requestAnimationFrame(drift);
+      };
+      requestAnimationFrame(drift);
+    } else {
+      // fallback statique
+      setPos(0, 0);
+    }
+
+    // Reveal (wow discret, pas cheap)
+    const items = section.querySelectorAll(".mood-card, .mood-title, .mood-lead, .mood-actions, .mood-eyebrow");
+    items.forEach((el) => el.classList.add("reveal"));
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            section.classList.add("in");
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    io.observe(section);
+  }
+</script>
+
+<style>
+  .mood-section{
+    position: relative;
+    padding: clamp(56px, 7vw, 96px) 0;
+    overflow: hidden;
+    color: rgba(255,255,255,.92);
+    background: radial-gradient(1200px 600px at 50% 0%,
+      rgba(220, 140, 60, .14),
+      rgba(0,0,0,0) 60%),
+      #070707;
+  }
+
+  .mood-section::before{
+    content:"";
+    position:absolute; inset:-40px;
+    background:
+      linear-gradient(to right, rgba(255,255,255,.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.08) 1px, transparent 1px);
+    background-size: 42px 42px;
+    opacity: .22;
+    transform: translate3d(0,0,0);
+    mask-image: radial-gradient(closest-side at 50% 40%, rgba(0,0,0,1), rgba(0,0,0,.15) 55%, rgba(0,0,0,0) 72%);
+    animation: gridDrift 10s linear infinite;
+    pointer-events: none;
+  }
+
+  .mood-section::after{
+    content:"";
+    position:absolute; inset:-2px;
+    background:
+      radial-gradient(520px 380px at var(--mx, 50%) var(--my, 35%),
+        rgba(220, 140, 60, .22),
+        rgba(220, 140, 60, .10) 38%,
+        rgba(0,0,0,0) 62%),
+      radial-gradient(800px 600px at 70% 30%,
+        rgba(255,255,255,.06),
+        rgba(0,0,0,0) 65%);
+    opacity: .95;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,1) 78%, rgba(0,0,0,0) 100%);
+  }
+
+  @keyframes gridDrift{
+    0%{ background-position: 0 0, 0 0; }
+    100%{ background-position: 42px 0, 0 42px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .mood-section::before{ animation: none; }
+  }
+
+  .mood-wrap{
+    width: min(1120px, calc(100% - 40px));
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .mood-head{
+    text-align: center;
+    margin-bottom: clamp(26px, 4vw, 44px);
+  }
+
+  .mood-eyebrow{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.10);
+    background: rgba(10,10,10,.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.78);
+  }
+
+  .dot{
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgb(220, 140, 60);
+    box-shadow: 0 0 0 6px rgba(220,140,60,.16);
+  }
+
+  .mood-title{
+    margin: 18px auto 0;
+    max-width: 18ch;
+    font-size: clamp(30px, 5.4vw, 54px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+
+  .mood-lead{
+    margin: 14px auto 0;
+    max-width: 68ch;
+    font-size: clamp(14px, 1.7vw, 18px);
+    line-height: 1.7;
+    color: rgba(255,255,255,.72);
+  }
+
+  .mood-actions{
+    margin-top: 22px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.14);
+    text-decoration: none;
+    font-weight: 650;
+    letter-spacing: .01em;
+    transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+    user-select: none;
+  }
+
+  .btn.primary{
+    background: rgba(236, 228, 214, .95);
+    color: rgba(15,15,15,.96);
+    border-color: rgba(236, 228, 214, .22);
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+  }
+
+  .btn.primary:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 26px 80px rgba(0,0,0,.45);
+  }
+
+  .btn.ghost{
+    background: rgba(10,10,10,.55);
+    color: rgba(255,255,255,.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .btn.ghost:hover{
+    transform: translateY(-1px);
+    border-color: rgba(255,255,255,.22);
+  }
+
+  .arrow{
+    font-size: 16px;
+    transform: translateY(-1px);
+  }
+
+  .mood-grid{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 14px;
+  }
+
+  .mood-card{
+    grid-column: span 4;
+    position: relative;
+    padding: 18px 18px 16px;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,.10);
+    background: rgba(10,10,10,.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    overflow: hidden;
+    transition: transform .22s ease, border-color .22s ease;
+    min-height: 150px;
+  }
+
+  .mood-card:hover{
+    transform: translateY(-2px);
+    border-color: rgba(220,140,60,.35);
+  }
+
+  .icon{
+    width: 34px; height: 34px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: rgba(220, 140, 60, .14);
+    border: 1px solid rgba(220, 140, 60, .22);
+    box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    margin-bottom: 12px;
+  }
+
+  .icon :global(svg){
+    width: 18px; height: 18px;
+    fill: rgba(255,255,255,.92);
+    opacity: .95;
+  }
+
+  .card-title{
+    margin: 0;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+
+  .card-desc{
+    margin: 10px 0 0;
+    color: rgba(255,255,255,.70);
+    line-height: 1.6;
+    font-size: 14px;
+  }
+
+  .card-edge{
+    position:absolute;
+    inset:-2px;
+    background:
+      radial-gradient(600px 240px at var(--mx, 50%) var(--my, 35%),
+        rgba(220, 140, 60, .25),
+        rgba(0,0,0,0) 60%);
+    opacity: .65;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,.2));
+  }
+
+  /* Reveal */
+  .reveal{
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .55s ease, transform .55s ease;
+  }
+  .in .reveal{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .in .mood-title{ transition-delay: .06s; }
+  .in .mood-lead{ transition-delay: .12s; }
+  .in .mood-actions{ transition-delay: .18s; }
+  .in .mood-card:nth-child(1){ transition-delay: .22s; }
+  .in .mood-card:nth-child(2){ transition-delay: .30s; }
+  .in .mood-card:nth-child(3){ transition-delay: .38s; }
+
+  /* Responsive */
+  @media (max-width: 980px){
+    .mood-card{ grid-column: span 6; }
+    .mood-title{ max-width: 22ch; }
+  }
+
+  @media (max-width: 640px){
+    .mood-wrap{ width: min(1120px, calc(100% - 26px)); }
+    .mood-card{ grid-column: span 12; }
+    .mood-actions{ gap: 10px; }
+    .btn{ width: 100%; }
+  }
+</style>
