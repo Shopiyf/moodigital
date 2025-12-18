@@ -11,17 +11,24 @@ import Footer from "../components/Footer.astro";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Lyvora | Landing Page</title>
+    <meta name="description" content="Moodigital : identites Canva pretes a vendre, cadre business et accompagnement premium pour entrepreneuses ambitieuses." />
+    <title>Moodigital | Identites Canva qui vendent</title>
 
     <style>
-      body { margin: 0; background-color: #070607; }
+      body {
+        margin: 0;
+        background-color: #070607;
+        color: #f3f3f4;
+      }
     </style>
   </head>
 
   <body>
     <Header />
-    <Hero />
-    <MoodDigitalCestQuoi />
+    <main id="main">
+      <Hero />
+      <MoodDigitalCestQuoi />
+    </main>
     <Footer />
   </body>
 </html>

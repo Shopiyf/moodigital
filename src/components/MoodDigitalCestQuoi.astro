@@ -6,30 +6,30 @@
 
 const {
   id = "mood-cest-quoi",
-  eyebrow = "MOODIGITAL.CO",
-  title = "Moodigital, c'est un cadre. Pas une checklist.",
-  lead = "Ici, on ne te donne pas une checklist. On te reconnecte à ce que tu portes déjà. Moodigital, c'est un espace de transformation business, vibratoire et profond.",
+  eyebrow = "Cadre business + canva",
+  title = "Moodigital, c'est une identite vendable. Pas un template joli.",
+  lead = "10 jours pour poser ton offre, ton image et ta librairie Canva modulable. On construit le systeme, tu le rejoues en boucle.",
   pillars = [
     {
-      title: "Pas de blablas inutiles",
-      desc: "On va droit à l'essentiel. Une stratégie simple, nette, actionnable.",
+      title: "Cadre strate net",
+      desc: "On clarifie la promesse, le tunnel et la voix. Tu sais quoi dire et ou.",
       icon: "gem",
     },
     {
-      title: "On avance à ton rythme",
-      desc: "Structure, sans pression. Mais sans te laisser fuir.",
+      title: "Livrables qui vivent",
+      desc: "Librairie Canva modulaire, prêtes pour reels, slides et emails.",
       icon: "pulse",
     },
     {
-      title: "De l'humain avant tout",
-      desc: "Coaching incarné, suivi réel, et un cadre qui tient dans le temps.",
+      title: "Coaching + support",
+      desc: "Sessions live, retours asynchrones, garde-fous pour ne plus perdre de temps.",
       icon: "star",
     },
   ],
-  ctaHref = "#",
-  ctaLabel = "Réserve ton appel découverte",
-  secondaryHref = "#offres",
-  secondaryLabel = "Voir les offres",
+  ctaHref = "#demo",
+  ctaLabel = "Reserver un diagnostic",
+  secondaryHref = "#kit",
+  secondaryLabel = "Telecharger le kit",
 } = Astro.props;
 
 const icons = {
@@ -80,6 +80,200 @@ const icons = {
         </article>
       ))}
     </div>
+
+    <div class="mood-proofbar reveal" role="list" aria-label="Elements de preuve">
+      <div class="metric" role="listitem">
+        <span class="metric-k">+480</span>
+        <span class="metric-v">identites clarifiees et relancees</span>
+      </div>
+      <div class="metric" role="listitem">
+        <span class="metric-k">10 j</span>
+        <span class="metric-v">pour livrer la librairie Canva</span>
+      </div>
+      <div class="metric" role="listitem">
+        <span class="metric-k">4.9/5</span>
+        <span class="metric-v">retours clientes sur les derniers lancements</span>
+      </div>
+      <div class="metric" role="listitem">
+        <span class="metric-k">Support</span>
+        <span class="metric-v">humain et async 5j/7</span>
+      </div>
+    </div>
+
+    <section class="mood-offers reveal" id="pricing">
+      <div class="section-head">
+        <p class="section-eyebrow">Offres</p>
+        <h3 class="section-title">Choisis ton point d'entree</h3>
+        <p class="section-lead">Kit gratuit pour lancer propre, ou formation + coaching si tu veux poser un systeme durable.</p>
+      </div>
+
+      <div class="offer-grid">
+        <article class="offer-card">
+          <span class="offer-tag">Kit</span>
+          <h4 class="offer-title">Kit Mood Express</h4>
+          <p class="offer-desc">3 templates Canva + mini guide pour mettre ton hero, ton carrousel et ton email de bienvenue au niveau.</p>
+          <ul class="offer-points">
+            <li>Hero, carrousel et email construits pour convertir</li>
+            <li>Mini guide tone of voice + palette securisee</li>
+            <li>Checklist anti flou pour publier en confiance</li>
+          </ul>
+          <a class="btn ghost" href="#kit">
+            <span>Telecharger</span>
+          </a>
+        </article>
+
+        <article class="offer-card highlight">
+          <span class="offer-tag accent">Formation + coaching</span>
+          <h4 class="offer-title">Cadre Canva Pro</h4>
+          <p class="offer-desc">10 jours de production + 4 semaines de support pour aligner ton image, ton offre et tes contenus.</p>
+          <ul class="offer-points">
+            <li>Audit offre, promesse et angle de vente</li>
+            <li>Librairie Canva modulaire (reels, slides, emails)</li>
+            <li>Guides de contenu + scripts pour pitcher net</li>
+            <li>2 calls live + feedbacks async en continu</li>
+          </ul>
+          <div class="price-row">Investissement sur mesure, devis en 24h.</div>
+          <a class="btn primary" href="#demo">
+            <span>Reserver un diagnostic</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="btn-shine" aria-hidden="true"></span>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <section class="mood-kit reveal" id="kit">
+      <div class="section-head left">
+        <p class="section-eyebrow">Kit Mood Express</p>
+        <h3 class="section-title">Tu publies propre, sans chercher midi a quatorze heures.</h3>
+        <p class="section-lead">Pratique si tu veux tester une offre, relancer un feed, ou remettre de l'ordre avant la formation.</p>
+      </div>
+
+      <div class="kit-grid">
+        <div class="kit-card">
+          <h4>Dedans, tu trouves</h4>
+          <ul class="checklist">
+            <li>3 templates hero/carrousel/email optimises conversion</li>
+            <li>Palette, typographie et usage recommends</li>
+            <li>Exemples de headlines + CTA a copier/coller</li>
+            <li>Checklist anti flou avant de cliquer "publier"</li>
+          </ul>
+        </div>
+
+        <div class="kit-card accent">
+          <h4>Comment on t'accompagne</h4>
+          <p>Tu appliques le kit seul ou on le passe ensemble en 20 minutes pendant le diagnostic. Objectif: publier en moins d'une heure.</p>
+          <a class="btn ghost" href="#demo">
+            <span>Bloquer un diagnostic</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="mood-formation reveal" id="formation">
+      <div class="section-head">
+        <p class="section-eyebrow">Formation + coaching</p>
+        <h3 class="section-title">On pose ton cadre, on te montre comment le rejouer.</h3>
+        <p class="section-lead">Formation live, templates et feedbacks sur mesure. Tu repars avec un systeme que tu peux exploiter seule.</p>
+      </div>
+
+      <div class="formation-steps">
+        <div class="formation-step">
+          <div class="step-n">01</div>
+          <h4>Cadre et message</h4>
+          <p>Audit express, promesse claire, angle de vente, story principale pour reels/slides.</p>
+        </div>
+        <div class="formation-step">
+          <div class="step-n">02</div>
+          <h4>Librairie Canva</h4>
+          <p>Templates modulaires (hero, carrousels, reels covers, slides, emails) + systeme de variations.</p>
+        </div>
+        <div class="formation-step">
+          <div class="step-n">03</div>
+          <h4>Run et ajustements</h4>
+          <p>Feedbacks async, check contenu hebdo, garde-fous sur la coherence et la vitesse d'execution.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mood-process reveal" id="process">
+      <div class="section-head left">
+        <p class="section-eyebrow">Comment ca marche</p>
+        <h3 class="section-title">3 etapes, zero blabla.</h3>
+        <p class="section-lead">Diagnostic, production, run. Chaque etape est cadree pour limiter les detours.</p>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="step-top">
+            <span class="badge">Jour 1</span>
+            <h4>Diagnostic live</h4>
+          </div>
+          <p>On audite l'offre, le pitch, les canaux. Tu repars avec un plan et les angles prioritaires.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-top">
+            <span class="badge">Jours 2-7</span>
+            <h4>Production</h4>
+          </div>
+          <p>On construit la librairie Canva, les scripts et la checklist business. Tu valides chaque livrable.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-top">
+            <span class="badge">Jours 8-30</span>
+            <h4>Run + feedbacks</h4>
+          </div>
+          <p>On t'accompagne sur les posts, emails et slides. Ajustements en direct pour garder le rythme.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mood-faq reveal" id="faq">
+      <div class="section-head">
+        <p class="section-eyebrow">FAQ + objections</p>
+        <h3 class="section-title">Tu te poses ces questions ?</h3>
+        <p class="section-lead">Prix, delais, garantie, experience Canva : tout est prevu.</p>
+      </div>
+
+      <div class="faq-grid">
+        <details class="faq-item" open>
+          <summary>Et si je n'ai pas de temps ?</summary>
+          <p>On structure pour que tu bloques 2h au demarrage puis 90 minutes par semaine. Les templates sont plug-and-play.</p>
+        </details>
+        <details class="faq-item">
+          <summary>C'est quoi l'investissement ?</summary>
+          <p>Le kit est gratuit. La formation + coaching est sur mesure: devis en 24h apres le diagnostic selon ton volume et tes canaux.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Je ne suis pas designer, c'est grave ?</summary>
+          <p>Non. Les templates sont verrouilles et guides. Tu modifies le texte, les visuels auto-resizent, et on valide ensemble.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Une garantie ?</summary>
+          <p>Si le cadre n'est pas utilisable apres le premier run, on corrige gratuitement jusqu'a obtention d'une base claire.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="mood-cta reveal" id="demo">
+      <div class="cta-card">
+        <div class="cta-copy">
+          <p class="section-eyebrow">Pret a lancer</p>
+          <h3 class="section-title">On cale le diagnostic et on lance la production.</h3>
+          <p class="section-lead">Tu repars avec un plan, un kit securise et la roadmap de tes 4 prochaines semaines.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn primary" href="mailto:hello@moodigital.co?subject=Diagnostic%20Moodigital">
+            <span>Reserver par email</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="btn-shine" aria-hidden="true"></span>
+          </a>
+          <a class="btn ghost" href="#formation">
+            <span>Voir le detail formation</span>
+          </a>
+        </div>
+      </div>
+    </section>
   </div>
 </section>
 
@@ -334,6 +528,12 @@ const icons = {
 
   @keyframes shine { to { transform: translateX(120%); } }
 
+  .btn:focus-visible {
+    outline: 2px solid var(--cream);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 6px rgba(227,219,207,0.14), 0 18px 55px rgba(0,0,0,0.45);
+  }
+
   .mood-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -443,6 +643,331 @@ const icons = {
   .mood-card:hover .card-border-gradient { opacity: 0.32; transform: rotate(6deg); }
   .mood-card:hover .icon-glow { opacity: 0.35; }
 
+  .mood-proofbar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: clamp(0.8rem, 2vw, 1rem);
+    margin: clamp(1.8rem, 3vw, 2.4rem) 0 clamp(2.6rem, 4vw, 3.2rem);
+  }
+
+  .metric {
+    padding: 1rem 1.1rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.02);
+    box-shadow: 0 12px 42px rgba(0,0,0,0.32);
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .metric-k {
+    font-size: 1.25rem;
+    font-weight: 760;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .metric-v {
+    color: rgba(243,243,244,0.72);
+    font-size: 0.98rem;
+    line-height: 1.5;
+  }
+
+  .section-head {
+    text-align: center;
+    display: grid;
+    gap: 0.45rem;
+    margin: clamp(2.4rem, 5vw, 3.2rem) auto clamp(1.6rem, 4vw, 2.4rem);
+    max-width: 760px;
+  }
+
+  .section-head.left { text-align: left; justify-items: start; }
+
+  .section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.02);
+    color: rgba(227,219,207,0.85);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    width: fit-content;
+  }
+
+  .section-title {
+    margin: 0;
+    font-size: clamp(1.9rem, 4.5vw, 2.7rem);
+    letter-spacing: -0.02em;
+    font-weight: 780;
+    color: var(--text);
+    text-wrap: balance;
+  }
+
+  .section-lead {
+    margin: 0;
+    color: var(--muted);
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    line-height: 1.65;
+  }
+
+  .mood-offers { display: grid; gap: 1.4rem; }
+
+  .offer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: clamp(1rem, 2.4vw, 1.5rem);
+  }
+
+  .offer-card {
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(10px);
+    padding: 1.35rem 1.25rem 1.4rem;
+    box-shadow: 0 18px 55px rgba(0,0,0,0.35);
+    display: grid;
+    gap: 0.55rem;
+    transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  }
+
+  .offer-card.highlight {
+    background: linear-gradient(180deg, rgba(230,115,10,0.08), rgba(255,255,255,0.02));
+    border-color: rgba(227,219,207,0.18);
+  }
+
+  .offer-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,0.16);
+    box-shadow: 0 28px 92px rgba(0,0,0,0.5);
+  }
+
+  .offer-tag,
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.45rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.03);
+    color: rgba(227,219,207,0.85);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    width: fit-content;
+  }
+
+  .offer-tag.accent { border-color: rgba(230,115,10,0.35); color: var(--cream); background: rgba(230,115,10,0.12); }
+
+  .offer-title {
+    margin: 0;
+    font-size: 1.2rem;
+    letter-spacing: -0.01em;
+    font-weight: 760;
+    color: var(--text);
+  }
+
+  .offer-desc {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .offer-points {
+    list-style: none;
+    margin: 0;
+    padding: 0.1rem 0 0.3rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .offer-points li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 0.45rem;
+    color: rgba(243,243,244,0.86);
+    line-height: 1.55;
+  }
+
+  .offer-points li::before {
+    content: "";
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(230,115,10,0.9), rgba(227,219,207,0.9));
+    box-shadow: 0 0 0 6px rgba(230,115,10,0.12);
+  }
+
+  .price-row {
+    color: rgba(243,243,244,0.74);
+    font-weight: 640;
+    padding: 0.5rem 0;
+  }
+
+  .mood-kit,
+  .mood-formation,
+  .mood-process,
+  .mood-faq,
+  .mood-cta { margin-top: clamp(2.4rem, 5vw, 3.4rem); }
+
+  .kit-grid,
+  .formation-steps,
+  .process-grid,
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: clamp(1rem, 2.4vw, 1.5rem);
+  }
+
+  .kit-card,
+  .formation-step,
+  .process-step,
+  .faq-item {
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(10px);
+    padding: 1.25rem 1.2rem 1.3rem;
+    box-shadow: 0 18px 55px rgba(0,0,0,0.35);
+    transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  }
+
+  .kit-card.accent { border-color: rgba(230,115,10,0.35); background: linear-gradient(180deg, rgba(230,115,10,0.08), rgba(255,255,255,0.02)); }
+
+  .kit-card:hover,
+  .formation-step:hover,
+  .process-step:hover,
+  .faq-item:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,0.16);
+    box-shadow: 0 28px 92px rgba(0,0,0,0.5);
+  }
+
+  .kit-card h4,
+  .formation-step h4,
+  .process-step h4 {
+    margin: 0 0 0.4rem;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .kit-card p,
+  .formation-step p,
+  .process-step p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0.2rem 0 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .checklist li {
+    position: relative;
+    padding-left: 1.6rem;
+    color: rgba(243,243,244,0.86);
+    line-height: 1.55;
+  }
+
+  .checklist li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.4rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    background: linear-gradient(135deg, rgba(230,115,10,0.9), rgba(227,219,207,0.9));
+    box-shadow: 0 0 0 6px rgba(230,115,10,0.12);
+  }
+
+  .formation-steps { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+  .step-n {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(243,243,244,0.82);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .step-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .mood-faq .section-lead { max-width: 720px; }
+
+  .faq-item summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    outline: none;
+  }
+
+  .faq-item summary::-webkit-details-marker { display: none; }
+
+  .faq-item summary::after {
+    content: "+";
+    float: right;
+    transition: transform 0.28s var(--ease);
+  }
+
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+
+  .faq-item p {
+    margin: 0.65rem 0 0;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .faq-item:focus-within { border-color: rgba(227,219,207,0.18); }
+
+  .mood-cta .cta-card {
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    padding: clamp(1.4rem, 3vw, 2rem);
+    display: grid;
+    gap: 1rem;
+    align-items: center;
+    box-shadow: 0 22px 75px rgba(0,0,0,0.45);
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .faq-item summary:focus-visible {
+    outline: 2px solid var(--cream);
+    outline-offset: 6px;
+  }
+
   /* Reveal */
   .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
   .in .reveal { opacity: 1; transform: translateY(0); }
@@ -459,11 +984,14 @@ const icons = {
     .mood-actions { flex-direction: column; align-items: stretch; }
     .btn { width: 100%; }
     .mood-title { font-size: clamp(1.9rem, 7vw, 2.6rem); }
+    .section-head { text-align: left; justify-items: start; }
+    .cta-actions { flex-direction: column; align-items: stretch; }
+    .mood-cta .btn { width: 100%; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .reveal { transition: none; opacity: 1; transform: none; }
     .card-border-gradient { transition: none; }
-    .mood-card, .btn { transition: none; }
+    .mood-card, .btn, .offer-card, .kit-card, .formation-step, .process-step, .faq-item { transition: none; }
   }
 </style>

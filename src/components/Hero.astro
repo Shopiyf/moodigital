@@ -13,23 +13,20 @@
     <div class="content">
       <div class="pill in">
         <span class="dot" aria-hidden="true"></span>
-        <span class="pill-text">Canva Mood. Business Mood. L'ordre.</span>
+        <span class="pill-text">Programme intensif · Identite livree en 10 jours</span>
       </div>
 
       <h1 class="in d1">
-        Tu ne cherches pas des visuels.
-        <span class="h1-break"><br /></span>
-        Tu cherches un <span class="accent">cadre</span>.
+        Identite Canva prete a vendre en <span class="accent">10 jours</span>.
       </h1>
 
       <p class="sub in d2">
-        Formation Canva et accompagnements business pour entrepreneuses qui veulent une identite nette, des templates qui tiennent,
-        et un systeme simple a repeter. Moins "joli". Plus coherent. Plus toi.
+        Coaching live, templates modulaires et rituels business pour entrepreneuses qui veulent aligner leur image, clarifier l'offre et lancer sans perte de temps.
       </p>
 
       <div class="cta in d3">
-        <a class="btn primary magnetic" href="#kit" aria-label="Recevoir le kit gratuit">
-          <span class="label">Recevoir le Kit Mood Express</span>
+        <a class="btn primary magnetic" href="#demo" aria-label="Reserver un diagnostic">
+          <span class="label">Reserver un diagnostic</span>
           <span class="arrow" aria-hidden="true">→</span>
           <span class="btn-shine" aria-hidden="true"></span>
         </a>
@@ -39,22 +36,34 @@
         </a>
       </div>
 
+      <div class="hero-note in d3">
+        <span class="pill-soft">Kit Mood Express offert</span>
+        <a class="text-link" href="#kit">Telecharger le kit →</a>
+      </div>
+
       <div class="proof in d4" role="list" aria-label="Elements de re assurance">
         <div class="proof-item" role="listitem">
-          <span class="k">Gratuit</span>
-          <span class="v">3 templates + mini guide</span>
+          <span class="k">4.9/5</span>
+          <span class="v">Satisfaction moyenne sur les 50 derniers lancements</span>
         </div>
         <div class="proof-item" role="listitem">
-          <span class="k">Formation</span>
-          <span class="v">Canva pour vendre propre</span>
+          <span class="k">10 jours</span>
+          <span class="v">Pour livrer l'identite et la librairie Canva actionnable</span>
         </div>
         <div class="proof-item" role="listitem">
-          <span class="k">Accompagnement</span>
-          <span class="v">Strategie + identite</span>
+          <span class="k">Cadre</span>
+          <span class="v">Coaching direct + checklists business et contenus</span>
         </div>
       </div>
 
-      <a class="scroll" href="#next" aria-label="Descendre">
+      <div class="trustline in d4" aria-hidden="true">
+        <span class="trust-badge">Coachs</span>
+        <span class="trust-badge">Mentors business</span>
+        <span class="trust-badge">Creatrices de contenu</span>
+        <span class="trust-badge">Studios solo</span>
+      </div>
+
+      <a class="scroll" href="#pricing" aria-label="Descendre vers les offres">
         <span class="scroll-dot" aria-hidden="true"></span>
       </a>
     </div>
@@ -349,7 +358,9 @@
     font-size: clamp(2.45rem, 5.6vw, 5.1rem);
     line-height: 1.02;
     letter-spacing: -0.045em;
-    margin: 0 0 1.15rem;
+    margin: 0 auto 1.15rem;
+    max-width: 16ch;
+    text-wrap: balance;
   }
 
   .accent {
@@ -375,6 +386,58 @@
     margin-bottom: 1.65rem;
     width: 100%;
   }
+
+  .hero-note {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.7rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: rgba(243,243,244,0.82);
+    margin: 0 auto 1.2rem;
+    box-shadow: 0 12px 42px rgba(0,0,0,0.35);
+  }
+
+  .pill-soft {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.42rem 0.78rem;
+    border-radius: 999px;
+    background: rgba(227,219,207,0.12);
+    color: var(--text);
+    border: 1px solid rgba(227,219,207,0.28);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .text-link {
+    color: #f3f3f4;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+    font-weight: 620;
+  }
+
+  .text-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(227,219,207,0.0), rgba(227,219,207,0.85), rgba(230,115,10,0.95));
+    transform-origin: left;
+    transform: scaleX(0.6);
+    transition: transform 0.28s var(--ease);
+  }
+
+  .text-link:hover::after { transform: scaleX(1); }
 
   .btn {
     position: relative;
@@ -458,6 +521,14 @@
 
   @keyframes shine { to { transform: translateX(120%); } }
 
+  .btn:focus-visible,
+  .text-link:focus-visible,
+  .scroll:focus-visible {
+    outline: 2px solid var(--cream);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 6px rgba(227,219,207,0.14), 0 18px 55px rgba(0,0,0,0.45);
+  }
+
   .proof {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -491,6 +562,28 @@
     font-size: 0.98rem;
     color: rgba(243,243,244,0.92);
     font-weight: 620;
+  }
+
+  .trustline {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1rem auto 0.6rem;
+  }
+
+  .trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.02);
+    color: rgba(243,243,244,0.82);
+    font-size: 0.92rem;
+    letter-spacing: 0.02em;
+    box-shadow: 0 12px 42px rgba(0,0,0,0.3);
   }
 
   .scroll {
@@ -551,10 +644,12 @@
   @media (max-width: 560px) {
     .cta { flex-direction: column; align-items: stretch; }
     .btn { width: 100%; }
-    .h1-break { display: none; }
 
     /* allow wrap instead of ellipsis on very small widths */
     .label { text-overflow: unset; overflow: visible; }
+
+    .hero-note { width: 100%; justify-content: space-between; }
+    .text-link { font-size: 0.95rem; }
   }
 
   /* very small phones */
@@ -570,6 +665,6 @@
     .scroll-dot { animation: none; }
     .sheen { animation: none; opacity: 0; }
     .btn-shine { display: none; }
-    .btn { transition: none; }
+    .btn, .text-link, .hero-note, .trust-badge { transition: none; }
   }
 </style>

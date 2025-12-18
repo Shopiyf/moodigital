@@ -13,7 +13,7 @@ const defaults = {
     { label: "Formation Canva", href: "#formation" },
   ],
   contact: { label: "hello@moodigital.co", href: "mailto:hello@moodigital.co" },
-  cta: { label: "Reserver une demo", href: "#demo" },
+  cta: { label: "Reserver un diagnostic", href: "#demo" },
 };
 
 const {
@@ -286,6 +286,13 @@ const year = new Date().getFullYear();
 
   .ft-link:hover { color: #fff; }
 
+  .ft-link:focus-visible,
+  .btn:focus-visible {
+    outline: 2px solid var(--cream);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px rgba(227,219,207,0.14);
+  }
+
   .ft-meta {
     display: block;
     margin-top: 0.5rem;
@@ -314,5 +321,9 @@ const year = new Date().getFullYear();
   @media (max-width: 640px) {
     .ft-head { flex-direction: column; align-items: flex-start; }
     .btn { width: 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn, .ft-link { transition: none; }
   }
 </style>
