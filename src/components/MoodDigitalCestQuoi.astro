@@ -1,28 +1,36 @@
 ---
+/**
+ * MoodDigitalCestQuoi.astro
+ * Correction & Optimisation :
+ * - Support multi-instances (querySelectorAll)
+ * - Fix compatibilité mask-composite (Safari/Chrome)
+ * - Valeurs par défaut CSS variables
+ */
+
 const {
   id = "mood-cest-quoi",
   eyebrow = "MOODIGITAL.CO",
   title = "Moodigital, c'est un cadre. Pas une checklist.",
-  lead = "Ici, on ne te donne pas une checklist. On te reconnecte a ce que tu portes deja. Moodigital, c'est un espace de transformation business, vibratoire et profond. Avec du feu doux, des plans concrets, et des templates qui claquent.",
+  lead = "Ici, on ne te donne pas une checklist. On te reconnecte à ce que tu portes déjà. Moodigital, c'est un espace de transformation business, vibratoire et profond. Avec du feu doux, des plans concrets, et des templates qui claquent.",
   pillars = [
     {
       title: "Pas de blablas inutiles",
-      desc: "On va droit a l'essentiel. Une strategie simple, nette, actionnable.",
+      desc: "On va droit à l'essentiel. Une stratégie simple, nette, actionnable.",
       icon: "gem",
     },
     {
-      title: "On avance a ton rythme",
+      title: "On avance à ton rythme",
       desc: "Structure, sans pression. Mais sans te laisser fuir.",
       icon: "pulse",
     },
     {
       title: "De l'humain avant tout",
-      desc: "Coaching incarne, suivi reel, et un cadre qui tient dans le temps.",
+      desc: "Coaching incarné, suivi réel, et un cadre qui tient dans le temps.",
       icon: "star",
     },
   ],
   ctaHref = "#",
-  ctaLabel = "Reserve ton appel decouverte",
+  ctaLabel = "Réserve ton appel découverte",
   secondaryHref = "#offres",
   secondaryLabel = "Voir les offres",
 } = Astro.props;
@@ -30,23 +38,30 @@ const {
 const icons = {
   gem: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.2 3.5h7.6c.4 0 .8.2 1 .5l4 6a1.2 1.2 0 0 1-.1 1.5l-8.1 9.6a1.2 1.2 0 0 1-1.8 0L2.8 11.5A1.2 1.2 0 0 1 2.7 10l4-6c.2-.3.6-.5 1-.5Zm.6 2.2L5.5 10h3.3l2-4.3Zm6.4 0L13.2 10h3.3l2.6-4.3Zm-4.5 0L9 10h6l-1.7-4.3Zm-5.1 6.5 6.4 7.6 6.4-7.6H5.6Z"/></svg>`,
   pulse: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 13.2h3.9l1.3-3.6c.2-.6 1-.6 1.2 0l1.6 5.3 2-6.7c.2-.6 1-.6 1.2 0l1.3 4.9h3.5a1 1 0 1 1 0 2h-4.3c-.5 0-.8-.3-.9-.7l-.5-2-2 6.7c-.2.6-1 .6-1.2 0l-1.6-5.3-.6 1.7c-.1.4-.5.7-.9.7H3.5a1 1 0 1 1 0-2Z"/></svg>`,
-  star: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c.4 0 .8.2 1 .6l2.6 5.2 5.7.8c.9.1 1.2 1.2.6 1.8l-4.1 4 1 5.7c.2.9-.8 1.5-1.6 1.1L12 18.9 6.8 21.7c-.8.4-1.8-.2-1.6-1.1l1-5.7-4.1-4c-.6-.6-.3-1.7.6-1.8l5.7-.8 2.6-5.2c.2-.4.6-.6 1-.6Z"/></svg>`,
+  star: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c.4 0 .8.2 1 .6l2.6 5.2 5.7.8c.9.1 1.2 1.2.6 1.8l-4.1 4 1 5.7c.2.9-.8 1.5-1.6 1.1L12 18.9 6.8 21.7c-.8.4-1.8-.2-1.6-1.1l1-5.7-4.1-4c-.6-.6-.3-1.7.6-1.8l5.7-.8 2.6-5.2c.2-.4.6-.6 1-.6Zm0 4 1.7 3.4c.2.3.5.6.9.6l3.7.5-2.7 2.6c-.3.2-.4.6-.3 1l.6 3.7-3.3-1.7a1.1 1.1 0 0 0-1 0l-3.3 1.7.6-3.7c.1-.4-.1-.8-.3-1L5.7 11l3.7-.5c.4 0 .7-.3.9-.6L12 6.5Z"/></svg>`,
 };
 ---
 
-<section id={id} class="mood" data-reveal>
-  <div class="wrap">
-    <header class="head">
-      <div class="eyebrow">
+<section id={id} class="mood-section" data-mood-section>
+  <div class="mood-bridge" aria-hidden="true"></div>
+
+  <div class="mood-wrap">
+    <header class="mood-head">
+      <div class="mood-eyebrow reveal">
         <span class="dot" aria-hidden="true"></span>
         <span>{eyebrow}</span>
       </div>
 
-      <h2 class="title">{title}</h2>
-      <p class="lead">{lead}</p>
+      <h2 class="mood-title reveal">{title}</h2>
+      <p class="mood-lead reveal">{lead}</p>
 
-      <div class="actions">
-        <a class="btn primary" href={ctaHref} target={ctaHref?.startsWith("http") ? "_blank" : undefined} rel={ctaHref?.startsWith("http") ? "noreferrer" : undefined}>
+      <div class="mood-actions reveal">
+        <a
+          class="btn primary"
+          href={ctaHref}
+          target={ctaHref?.startsWith("http") ? "_blank" : undefined}
+          rel={ctaHref?.startsWith("http") ? "noreferrer" : undefined}
+        >
           <span>{ctaLabel}</span>
           <span class="arrow" aria-hidden="true">→</span>
         </a>
@@ -57,12 +72,12 @@ const icons = {
       </div>
     </header>
 
-    <div class="grid" role="list">
+    <div class="mood-grid" role="list">
       {pillars.map((p) => (
-        <article class="card" role="listitem">
+        <article class="mood-card reveal" role="listitem">
           <div class="icon" aria-hidden="true" set:html={icons[p.icon] ?? icons.star} />
-          <h3 class="cardTitle">{p.title}</h3>
-          <p class="cardDesc">{p.desc}</p>
+          <h3 class="card-title">{p.title}</h3>
+          <p class="card-desc">{p.desc}</p>
         </article>
       ))}
     </div>
@@ -70,295 +85,419 @@ const icons = {
 </section>
 
 <script>
-  const root = document.querySelector("[data-reveal]");
-  if (root) {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // On utilise un scope immédiat mais on s'assure de boucler sur toutes les sections
+  (() => {
+    const sections = document.querySelectorAll<HTMLElement>("[data-mood-section]");
+    if (!sections.length) return;
 
-    if (reduce) {
-      root.classList.add("in");
-    } else {
-      const io = new IntersectionObserver(
-        (entries) => {
-          for (const e of entries) {
-            if (e.isIntersecting) {
-              root.classList.add("in");
-              io.disconnect();
-              break;
-            }
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+
+    // Observer unique pour toutes les sections
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            io.unobserve(e.target);
           }
-        },
-        { threshold: 0.18 }
-      );
-      io.observe(root);
-    }
-  }
+        });
+      },
+      { threshold: 0.15 } // Seuil légèrement réduit pour mobile
+    );
+
+    sections.forEach((section) => {
+      // 1. Activation Reveal
+      io.observe(section);
+
+      // 2. Glow Effect Logic (Desktop only)
+      if (prefersReduced || !finePointer) return;
+
+      let raf = 0;
+      let lastX = 0;
+      let lastY = 0;
+
+      const apply = () => {
+        raf = 0;
+        // On force l'unité px pour éviter les bugs de parsing CSS
+        section.style.setProperty("--mx", `${lastX}px`);
+        section.style.setProperty("--my", `${lastY}px`);
+      };
+
+      const onMove = (e: PointerEvent) => {
+        // getBoundingClientRect est relatif au viewport, clientX aussi.
+        // La soustraction donne bien la position relative à la section.
+        const r = section.getBoundingClientRect();
+        lastX = e.clientX - r.left;
+        lastY = e.clientY - r.top;
+
+        if (!raf) {
+          raf = requestAnimationFrame(apply);
+        }
+      };
+
+      // Utilisation de pointermove pour meilleure compatibilité tactile/souris hybride
+      section.addEventListener("pointermove", onMove, { passive: true });
+    });
+  })();
 </script>
 
 <style>
-  .mood{
+  :root {
+    --bg: #070607;
+    --card: rgba(10, 10, 10, 0.55);
+    --line: rgba(255, 255, 255, 0.10);
+    --text: rgba(255, 255, 255, 0.92);
+    --muted: rgba(255, 255, 255, 0.70);
+    --amber: rgb(220, 140, 60);
+  }
+
+  .mood-section {
     position: relative;
-    padding: clamp(60px, 7vw, 96px) 0;
-    color: rgba(255,255,255,.92);
+    isolation: isolate; /* Crée un contexte d'empilement propre */
     overflow: hidden;
-    background: #070707;
+    color: var(--text);
+    background: var(--bg);
+    margin-top: -56px;
+    padding: calc(clamp(44px, 6vw, 86px) + 56px) 0 clamp(56px, 7vw, 96px);
+    
+    /* Valeurs par défaut pour le glow pour éviter le saut initial */
+    --mx: 50%;
+    --my: 0%;
   }
 
-  /* Transition clean avec ce qu'il y a au-dessus (pas de "barre" sale) */
-  .mood::before{
-    content:"";
-    position:absolute; inset:-40px;
+  .mood-bridge {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -140px;
+    height: 220px;
+    pointer-events: none;
+    z-index: 2; /* Au-dessus de la grille, mais attention aux clics */
+    background: linear-gradient(
+      to bottom,
+      rgba(7, 6, 7, 0) 0%,
+      rgba(7, 6, 7, 0.65) 45%,
+      rgba(7, 6, 7, 1) 100%
+    );
+  }
+
+  /* Grid Background */
+  .mood-section::before {
+    content: "";
+    position: absolute;
+    inset: -60px;
     background:
-      radial-gradient(900px 480px at 50% 0%,
-        rgba(220,140,60,.16),
-        rgba(0,0,0,0) 62%),
-      radial-gradient(700px 520px at 20% 30%,
-        rgba(255,255,255,.06),
-        rgba(0,0,0,0) 70%);
-    pointer-events:none;
+      linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 42px 42px;
+    opacity: 0.22;
+    pointer-events: none;
+    z-index: 0;
+    animation: gridDrift 10s linear infinite;
+    
+    /* Standardisation du mask */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 28%, black 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 28%, black 100%);
   }
 
-  /* Grid */
-  .mood::after{
-    content:"";
-    position:absolute; inset:-60px;
+  /* Glow Effect */
+  .mood-section::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
     background:
-      linear-gradient(to right, rgba(255,255,255,.08) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255,255,255,.08) 1px, transparent 1px);
-    background-size: 44px 44px;
-    opacity: .18;
-    pointer-events:none;
-    mask-image: radial-gradient(closest-side at 50% 40%, rgba(0,0,0,1), rgba(0,0,0,.20) 55%, rgba(0,0,0,0) 74%);
-    animation: gridMove 10s linear infinite;
+      radial-gradient(520px 380px at var(--mx) var(--my),
+        rgba(220, 140, 60, 0.22),
+        rgba(220, 140, 60, 0.10) 38%,
+        transparent 62%),
+      radial-gradient(900px 640px at 70% 30%,
+        rgba(255, 255, 255, 0.06),
+        transparent 65%),
+      radial-gradient(1200px 700px at 30% 10%,
+        rgba(220, 140, 60, 0.07),
+        transparent 68%);
+
+    opacity: 0.95;
+    pointer-events: none;
+    z-index: 1; /* Juste au dessus de la grille */
+    mix-blend-mode: screen;
+
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%);
+
+    animation: glowFloat 6.5s ease-in-out infinite;
   }
 
-  @keyframes gridMove{
-    from{ background-position: 0 0, 0 0; }
-    to{ background-position: 44px 0, 0 44px; }
+  @keyframes gridDrift {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 42px 0, 0 42px; }
   }
 
-  @media (prefers-reduced-motion: reduce){
-    .mood::after{ animation: none; }
+  @keyframes glowFloat {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -10px, 0); }
   }
 
-  .wrap{
+  @media (prefers-reduced-motion: reduce) {
+    .mood-section::before,
+    .mood-section::after {
+      animation: none;
+    }
+  }
+
+  .mood-wrap {
     width: min(1120px, calc(100% - 40px));
     margin: 0 auto;
     position: relative;
-    z-index: 1;
+    z-index: 3; /* Le contenu passe devant tout */
   }
 
-  .head{
+  .mood-head {
     text-align: center;
     margin-bottom: clamp(26px, 4vw, 44px);
   }
 
-  .eyebrow{
+  .mood-eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 10px;
     padding: 10px 14px;
     border-radius: 999px;
-    border: 1px solid rgba(255,255,255,.10);
-    background: rgba(10,10,10,.55);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(10, 10, 10, 0.55);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     font-size: 12px;
-    letter-spacing: .14em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(255,255,255,.78);
+    color: rgba(255, 255, 255, 0.78);
   }
 
-  .dot{
-    width: 8px; height: 8px;
+  .dot {
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background: rgb(220,140,60);
-    box-shadow: 0 0 0 6px rgba(220,140,60,.16);
+    background: var(--amber);
+    box-shadow: 0 0 0 6px rgba(220, 140, 60, 0.16);
   }
 
-  .title{
+  .mood-title {
     margin: 18px auto 0;
     max-width: 18ch;
     font-size: clamp(30px, 5.4vw, 54px);
     line-height: 1.02;
     letter-spacing: -0.02em;
-    font-weight: 800;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity .55s ease, transform .55s ease;
+    font-weight: 700;
   }
 
-  .lead{
+  .mood-lead {
     margin: 14px auto 0;
-    max-width: 70ch;
+    max-width: 68ch;
     font-size: clamp(14px, 1.7vw, 18px);
     line-height: 1.7;
-    color: rgba(255,255,255,.72);
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity .55s ease .08s, transform .55s ease .08s;
+    color: rgba(255, 255, 255, 0.72);
   }
 
-  .actions{
+  .mood-actions {
     margin-top: 22px;
     display: flex;
     justify-content: center;
     gap: 12px;
     flex-wrap: wrap;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity .55s ease .16s, transform .55s ease .16s;
   }
 
-  .btn{
+  .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     padding: 14px 18px;
     border-radius: 999px;
-    border: 1px solid rgba(255,255,255,.14);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     text-decoration: none;
-    font-weight: 750;
-    letter-spacing: .01em;
-    transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+    font-weight: 600; /* Standardisé */
+    letter-spacing: 0.01em;
+    transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
     user-select: none;
   }
 
-  .btn.primary{
-    background: rgba(236, 228, 214, .95);
-    color: rgba(15,15,15,.96);
-    border-color: rgba(236, 228, 214, .22);
-    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+  .btn.primary {
+    background: rgba(236, 228, 214, 0.95);
+    color: rgba(15, 15, 15, 0.96);
+    border-color: rgba(236, 228, 214, 0.22);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
   }
-  .btn.primary:hover{ transform: translateY(-1px); box-shadow: 0 26px 80px rgba(0,0,0,.45); }
 
-  .btn.ghost{
-    background: rgba(10,10,10,.55);
-    color: rgba(255,255,255,.86);
+  .btn.primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 26px 80px rgba(0, 0, 0, 0.45);
+  }
+
+  .btn.ghost {
+    background: rgba(10, 10, 10, 0.55);
+    color: rgba(255, 255, 255, 0.86);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
   }
-  .btn.ghost:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.22); }
 
-  .arrow{ font-size: 16px; transform: translateY(-1px); }
+  .btn.ghost:hover {
+    transform: translateY(-1px);
+    border-color: rgba(255, 255, 255, 0.22);
+  }
 
-  .grid{
+  .arrow {
+    font-size: 16px;
+    transform: translateY(-1px);
+  }
+
+  .mood-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     gap: 14px;
   }
 
-  .card{
+  .mood-card {
     grid-column: span 4;
     position: relative;
     padding: 18px 18px 16px;
     border-radius: 18px;
-    border: 1px solid rgba(255,255,255,.10);
-    background: rgba(10,10,10,.55);
+
+    /* Bordure subtile de base */
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: var(--card);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+
     overflow: hidden;
     min-height: 150px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: transform .55s ease, opacity .55s ease, border-color .22s ease;
+
+    transition: transform 0.22s ease;
+    will-change: transform;
+    /* Nécessaire pour que le ::after ne sorte pas si on utilise des filtres */
+    z-index: 1;
   }
 
-  /* HOVER: filet/bulles qui tourne (clean, pas cheap) */
-  .card::before{
-    content:"";
-    position:absolute;
-    inset:-2px;
-    border-radius: 20px;
+  .mood-card:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Filet orange : VERSION CORRIGÉE */
+  .mood-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px; /* Épaisseur du filet */
+    
     background:
-      radial-gradient(10px 10px at 18% 30%, rgba(220,140,60,.55), rgba(0,0,0,0) 60%),
-      radial-gradient(12px 12px at 78% 60%, rgba(220,140,60,.45), rgba(0,0,0,0) 60%),
       repeating-conic-gradient(
         from 0deg,
-        rgba(0,0,0,0) 0 14deg,
-        rgba(220,140,60,.92) 14deg 18deg,
-        rgba(0,0,0,0) 18deg 34deg
+        rgba(220, 140, 60, 1) 0 4deg,
+        transparent 4deg 20deg
+      ),
+      conic-gradient(
+        from 0deg,
+        rgba(220, 140, 60, 0),
+        rgba(220, 140, 60, 0.75),
+        rgba(220, 140, 60, 0)
       );
+
+    /* Technique robuste : on masque l'intérieur (padding-box) pour ne garder que la bordure */
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; /* Webkit */
+            mask-composite: exclude; /* Standard */
+
     opacity: 0;
-    filter: blur(.2px) drop-shadow(0 0 10px rgba(220,140,60,.18));
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    padding: 1px;
-    transform: rotate(0deg);
-    transition: opacity .20s ease;
-    pointer-events:none;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    
+    /* Animation orbitale */
+    filter: drop-shadow(0 0 14px rgba(220, 140, 60, 0.22));
   }
 
-  .card:hover::before{
+  .mood-card:hover::after {
     opacity: 1;
-    animation: spin 2.2s linear infinite;
+    animation: orbit 1.15s linear infinite;
   }
 
-  @keyframes spin{
-    to{ transform: rotate(360deg); }
+  @keyframes orbit {
+    to { transform: rotate(360deg); }
   }
 
-  .card:hover{
-    border-color: rgba(255,255,255,.12);
+  @media (prefers-reduced-motion: reduce) {
+    .mood-card:hover::after {
+      animation: none;
+      transform: rotate(45deg); /* Position fixe si pas d'anim */
+    }
   }
 
-  .icon{
-    width: 34px; height: 34px;
+  .icon {
+    width: 34px;
+    height: 34px;
     border-radius: 12px;
     display: grid;
     place-items: center;
-    background: rgba(220, 140, 60, .14);
-    border: 1px solid rgba(220, 140, 60, .22);
-    box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    background: rgba(220, 140, 60, 0.14);
+    border: 1px solid rgba(220, 140, 60, 0.22);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
     margin-bottom: 12px;
   }
 
-  .icon :global(svg){
-    width: 18px; height: 18px;
-    fill: rgba(255,255,255,.92);
-    opacity: .95;
+  .icon :global(svg) {
+    width: 18px;
+    height: 18px;
+    fill: rgba(255, 255, 255, 0.92);
+    opacity: 0.95;
   }
 
-  .cardTitle{
+  .card-title {
     margin: 0;
     font-size: 18px;
     letter-spacing: -0.01em;
     line-height: 1.15;
   }
 
-  .cardDesc{
+  .card-desc {
     margin: 10px 0 0;
-    color: rgba(255,255,255,.70);
+    color: rgba(255, 255, 255, 0.70);
     line-height: 1.6;
     font-size: 14px;
   }
 
-  /* Reveal */
-  .mood.in .title,
-  .mood.in .lead,
-  .mood.in .actions{ opacity: 1; transform: translateY(0); }
+  /* Reveal State */
+  .reveal {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
 
-  .mood.in .card{ opacity: 1; transform: translateY(0); }
-  .mood.in .card:nth-child(1){ transition-delay: .20s; }
-  .mood.in .card:nth-child(2){ transition-delay: .28s; }
-  .mood.in .card:nth-child(3){ transition-delay: .36s; }
+  /* La classe .in est ajoutée par le JS sur la section parent */
+  .in .reveal {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .in .mood-eyebrow { transition-delay: 0.04s; }
+  .in .mood-title { transition-delay: 0.08s; }
+  .in .mood-lead { transition-delay: 0.14s; }
+  .in .mood-actions { transition-delay: 0.20s; }
+  .in .mood-card:nth-child(1) { transition-delay: 0.24s; }
+  .in .mood-card:nth-child(2) { transition-delay: 0.32s; }
+  .in .mood-card:nth-child(3) { transition-delay: 0.40s; }
 
   /* Responsive */
-  @media (max-width: 980px){
-    .card{ grid-column: span 6; }
-    .title{ max-width: 22ch; }
+  @media (max-width: 980px) {
+    .mood-card { grid-column: span 6; }
+    .mood-title { max-width: 22ch; }
   }
 
-  @media (max-width: 640px){
-    .wrap{ width: min(1120px, calc(100% - 26px)); }
-    .card{ grid-column: span 12; }
-    .actions{ gap: 10px; }
-    .btn{ width: 100%; }
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .title, .lead, .actions, .card{ transition: none; transform: none; opacity: 1; }
-    .card:hover::before{ animation: none; }
+  @media (max-width: 640px) {
+    .mood-wrap { width: min(1120px, calc(100% - 26px)); }
+    .mood-card { grid-column: span 12; }
+    .mood-actions { gap: 10px; }
+    .btn { width: 100%; }
   }
 </style>
