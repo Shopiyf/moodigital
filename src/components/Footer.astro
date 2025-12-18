@@ -1,0 +1,318 @@
+---
+const defaults = {
+  brand: "MOODIGITAL",
+  homeHref: "/",
+  tagline: "Canva Mood. Business Mood. L'ordre.",
+  links: [
+    { label: "Offres", href: "#pricing" },
+    { label: "Process", href: "#process" },
+    { label: "FAQ", href: "#faq" },
+  ],
+  resources: [
+    { label: "Kit Mood Express", href: "#kit" },
+    { label: "Formation Canva", href: "#formation" },
+  ],
+  contact: { label: "hello@moodigital.co", href: "mailto:hello@moodigital.co" },
+  cta: { label: "Reserver une demo", href: "#demo" },
+};
+
+const {
+  brand = defaults.brand,
+  homeHref = defaults.homeHref,
+  tagline = defaults.tagline,
+  links = defaults.links,
+  resources = defaults.resources,
+  contact = defaults.contact,
+  cta = defaults.cta,
+} = Astro.props;
+
+const year = new Date().getFullYear();
+---
+
+<footer class="ft" data-footer>
+  <div class="ft-bg" aria-hidden="true"></div>
+  <div class="ft-noise" aria-hidden="true"></div>
+
+  <div class="ft-wrap">
+    <div class="ft-card">
+      <div class="ft-head">
+        <div class="ft-brand">
+          <a class="brand" href={homeHref} aria-label={`${brand} - Accueil`}>
+            <span class="sig" aria-hidden="true"></span>
+            <span class="brand-text">{brand}</span>
+          </a>
+          <p class="tagline">{tagline}</p>
+        </div>
+
+        <a class="btn primary" href={cta.href}>
+          <span>{cta.label}</span>
+          <span class="arrow" aria-hidden="true">→</span>
+          <span class="btn-shine" aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div class="ft-grid">
+        <div class="ft-col">
+          <h3>Explorer</h3>
+          <ul class="ft-list">
+            {links.map((l) => (
+              <li><a class="ft-link" href={l.href}>{l.label}</a></li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="ft-col">
+          <h3>Ressources</h3>
+          <ul class="ft-list">
+            {resources.map((r) => (
+              <li><a class="ft-link" href={r.href}>{r.label}</a></li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="ft-col">
+          <h3>Contact</h3>
+          <a class="ft-link" href={contact.href}>{contact.label}</a>
+          <span class="ft-meta">Reponses sous 48h.</span>
+        </div>
+      </div>
+
+      <div class="ft-bottom">
+        <span class="ft-copy">&copy; {year} {brand}. Tous droits reserves.</span>
+        <a class="ft-link" href="#top">Retour en haut</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ft {
+    --text: #f3f3f4;
+    --muted: rgba(243, 243, 244, 0.72);
+    --cream: #e3dbcf;
+    --orange: #e6730a;
+    --bg0: #070607;
+    --bg1: #0c0a08;
+    --glass: rgba(255, 255, 255, 0.06);
+    --grid: clamp(38px, 6vw, 58px);
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+    color: var(--text);
+    padding: clamp(3.6rem, 7vw, 5rem) 1.25rem clamp(3rem, 6vw, 4.2rem);
+    background: linear-gradient(180deg, var(--bg0), #050405 100%);
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+
+  .ft-bg {
+    position: absolute;
+    inset: -2px;
+    z-index: 0;
+    background:
+      radial-gradient(900px 600px at 18% 0%, rgba(230,115,10,0.18), transparent 62%),
+      radial-gradient(900px 600px at 82% 12%, rgba(227,219,207,0.12), transparent 62%),
+      linear-gradient(180deg, var(--bg1), var(--bg0));
+  }
+
+  .ft-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, rgba(227,219,207,0.08) 0 1px, transparent 1px var(--grid)),
+      repeating-linear-gradient(90deg, rgba(227,219,207,0.08) 0 1px, transparent 1px var(--grid));
+    opacity: 0.35;
+    mix-blend-mode: soft-light;
+  }
+
+  .ft-noise {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.12;
+    mix-blend-mode: overlay;
+    background-image:
+      repeating-radial-gradient(circle at 22% 34%, rgba(255,255,255,0.3) 0 1px, transparent 1px 8px),
+      repeating-radial-gradient(circle at 80% 58%, rgba(0,0,0,0.45) 0 1px, transparent 1px 9px);
+    filter: blur(0.3px);
+  }
+
+  .ft-wrap {
+    width: min(1040px, 100%);
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .ft-card {
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 22px 75px rgba(0,0,0,0.45);
+    padding: clamp(1.6rem, 3vw, 2.2rem);
+    display: grid;
+    gap: clamp(1.6rem, 3vw, 2rem);
+  }
+
+  .ft-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .ft-brand { display: grid; gap: 0.4rem; }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  .sig {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--orange);
+    box-shadow: 0 0 0 7px rgba(230,115,10,0.12);
+  }
+
+  .brand-text {
+    font-weight: 820;
+    letter-spacing: 0.22em;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+  }
+
+  .tagline {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.98rem;
+  }
+
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: clamp(0.82rem, 2.6vw, 0.98rem) clamp(1.05rem, 4.2vw, 1.85rem);
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 680;
+    border: 1px solid transparent;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), background 0.35s var(--ease), border-color 0.35s var(--ease);
+    will-change: transform;
+    transform: translate3d(0,0,0);
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    font-size: clamp(0.98rem, 2.2vw, 1.05rem);
+    line-height: 1.15;
+    text-align: center;
+    flex-wrap: wrap;
+  }
+
+  .primary {
+    background: var(--cream);
+    color: #0b0a08;
+    border-color: rgba(227,219,207,0.78);
+    box-shadow: 0 22px 75px rgba(0,0,0,0.45);
+    overflow: hidden;
+  }
+
+  .primary:hover { box-shadow: 0 32px 95px rgba(0,0,0,0.58); transform: translateY(-2px); }
+
+  .arrow {
+    display: inline-block;
+    transition: transform 0.28s var(--ease);
+    flex: 0 0 auto;
+  }
+
+  .primary:hover .arrow { transform: translateX(4px); }
+
+  .btn-shine {
+    position: absolute;
+    inset: -2px;
+    pointer-events: none;
+    background:
+      linear-gradient(115deg,
+        transparent 0%,
+        rgba(255,255,255,0.00) 38%,
+        rgba(255,255,255,0.35) 50%,
+        rgba(255,255,255,0.00) 62%,
+        transparent 100%
+      );
+    transform: translateX(-120%);
+    opacity: 0.7;
+  }
+
+  .primary:hover .btn-shine { animation: shine 0.9s var(--ease) forwards; }
+
+  @keyframes shine { to { transform: translateX(120%); } }
+
+  .ft-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 3vw, 2rem);
+  }
+
+  .ft-col h3 {
+    margin: 0 0 0.8rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(227,219,207,0.88);
+  }
+
+  .ft-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .ft-link {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.25s var(--ease);
+  }
+
+  .ft-link:hover { color: #fff; }
+
+  .ft-meta {
+    display: block;
+    margin-top: 0.5rem;
+    color: rgba(243,243,244,0.55);
+    font-size: 0.92rem;
+  }
+
+  .ft-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 1.2rem;
+    color: rgba(243,243,244,0.6);
+    font-size: 0.9rem;
+  }
+
+  .ft-copy { color: rgba(243,243,244,0.55); }
+
+  @media (max-width: 900px) {
+    .ft-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    .ft-head { flex-direction: column; align-items: flex-start; }
+    .btn { width: 100%; }
+  }
+</style>
