@@ -1,45 +1,56 @@
 ---
-// Hero.astro - Version Ultra Fluid
+// Hero.astro - Version Mood Digital
 ---
 
 <section class="hero-wrapper">
+  <!-- Fond d'ambiance animé -->
   <div class="bg-glow"></div>
 
   <div class="container">
     
+    <!-- Badge Status Agence -->
     <div class="badge-container float-slow">
       <div class="badge-pill fade-in">
         <span class="badge-dot"></span>
-        <span class="badge-text">Nouvelle version disponible v2.0</span>
+        <span class="badge-text">Agence Créative & Technique</span>
       </div>
     </div>
 
+    <!-- Titre Principal (Marque) -->
     <h1 class="fade-in delay-1">
-      Une Landing Page <span class="text-gradient">Premium</span><br />
-      qui convertit vos visiteurs.
+      Mood <span class="text-gradient">Digital</span>.
     </h1>
 
+    <!-- Sous-titre -->
     <p class="subtitle fade-in delay-2">
-      Un design haut de gamme, une structure orientée ventes et une performance optimale.
-      Repartez avec un code propre, modulaire et prêt à l'emploi.
+      Nous transformons votre vision en expérience digitale immersive.<br class="desktop-br"/>
+      Design haute couture, développement sans faille.
     </p>
 
+    <!-- Boutons d'action -->
     <div class="cta-group fade-in delay-3">
-      <a href="#pricing" class="btn btn-primary">
-        <span>Voir les offres</span>
+      <a href="#contact" class="btn btn-primary">
+        <span>Lancer un projet</span>
         <svg class="icon-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
       </a>
-      <a href="#demo" class="btn btn-secondary">
-        Voir la démo
+      <a href="#work" class="btn btn-secondary">
+        Nos réalisations
       </a>
     </div>
 
+    <!-- Stats / Preuve (Plus discret pour une agence) -->
     <div class="trust-container fade-in delay-4">
       <div class="rating-badge float-delayed">
-        <span class="stars">★★★★★</span>
-        <span class="separator">|</span>
-        <span class="score">4.9/5</span>
-        <span class="reviews">(120+ avis)</span>
+        <div class="avatars">
+           <!-- Petits cercles abstraits pour simuler des clients/équipe -->
+           <span class="avatar"></span>
+           <span class="avatar"></span>
+           <span class="avatar"></span>
+        </div>
+        <div class="trust-text">
+            <span class="score">100+</span>
+            <span class="reviews">Projets livrés avec succès</span>
+        </div>
       </div>
     </div>
 
@@ -56,7 +67,7 @@
     --accent-light: #ffcc6a;
     --glass-border: rgba(255, 255, 255, 0.08);
     
-    /* Le secret de la fluidité : une courbe de bézier personnalisée */
+    /* Courbe de fluidité Apple-like */
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
@@ -66,221 +77,213 @@
     background-color: var(--bg-dark);
     color: var(--text-main);
     overflow: hidden;
-    padding: 8rem 1rem 6rem;
-    min-height: 85vh;
+    padding: 9rem 1rem 7rem; /* Un peu plus d'espace en haut */
+    min-height: 90vh; /* Prend presque tout l'écran */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family: var(--font-main, system-ui, sans-serif);
   }
 
   .container {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
     text-align: center;
     position: relative;
     z-index: 10;
-    perspective: 1000px; /* Pour donner de la profondeur */
+    perspective: 1000px;
   }
 
-  /* --- 3. FOND ANIMÉ (Breathing effect) --- */
+  /* --- 3. FOND ANIMÉ --- */
   .bg-glow {
     position: absolute;
-    top: -30%;
+    top: -40%;
     left: 50%;
     transform: translateX(-50%);
-    width: 100vw;
-    max-width: 1000px;
-    height: 800px;
-    background: radial-gradient(circle, rgba(217,164,65,0.12) 0%, rgba(7,6,7,0) 65%);
+    width: 120vw;
+    height: 1000px;
+    /* Dégradé un peu plus mystérieux/sombre pour Mood Digital */
+    background: radial-gradient(circle, rgba(217,164,65,0.08) 0%, rgba(7,6,7,0) 60%);
     z-index: 0;
     pointer-events: none;
-    /* Animation lente du fond */
-    animation: breathe 8s ease-in-out infinite alternate;
+    animation: breathe 10s ease-in-out infinite alternate;
     will-change: opacity, transform;
   }
 
   @keyframes breathe {
-    0% { opacity: 0.8; transform: translateX(-50%) scale(1); }
-    100% { opacity: 0.5; transform: translateX(-50%) scale(1.1); }
+    0% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+    100% { opacity: 0.4; transform: translateX(-50%) scale(1.15); }
   }
 
-  /* --- 4. BADGES & ELEMENTS --- */
+  /* --- 4. ÉLÉMENTS --- */
   
   /* Badge Haut */
-  .badge-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1.8rem;
-  }
+  .badge-container { display: flex; justify-content: center; margin-bottom: 2rem; }
+  
   .badge-pill {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.02);
     border: 1px solid var(--glass-border);
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.2rem;
     border-radius: 99px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
     color: var(--accent-light);
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.8rem;
     backdrop-filter: blur(12px);
-    box-shadow: 0 4px 30px rgba(0,0,0,0.1);
     transition: transform 0.3s var(--ease-out-expo), border-color 0.3s;
   }
-  .badge-pill:hover {
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: scale(1.02);
-  }
+  .badge-pill:hover { border-color: rgba(255, 255, 255, 0.15); transform: scale(1.02); }
+  
   .badge-dot {
-    width: 6px;
-    height: 6px;
+    width: 6px; height: 6px;
     background-color: var(--accent-gold);
     border-radius: 50%;
-    box-shadow: 0 0 12px var(--accent-gold);
+    box-shadow: 0 0 10px var(--accent-gold);
     animation: pulse-dot 2s infinite;
   }
   @keyframes pulse-dot {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
   }
 
-  /* Badge Bas (Avis) */
-  .trust-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-  }
-  .rating-badge {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 0.7rem 1.4rem;
-    border-radius: 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.8rem;
-    font-size: 0.9rem;
-    backdrop-filter: blur(8px);
-    transition: transform 0.3s var(--ease-out-expo), background 0.3s;
-  }
-  .rating-badge:hover {
-    background: rgba(255, 255, 255, 0.05);
-    transform: translateY(-2px);
-  }
-  .stars { color: var(--accent-gold); letter-spacing: 2px; }
-  .separator { color: var(--glass-border); font-weight: 300; }
-  .score { color: #fff; font-weight: 700; }
-  .reviews { color: var(--text-muted); font-size: 0.85rem; }
-
-  /* Titres */
+  /* Titre Massif */
   h1 {
-    font-size: clamp(2.8rem, 6vw, 4.8rem);
+    font-size: clamp(3.5rem, 8vw, 7rem); /* Beaucoup plus gros */
     font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
     margin-bottom: 1.5rem;
   }
   .text-gradient {
-    background: linear-gradient(135deg, #fff 10%, var(--accent-gold) 100%);
+    background: linear-gradient(135deg, #fff 30%, var(--accent-gold) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    /* Petit effet d'ombre portée subtil sur le texte */
+    filter: drop-shadow(0 0 30px rgba(217, 164, 65, 0.2));
   }
 
   .subtitle {
-    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
     color: var(--text-muted);
-    max-width: 620px;
-    margin: 0 auto 2.8rem;
-    line-height: 1.6;
+    max-width: 680px;
+    margin: 0 auto 3rem;
+    line-height: 1.5;
     font-weight: 400;
   }
+  
+  /* Cache le saut de ligne sur mobile */
+  @media (max-width: 768px) { .desktop-br { display: none; } }
 
   /* Boutons */
   .cta-group {
     display: flex;
-    gap: 1rem;
+    gap: 1.2rem;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
   }
   
   .btn {
-    padding: 0.9rem 2rem;
+    padding: 1rem 2.2rem;
     border-radius: 99px;
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.4s var(--ease-out-expo);
+    transition: all 0.5s var(--ease-out-expo);
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.8rem;
     font-size: 1rem;
-    position: relative;
-    overflow: hidden;
   }
 
   .btn-primary {
-    background: #fff; /* Fond blanc pour contraste max style Apple/Linear */
+    background: #fff;
     color: #000;
     border: 1px solid #fff;
   }
   .btn-primary:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 10px 40px -10px rgba(255, 255, 255, 0.3);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 15px 50px -10px rgba(255, 255, 255, 0.2);
   }
-  /* Animation flèche au survol */
-  .btn-primary:hover .icon-arrow {
-    transform: translateX(4px);
-  }
+  .btn-primary:hover .icon-arrow { transform: translateX(4px); }
   .icon-arrow { transition: transform 0.3s var(--ease-out-expo); }
 
   .btn-secondary {
-    background: rgba(255, 255, 255, 0.04);
+    background: transparent;
     color: #fff;
     border: 1px solid var(--glass-border);
+    backdrop-filter: blur(5px);
   }
   .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.05);
     border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-3px);
+    transform: translateY(-4px);
   }
 
-  /* --- 5. ANIMATIONS (Le coeur du smooth) --- */
+  /* Badge Bas (Style Agence) */
+  .trust-container { display: flex; justify-content: center; margin-top: 1rem; }
   
+  .rating-badge {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 0.6rem 1.2rem 0.6rem 0.8rem;
+    border-radius: 99px;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    backdrop-filter: blur(10px);
+  }
+  
+  .avatars { display: flex; align-items: center; margin-left: 5px; }
+  .avatar {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #333, #555);
+    border: 2px solid var(--bg-dark);
+    margin-left: -8px;
+  }
+  .avatar:nth-child(1) { background: #444; z-index: 3; margin-left: 0; }
+  .avatar:nth-child(2) { background: #666; z-index: 2; }
+  .avatar:nth-child(3) { background: var(--accent-gold); z-index: 1; }
+
+  .trust-text { display: flex; flex-direction: column; line-height: 1.1; text-align: left; }
+  .score { color: #fff; font-weight: 700; font-size: 0.9rem; }
+  .reviews { color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* --- 5. ANIMATIONS --- */
   .fade-in {
     opacity: 0;
-    /* On combine translation, scale et flou pour l'effet "WOW" */
-    transform: translateY(30px) scale(0.95);
-    filter: blur(10px);
-    animation: smoothReveal 1.2s var(--ease-out-expo) forwards;
+    transform: translateY(40px) scale(0.96);
+    filter: blur(8px);
+    animation: smoothReveal 1.4s var(--ease-out-expo) forwards;
     will-change: opacity, transform, filter;
   }
 
-  .delay-1 { animation-delay: 0.15s; }
-  .delay-2 { animation-delay: 0.3s; }
-  .delay-3 { animation-delay: 0.45s; }
-  .delay-4 { animation-delay: 0.6s; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.25s; }
+  .delay-3 { animation-delay: 0.4s; }
+  .delay-4 { animation-delay: 0.55s; }
 
   @keyframes smoothReveal {
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: blur(0);
-    }
+    to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
   }
 
-  /* Effet de flottement continu pour les badges */
-  .float-slow { animation: float 6s ease-in-out infinite; }
-  .float-delayed { animation: float 7s ease-in-out 1s infinite; }
-
+  .float-slow { animation: float 8s ease-in-out infinite; }
+  .float-delayed { animation: float 9s ease-in-out 1.5s infinite; }
   @keyframes float {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+    50% { transform: translateY(-8px); }
   }
 
   /* Mobile */
   @media (max-width: 768px) {
-    .hero-wrapper { padding-top: 5rem; }
-    h1 { margin-bottom: 1rem; }
+    .hero-wrapper { padding-top: 7rem; min-height: 80vh; }
+    h1 { font-size: 3.5rem; letter-spacing: -0.02em; }
     .btn { width: 100%; justify-content: center; }
+    .badge-pill { font-size: 0.7rem; }
   }
 </style>
