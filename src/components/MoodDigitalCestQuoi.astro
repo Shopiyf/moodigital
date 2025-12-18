@@ -1,7 +1,7 @@
 ---
 /**
  * MoodDigitalCestQuoi.astro
- * Version : Stylisée & Premium (Texture, Glassmorphism avancé, Typography gradients)
+ * Version : CORRECTION BORDURE ANIMÉE (Technique Sandwich)
  */
 
 const {
@@ -41,7 +41,6 @@ const icons = {
 
 <section id={id} class="mood-section" data-mood-section>
   <div class="mood-noise"></div>
-  
   <div class="mood-bridge" aria-hidden="true"></div>
 
   <div class="mood-wrap">
@@ -50,24 +49,14 @@ const icons = {
         <span class="dot" aria-hidden="true"></span>
         <span>{eyebrow}</span>
       </div>
-
-      <h2 class="mood-title reveal">
-        <span set:html={title} />
-      </h2>
+      <h2 class="mood-title reveal"><span set:html={title} /></h2>
       <p class="mood-lead reveal">{lead}</p>
-
       <div class="mood-actions reveal">
-        <a
-          class="btn primary"
-          href={ctaHref}
-          target={ctaHref?.startsWith("http") ? "_blank" : undefined}
-          rel={ctaHref?.startsWith("http") ? "noreferrer" : undefined}
-        >
+        <a class="btn primary" href={ctaHref}>
           <span>{ctaLabel}</span>
           <span class="arrow" aria-hidden="true">→</span>
           <div class="shine"></div>
         </a>
-
         <a class="btn ghost" href={secondaryHref}>
           <span>{secondaryLabel}</span>
         </a>
@@ -77,13 +66,17 @@ const icons = {
     <div class="mood-grid" role="list">
       {pillars.map((p) => (
         <article class="mood-card reveal" role="listitem">
-          <div class="card-highlight"></div>
-          <div class="icon-wrap">
-             <div class="icon" aria-hidden="true" set:html={icons[p.icon] ?? icons.star} />
-             <div class="icon-glow"></div>
+          <div class="card-border-gradient"></div>
+          
+          <div class="card-content">
+            <div class="card-highlight"></div>
+            <div class="icon-wrap">
+               <div class="icon" aria-hidden="true" set:html={icons[p.icon] ?? icons.star} />
+               <div class="icon-glow"></div>
+            </div>
+            <h3 class="card-title">{p.title}</h3>
+            <p class="card-desc">{p.desc}</p>
           </div>
-          <h3 class="card-title">{p.title}</h3>
-          <p class="card-desc">{p.desc}</p>
         </article>
       ))}
     </div>
@@ -95,60 +88,39 @@ const icons = {
     const sections = document.querySelectorAll<HTMLElement>("[data-mood-section]");
     if (!sections.length) return;
 
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const finePointer = window.matchMedia("(pointer: fine)").matches;
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add("in");
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
+    // Observer pour l'apparition
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
 
     sections.forEach((section) => {
       io.observe(section);
-
-      if (prefersReduced || !finePointer) return;
-
-      let raf = 0;
-      let lastX = 0;
-      let lastY = 0;
-
-      const apply = () => {
-        raf = 0;
-        section.style.setProperty("--mx", `${lastX}px`);
-        section.style.setProperty("--my", `${lastY}px`);
-      };
-
-      const onMove = (e: PointerEvent) => {
-        const r = section.getBoundingClientRect();
-        lastX = e.clientX - r.left;
-        lastY = e.clientY - r.top;
-
-        if (!raf) {
-          raf = requestAnimationFrame(apply);
-        }
-      };
-
-      section.addEventListener("pointermove", onMove, { passive: true });
+      
+      // Glow Effect souris (optionnel, désactivable si conflit)
+      const finePointer = window.matchMedia("(pointer: fine)").matches;
+      if (finePointer) {
+        section.addEventListener("pointermove", (e) => {
+            const r = section.getBoundingClientRect();
+            section.style.setProperty("--mx", `${e.clientX - r.left}px`);
+            section.style.setProperty("--my", `${e.clientY - r.top}px`);
+        }, { passive: true });
+      }
     });
   })();
 </script>
 
 <style>
   :root {
-    --bg: #050505; /* Noir encore plus profond */
-    --card: rgba(255, 255, 255, 0.03); /* Plus transparent pour l'effet verre */
-    --card-border: rgba(255, 255, 255, 0.08);
+    --bg: #050505;
+    --card-bg: #0a0a0a; /* Fond opaque nécessaire pour la technique sandwich */
     --text: #ffffff;
     --text-muted: rgba(255, 255, 255, 0.65);
     --amber: rgb(220, 140, 60);
-    --amber-glow: rgba(220, 140, 60, 0.4);
   }
 
   .mood-section {
@@ -159,60 +131,24 @@ const icons = {
     background: var(--bg);
     margin-top: -56px;
     padding: calc(clamp(44px, 6vw, 86px) + 56px) 0 clamp(56px, 7vw, 96px);
-    --mx: 50%;
-    --my: 0%;
+    --mx: 50%; --my: 0%;
   }
 
-  /* 1. TEXTURE NOISE : Ajoute un grain cinéma subtil */
   .mood-noise {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0.04;
+    position: absolute; inset: 0; z-index: 0; opacity: 0.04; pointer-events: none;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 
   .mood-bridge {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: -140px;
-    height: 300px;
-    pointer-events: none;
-    z-index: 2;
+    position: absolute; left: 0; right: 0; top: -140px; height: 300px; pointer-events: none; z-index: 1;
     background: radial-gradient(ellipse at top, rgba(20,20,20,1) 0%, rgba(5,5,5,0) 70%);
   }
-
-  /* Grid Background Plus Subtile */
-  .mood-section::before {
-    content: "";
-    position: absolute;
-    inset: -60px;
-    background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-    background-size: 50px 50px;
-    opacity: 0.5;
-    pointer-events: none;
-    z-index: 0;
-    mask-image: radial-gradient(circle at center, black 0%, transparent 80%);
-  }
-
-  /* Glow Effect Dynamique */
+  
+  /* Glow global de la section */
   .mood-section::after {
-    content: "";
-    position: absolute;
-    inset: -100px;
-    background:
-      radial-gradient(600px circle at var(--mx) var(--my), 
-        rgba(220, 140, 60, 0.12), 
-        transparent 40%);
-    opacity: 1;
-    pointer-events: none;
-    z-index: 1;
+    content: ""; position: absolute; inset: -100px; pointer-events: none; z-index: 1;
+    background: radial-gradient(600px circle at var(--mx) var(--my), rgba(220, 140, 60, 0.08), transparent 40%);
     mix-blend-mode: screen;
-    transition: opacity 0.5s;
   }
 
   .mood-wrap {
@@ -222,268 +158,145 @@ const icons = {
     z-index: 3;
   }
 
-  .mood-head {
-    text-align: center;
-    margin-bottom: clamp(40px, 6vw, 64px);
-  }
+  .mood-head { text-align: center; margin-bottom: clamp(40px, 6vw, 64px); }
 
   .mood-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 16px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(8px);
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--amber);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(255, 255, 255, 0.02);
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber);
   }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; }
 
-  .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: currentColor;
-    box-shadow: 0 0 10px currentColor;
-  }
-
-  /* 2. TITRE PREMIUM : Dégradé léger */
   .mood-title {
-    margin: 24px auto 0;
-    max-width: 20ch;
-    font-size: clamp(32px, 6vw, 64px);
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    font-weight: 700;
+    margin: 24px auto 0; max-width: 20ch; font-size: clamp(32px, 6vw, 64px);
+    line-height: 1.1; font-weight: 700;
     background: linear-gradient(to bottom right, #ffffff 30%, #a0a0a0 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   }
 
-  .mood-lead {
-    margin: 20px auto 0;
-    max-width: 60ch;
-    font-size: clamp(16px, 1.8vw, 19px);
-    line-height: 1.7;
-    color: var(--text-muted);
-    font-weight: 400;
-  }
+  .mood-lead { margin: 20px auto 0; max-width: 60ch; font-size: clamp(16px, 1.8vw, 19px); color: var(--text-muted); }
 
-  .mood-actions {
-    margin-top: 32px;
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
+  .mood-actions { margin-top: 32px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
 
-  /* BOUTONS OPTIMISÉS */
   .btn {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 16px 28px;
-    border-radius: 999px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 15px;
-    transition: all 0.3s ease;
-    overflow: hidden;
+    position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+    padding: 16px 28px; border-radius: 999px; text-decoration: none; font-weight: 600; font-size: 15px;
+    transition: all 0.3s ease; overflow: hidden;
   }
+  .btn.primary { background: #ece4d6; color: #0f0f0f; }
+  .btn.primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+  .btn.ghost { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1); }
+  .btn.ghost:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
 
-  /* Bouton Primary avec effet "Shine" */
-  .btn.primary {
-    background: #ece4d6;
-    color: #0f0f0f;
-    box-shadow: 
-      0 0 0 1px rgba(255,255,255,0.1),
-      0 10px 30px -5px rgba(0, 0, 0, 0.5);
-  }
-
-  .btn.primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 
-      0 0 0 1px rgba(255,255,255,0.4),
-      0 20px 40px -5px rgba(0, 0, 0, 0.6);
-  }
-
-  /* Animation du reflet blanc qui passe */
   .shine {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(
-      to right,
-      rgba(255,255,255,0) 0%,
-      rgba(255,255,255,0.6) 50%,
-      rgba(255,255,255,0) 100%
-    );
-    transform: skewX(-25deg);
-    transition: 0.5s;
-    pointer-events: none;
+    position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent);
+    transform: skewX(-25deg); transition: 0.5s;
   }
-  .btn.primary:hover .shine {
-    left: 150%;
-    transition: 0.7s ease-in-out;
-  }
+  .btn.primary:hover .shine { left: 150%; transition: 0.7s ease-in-out; }
 
-  .btn.ghost {
-    background: rgba(255, 255, 255, 0.05);
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  .btn.ghost:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3);
-  }
+  /* --- GRID --- */
+  .mood-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
 
-  /* 3. CARTES AVEC VOLUME (GLASSMORPHISM) */
-  .mood-grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 24px;
-  }
-
+  /* --- CARD REFAITE A NEUF --- */
   .mood-card {
     grid-column: span 4;
     position: relative;
-    padding: 32px 24px;
     border-radius: 24px;
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    
-    /* Effet de volume (ombre interne + externe) */
-    box-shadow: 
-      inset 0 1px 0 rgba(255,255,255,0.1),
-      0 20px 40px -10px rgba(0,0,0,0.5);
-      
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    overflow: hidden;
-    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.3s ease;
-    z-index: 1;
+    /* Plus de padding ici, il est dans .card-content */
+    background: transparent; 
+    overflow: hidden; /* Coupe le gradient qui dépasse */
+    isolation: isolate; /* Force un nouveau contexte pour le z-index */
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   .mood-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(220, 140, 60, 0.3);
-    background: rgba(255, 255, 255, 0.05);
   }
 
-  /* Petit dégradé blanc en haut de la carte pour simuler une lumière zénithale */
+  /* 1. L'ANIMATION ROTATIVE (Derrière) */
+  .card-border-gradient {
+    position: absolute;
+    top: 50%; left: 50%;
+    /* On fait un carré géant centré pour que la rotation soit régulière */
+    width: 200%; 
+    height: 200%; 
+    transform: translate(-50%, -50%);
+    
+    /* Le dégradé conique : Transparent > Orange > Transparent */
+    background: conic-gradient(
+      transparent 0deg, 
+      transparent 80deg, 
+      var(--amber) 120deg, 
+      transparent 160deg, 
+      transparent 360deg
+    );
+    
+    opacity: 0; /* Invisible par défaut */
+    z-index: 0;
+    transition: opacity 0.3s ease;
+    will-change: transform;
+  }
+
+  /* On active l'animation au survol */
+  .mood-card:hover .card-border-gradient {
+    opacity: 1;
+    animation: spin 3s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  /* 2. LE CONTENU (Devant) */
+  .card-content {
+    position: relative;
+    /* C'est ici qu'on définit l'épaisseur de la bordure : 1.5px */
+    inset: 1.5px; 
+    height: calc(100% - 3px); /* Ajustement pour hauteur totale */
+    background: rgba(20, 20, 20, 0.95); /* Fond très sombre mais pas noir total */
+    border-radius: 23px; /* Juste un peu moins que le parent */
+    padding: 32px 24px;
+    z-index: 1; /* Passe devant le gradient */
+    
+    /* Touches visuelles */
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+
+  /* Pour mobile/réduit : bordure statique propre */
+  @media (prefers-reduced-motion: reduce), (hover: none) {
+    .mood-card { border: 1px solid rgba(255,255,255,0.1); }
+    .card-border-gradient { display: none; }
+    .card-content { inset: 0; height: 100%; border-radius: 24px; background: rgba(255,255,255,0.03); }
+  }
+
   .card-highlight {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    opacity: 0.5;
+    position: absolute; top: 0; left: 20%; right: 20%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   }
 
-  /* Filet orange rotatif (Conservé car très stylé) */
-  .mood-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 24px;
-    padding: 1.5px; /* Un peu plus épais */
-    background: conic-gradient(from 0deg, transparent 0deg, var(--amber) 40deg, transparent 80deg);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-
-  .mood-card:hover::after {
-    opacity: 1;
-    animation: orbit 2s linear infinite;
-  }
-
-  @keyframes orbit {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  /* ICONES AVEC GLOW LOCAL */
-  .icon-wrap {
-    position: relative;
-    width: 48px;
-    height: 48px;
-    margin-bottom: 20px;
-    display: grid;
-    place-items: center;
-  }
-
+  /* Icones */
+  .icon-wrap { width: 48px; height: 48px; margin-bottom: 20px; position: relative; display: grid; place-items: center; }
   .icon {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    border-radius: 14px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    width: 100%; height: 100%; border-radius: 14px; z-index: 2;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
   }
-
   .icon-glow {
-    position: absolute;
-    inset: 0;
-    background: var(--amber);
-    filter: blur(20px);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 1;
+    position: absolute; inset: 0; background: var(--amber); filter: blur(20px);
+    opacity: 0; transition: opacity 0.3s; z-index: 1;
   }
-  
-  .mood-card:hover .icon-glow {
-    opacity: 0.3;
-  }
+  .mood-card:hover .icon-glow { opacity: 0.25; }
+  .icon :global(svg) { width: 22px; height: 22px; fill: #fff; }
 
-  .icon :global(svg) {
-    width: 22px;
-    height: 22px;
-    fill: #fff;
-  }
+  .card-title { margin: 0 0 10px; font-size: 20px; font-weight: 600; color: #fff; }
+  .card-desc { margin: 0; color: var(--text-muted); line-height: 1.6; font-size: 15px; }
 
-  .card-title {
-    margin: 0 0 10px;
-    font-size: 20px;
-    font-weight: 600;
-    color: #fff;
-  }
-
-  .card-desc {
-    margin: 0;
-    color: var(--text-muted);
-    line-height: 1.6;
-    font-size: 15px;
-  }
-
-  /* ANIMATIONS */
-  .reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-
-  .in .reveal {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .in .reveal { opacity: 1; transform: translateY(0); }
   .in .mood-eyebrow { transition-delay: 0.1s; }
   .in .mood-title { transition-delay: 0.2s; }
   .in .mood-lead { transition-delay: 0.3s; }
@@ -492,14 +305,6 @@ const icons = {
   .in .mood-card:nth-child(2) { transition-delay: 0.6s; }
   .in .mood-card:nth-child(3) { transition-delay: 0.7s; }
 
-  /* Responsive */
-  @media (max-width: 980px) {
-    .mood-card { grid-column: span 6; }
-  }
-
-  @media (max-width: 640px) {
-    .mood-card { grid-column: span 12; }
-    .mood-title { font-size: 36px; }
-    .btn { width: 100%; }
-  }
+  @media (max-width: 980px) { .mood-card { grid-column: span 6; } }
+  @media (max-width: 640px) { .mood-card { grid-column: span 12; } .mood-title { font-size: 36px; } .btn { width: 100%; } }
 </style>
