@@ -1,164 +1,518 @@
 ---
 // Header.astro
-const links = [
-  { name: "Offre", href: "#offre" },
-  { name: "Preuves", href: "#preuves" },
-  { name: "Process", href: "#process" },
-  { name: "Tarifs", href: "#pricing" },
-];
+// Responsive, sticky, glass, Mood Digital vibe (warm accent, subtle checker + grid)
+
+const defaults = {
+  brand: "Lyvora",
+  homeHref: "/",
+  links: [
+    { label: "Offres", href: "#pricing" },
+    { label: "Process", href: "#process" },
+    { label: "FAQ", href: "#faq" },
+  ],
+  cta: { label: "Reserver une demo", href: "#demo" },
+  secondary: { label: "Voir la demo", href: "#demo" },
+};
+
+const {
+  brand = defaults.brand,
+  homeHref = defaults.homeHref,
+  links = defaults.links,
+  cta = defaults.cta,
+  secondary = defaults.secondary,
+  showSecondary = true,
+  showCta = true,
+  showAnnouncement = false,
+  announcementText = "Offre: -10% ce mois-ci",
+  announcementHref = "#pricing",
+} = Astro.props;
 ---
 
-<header id="main-header">
-  <div class="container">
-    <nav class="nav-wrapper">
-      
-      <a href="/" class="brand">
-        <div class="brand-logo"></div>
-        <span class="brand-text">Lyvora</span>
+<header class="hdr" data-header>
+  {showAnnouncement && (
+    <div class="ann" role="region" aria-label="Annonce">
+      <a class="ann-inner" href={announcementHref}>
+        <span class="ann-dot" aria-hidden="true"></span>
+        <span class="ann-text">{announcementText}</span>
+        <span class="ann-cta" aria-hidden="true">→</span>
+      </a>
+    </div>
+  )}
+
+  <div class="bar">
+    <a class="skip" href="#main">Aller au contenu</a>
+
+    <div class="bar-inner">
+      <a class="brand" href={homeHref} aria-label={`${brand} - Accueil`}>
+        <span class="mark" aria-hidden="true"></span>
+        <span class="brand-text">{brand}</span>
       </a>
 
-      <ul class="nav-links">
-        {links.map((link) => (
-          <li>
-            <a href={link.href}>{link.name}</a>
-          </li>
-        ))}
-      </ul>
+      <nav class="nav" aria-label="Navigation principale">
+        <ul class="nav-list">
+          {links.map((l) => (
+            <li class="nav-item"><a class="nav-link" href={l.href}>{l.label}</a></li>
+          ))}
+        </ul>
+      </nav>
 
-      <div class="nav-action">
-        <a href="#demo" class="btn-sm">
-          Réserver
-        </a>
+      <div class="actions">
+        {showSecondary && (
+          <a class="btn ghost" href={secondary.href}>{secondary.label}</a>
+        )}
+        {showCta && (
+          <a class="btn primary" href={cta.href}>
+            <span class="btn-label">{cta.label}</span>
+            <span class="btn-icon" aria-hidden="true">→</span>
+            <span class="btn-shine" aria-hidden="true"></span>
+          </a>
+        )}
+
+        <button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu" data-burger>
+          <span class="b" aria-hidden="true"></span>
+          <span class="b" aria-hidden="true"></span>
+        </button>
       </div>
+    </div>
 
-    </nav>
+    <div class="mobile" id="mobileMenu" data-mobile hidden>
+      <div class="mobile-inner">
+        <ul class="mobile-list">
+          {links.map((l) => (
+            <li class="mobile-item"><a class="mobile-link" href={l.href} data-mobile-link>{l.label}</a></li>
+          ))}
+        </ul>
+
+        <div class="mobile-actions">
+          {showSecondary && (
+            <a class="btn ghost full" href={secondary.href} data-mobile-link>{secondary.label}</a>
+          )}
+          {showCta && (
+            <a class="btn primary full" href={cta.href} data-mobile-link>
+              <span class="btn-label">{cta.label}</span>
+              <span class="btn-icon" aria-hidden="true">→</span>
+              <span class="btn-shine" aria-hidden="true"></span>
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
-<script>
-  // CORRECTION ICI : On ajoute une sécurité
-  const header = document.querySelector('#main-header');
-  
-  if (header) { // On vérifie que le header existe avant de toucher
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
+<script is:inline>
+  const header = document.querySelector("[data-header]");
+  const burger = document.querySelector("[data-burger]");
+  const mobile = document.querySelector("[data-mobile]");
+  const links = document.querySelectorAll("[data-mobile-link]");
+
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function setOpen(next) {
+    if (!burger || !mobile) return;
+    burger.setAttribute("aria-expanded", String(next));
+
+    if (next) {
+      mobile.hidden = false;
+      mobile.dataset.state = "open";
+      if (!reduce) requestAnimationFrame(() => mobile.classList.add("open"));
+      document.documentElement.classList.add("menu-open");
+    } else {
+      mobile.classList.remove("open");
+      mobile.dataset.state = "closed";
+      document.documentElement.classList.remove("menu-open");
+
+      if (reduce) {
+        mobile.hidden = true;
+        return;
       }
+
+      const done = () => {
+        mobile.hidden = true;
+        mobile.removeEventListener("transitionend", done);
+      };
+      mobile.addEventListener("transitionend", done);
+    }
+  }
+
+  if (burger && mobile) {
+    burger.addEventListener("click", () => {
+      const isOpen = burger.getAttribute("aria-expanded") === "true";
+      setOpen(!isOpen);
+    });
+
+    links.forEach((a) => a.addEventListener("click", () => setOpen(false)));
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setOpen(false);
+    });
+
+    // Close if resized to desktop
+    window.addEventListener("resize", () => {
+      const isOpen = burger.getAttribute("aria-expanded") === "true";
+      if (!isOpen) return;
+      if (window.innerWidth >= 980) setOpen(false);
     });
   }
 </script>
 
 <style>
-  /* --- CONFIG --- */
-  /* Note : Les variables globales (--bg-dark, etc) sont dans index.astro maintenant */
+  :root {
+    --bg0: #070607;
+    --bg1: #0c0a08;
 
-  /* --- STRUCTURE --- */
-  header {
-    position: fixed;
+    --text: #f3f3f4;
+    --muted: rgba(243,243,244,0.72);
+
+    --cream: #e3dbcf;
+    --orange: #e6730a;
+
+    --glass: rgba(255,255,255,0.10);
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { box-sizing: border-box; }
+
+  .hdr {
+    position: sticky;
     top: 0;
-    left: 0;
+    z-index: 60;
+  }
+
+  .ann {
     width: 100%;
-    z-index: 100;
-    padding: 1rem 0;
-    transition: all 0.4s ease; /* Transition standard si la variable manque */
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    animation: slideDown 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    background:
+      radial-gradient(800px 70px at 50% 0%, rgba(230,115,10,0.24), transparent 70%),
+      linear-gradient(180deg, rgba(12,10,8,0.92), rgba(7,6,7,0.82));
+    border-bottom: 1px solid rgba(255,255,255,0.08);
   }
 
-  /* État au scroll */
-  header.scrolled {
-    padding: 0.8rem 0;
-    background: rgba(7, 6, 7, 0.6);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .container {
-    max-width: 1200px;
+  .ann-inner {
+    width: min(1160px, 100%);
     margin: 0 auto;
-    padding: 0 1.5rem;
-  }
-
-  .nav-wrapper {
+    padding: 0.62rem 1.25rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-  }
-
-  /* --- LOGO --- */
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
+    justify-content: center;
+    gap: 0.6rem;
+    color: rgba(227,219,207,0.92);
     text-decoration: none;
-    color: #fff;
-    font-weight: 700;
-    font-size: 1.1rem;
-    letter-spacing: -0.02em;
-  }
-  
-  .brand-logo {
-    width: 24px;
-    height: 24px;
-    border-radius: 6px;
-    background: linear-gradient(135deg, #ffcc6a, #d9a441);
-    box-shadow: 0 0 15px rgba(217, 164, 65, 0.4);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
   }
 
-  /* --- LIENS --- */
-  .nav-links {
+  .ann-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--orange);
+    box-shadow: 0 0 0 6px rgba(230,115,10,0.12);
+    flex: 0 0 auto;
+  }
+
+  .ann-cta { opacity: 0.8; }
+
+  .bar {
+    background: rgba(7,6,7,0.68);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle grid + checker texture (very light) */
+  .bar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.26;
+    background:
+      repeating-linear-gradient(0deg, rgba(227,219,207,0.08) 0 1px, transparent 1px 56px),
+      repeating-linear-gradient(90deg, rgba(227,219,207,0.08) 0 1px, transparent 1px 56px);
+    transform: translate3d(0,0,0);
+    mask-image: radial-gradient(120% 120% at 50% 0%, #000 55%, transparent 100%);
+    -webkit-mask-image: radial-gradient(120% 120% at 50% 0%, #000 55%, transparent 100%);
+  }
+
+  .bar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.08;
+    mix-blend-mode: overlay;
+    background:
+      linear-gradient(45deg, rgba(0,0,0,0.84) 25%, transparent 25%) 0 0 / 46px 46px,
+      linear-gradient(-45deg, rgba(0,0,0,0.84) 25%, transparent 25%) 0 23px / 46px 46px,
+      linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.84) 75%) 23px -23px / 46px 46px,
+      linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.84) 75%) 23px 0 / 46px 46px;
+  }
+
+  .bar-inner {
+    width: min(1160px, 100%);
+    margin: 0 auto;
+    padding: 0.85rem 1.25rem;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .skip {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--cream);
+    color: #0b0a08;
+    padding: 0.6rem 0.9rem;
+    border-radius: 10px;
+  }
+
+  .skip:focus { left: 1.25rem; top: 0.85rem; z-index: 100; }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+    color: var(--text);
+    min-width: 0;
+  }
+
+  .mark {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    background: var(--orange);
+    box-shadow: 0 0 0 7px rgba(230,115,10,0.12);
+    flex: 0 0 auto;
+  }
+
+  .brand-text {
+    font-weight: 780;
+    letter-spacing: 0.02em;
+    font-size: 1.05rem;
+    white-space: nowrap;
+  }
+
+  .nav {
     display: flex;
-    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .nav-list {
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(0.7rem, 2vw, 1.35rem);
     list-style: none;
     padding: 0;
     margin: 0;
-    background: rgba(255, 255, 255, 0.03);
-    padding: 0.3rem;
-    border-radius: 99px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
   }
 
-  .nav-links a {
+  .nav-link {
+    position: relative;
+    display: inline-flex;
+    padding: 0.55rem 0.45rem;
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.9rem;
-    font-weight: 500;
-    padding: 0.5rem 1.2rem;
-    border-radius: 99px;
-    transition: all 0.2s ease;
+    color: rgba(243,243,244,0.88);
+    font-weight: 650;
+    transition: color 0.25s var(--ease);
+  }
+
+  .nav-link:hover { color: rgba(243,243,244,1); }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0.25rem;
+    width: 0;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(227,219,207,0.0), rgba(227,219,207,0.9), rgba(230,115,10,0.95));
+    transform: translateX(-50%);
+    transition: width 0.28s var(--ease);
+  }
+
+  .nav-link:hover::after { width: 100%; }
+
+  .actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.72rem 1.05rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    border: 1px solid transparent;
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease);
+    transform: translate3d(0,0,0);
+    max-width: 100%;
+  }
+
+  .ghost {
+    background: rgba(255,255,255,0.04);
+    color: rgba(243,243,244,0.92);
+    border-color: rgba(255,255,255,0.10);
+    backdrop-filter: blur(10px);
+  }
+
+  .ghost:hover {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.18);
+    transform: translateY(-2px);
+  }
+
+  .primary {
+    background: var(--cream);
+    color: #0b0a08;
+    border-color: rgba(227,219,207,0.78);
+    box-shadow: 0 18px 60px rgba(0,0,0,0.35);
+    overflow: hidden;
+  }
+
+  .primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 28px 85px rgba(0,0,0,0.55);
+  }
+
+  .btn-icon { transition: transform 0.25s var(--ease); }
+  .primary:hover .btn-icon { transform: translateX(4px); }
+
+  .btn-shine {
+    position: absolute;
+    inset: -2px;
+    pointer-events: none;
+    background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.00) 38%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0.00) 62%, transparent 100%);
+    transform: translateX(-130%);
+    opacity: 0.7;
+  }
+
+  .primary:hover .btn-shine { animation: shine 0.9s var(--ease) forwards; }
+  @keyframes shine { to { transform: translateX(130%); } }
+
+  .burger {
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.03);
+    color: var(--text);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: background 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .burger:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.20);
+    transform: translateY(-1px);
+  }
+
+  .b {
+    width: 18px;
+    height: 2px;
+    border-radius: 999px;
+    background: rgba(243,243,244,0.92);
     display: block;
   }
 
-  .nav-links a:hover {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.1);
+  /* Mobile panel */
+  .mobile {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    background: rgba(7,6,7,0.78);
+    backdrop-filter: blur(16px);
+
+    transform-origin: top;
+    transform: translateY(-6px);
+    opacity: 0;
+    transition: transform 0.32s var(--ease), opacity 0.32s var(--ease);
   }
 
-  /* --- BOUTON --- */
-  .btn-sm {
-    background: #fff;
-    color: #000;
-    font-size: 0.9rem;
-    font-weight: 600;
-    padding: 0.6rem 1.2rem;
-    border-radius: 99px;
+  .mobile.open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .mobile-inner {
+    width: min(1160px, 100%);
+    margin: 0 auto;
+    padding: 1rem 1.25rem 1.25rem;
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .mobile-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .mobile-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.95rem 0.85rem;
+    border-radius: 14px;
     text-decoration: none;
-    transition: transform 0.2s ease;
-  }
-  .btn-sm:hover {
-    transform: scale(1.05);
-  }
-
-  /* --- ANIMATION --- */
-  @keyframes slideDown {
-    from { transform: translateY(-100%); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    color: rgba(243,243,244,0.90);
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.02);
+    transition: background 0.25s var(--ease), border-color 0.25s var(--ease);
   }
 
-  /* --- RESPONSIVE --- */
-  @media (max-width: 768px) {
-    .nav-links { display: none; }
+  .mobile-link:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.16);
+  }
+
+  .mobile-actions {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .full { width: 100%; }
+
+  /* Responsive */
+  @media (max-width: 980px) {
+    .nav { display: none; }
+    .burger { display: inline-flex; }
+  }
+
+  @media (max-width: 560px) {
+    .bar-inner { grid-template-columns: 1fr auto; }
+    .actions .ghost { display: none; }
+    .actions .primary { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn, .nav-link, .burger, .mobile { transition: none; }
+    .btn-shine { display: none; }
+  }
+
+  /* Prevent background scroll when menu open */
+  :global(html.menu-open) {
+    overflow: hidden;
   }
 </style>
