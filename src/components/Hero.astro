@@ -1,7 +1,6 @@
 ---
 // Hero.astro
-// Mood Digital WOW: animated grid + checker overlay + cinematic glow + magnetic CTA
-// No right-side moodboard tiles
+// Mood Digital WOW: responsive, no right-side tiles, animated grid + checker + cinematic sheen
 ---
 
 <section class="hero-w" id="top">
@@ -30,12 +29,13 @@
 
       <div class="cta in d3">
         <a class="btn primary magnetic" href="#kit" aria-label="Recevoir le kit gratuit">
-          Recevoir le Kit Mood Express
+          <span class="label">Recevoir le Kit Mood Express</span>
           <span class="arrow" aria-hidden="true">→</span>
           <span class="btn-shine" aria-hidden="true"></span>
         </a>
+
         <a class="btn ghost magnetic" href="#formation" aria-label="Voir la formation Canva">
-          Voir la formation
+          <span class="label">Voir la formation</span>
         </a>
       </div>
 
@@ -68,7 +68,7 @@
   const mFine = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
   const mReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Pointer parallax on desktop
+  // Pointer parallax (desktop only)
   if (hero && mFine && !mReduce) {
     let raf = 0;
     const onMove = (e) => {
@@ -89,22 +89,35 @@
     });
   }
 
-  // Auto drift on mobile / coarse pointer
+  // Auto drift (mobile / coarse pointer), only when hero is visible
   if (hero && (!mFine) && !mReduce) {
+    let running = false;
     let t0 = performance.now();
-    const drift = (t) => {
+
+    const tick = (t) => {
+      if (!running) return;
       const dt = t - t0;
       const mx = 0.5 + Math.sin(dt * 0.00035) * 0.10;
       const my = 0.36 + Math.cos(dt * 0.00028) * 0.08;
       root.style.setProperty("--mx", mx.toFixed(3));
       root.style.setProperty("--my", my.toFixed(3));
-      requestAnimationFrame(drift);
+      requestAnimationFrame(tick);
     };
-    requestAnimationFrame(drift);
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        const e = entries[0];
+        running = !!e && e.isIntersecting;
+        if (running) requestAnimationFrame(tick);
+      },
+      { threshold: 0.15 }
+    );
+
+    io.observe(hero);
   }
 
-  // Magnetic buttons (subtle, premium)
-  if (!mReduce) {
+  // Magnetic buttons (fine pointer only to avoid mobile overflow)
+  if (mFine && !mReduce) {
     const magnets = document.querySelectorAll(".magnetic");
     magnets.forEach((el) => {
       let raf = 0;
@@ -148,20 +161,40 @@
 
     --glass: rgba(255,255,255,0.10);
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* responsive textures */
+    --grid: clamp(38px, 6vw, 58px);
+    --checker: clamp(36px, 6vw, 52px);
   }
+
+  *, *::before, *::after { box-sizing: border-box; }
 
   .hero-w {
     position: relative;
-    overflow: clip;
+    overflow: hidden;
     min-height: 92vh;
-    padding: 7.25rem 1.25rem 6.25rem;
+    padding: clamp(5.8rem, 8vw, 7.25rem) 1.25rem clamp(5.2rem, 7vw, 6.25rem);
     display: grid;
     align-items: center;
     color: var(--text);
     font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   }
 
-  /* Core background: gradients + animated grid + checker overlay, all softened with masks */
+  .wrap {
+    width: min(1040px, 100%);
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .content {
+    text-align: center;
+    max-width: 860px;
+    margin: 0 auto;
+    padding-inline: clamp(0px, 2vw, 18px);
+  }
+
+  /* Background layers */
   .bg {
     position: absolute;
     inset: -2px;
@@ -183,10 +216,9 @@
     position: absolute;
     inset: 0;
 
-    /* Animated grid (Limova vibe) but warmer and softer */
     background:
-      repeating-linear-gradient(0deg, rgba(227,219,207,0.10) 0 1px, transparent 1px 56px),
-      repeating-linear-gradient(90deg, rgba(227,219,207,0.10) 0 1px, transparent 1px 56px);
+      repeating-linear-gradient(0deg, rgba(227,219,207,0.10) 0 1px, transparent 1px var(--grid)),
+      repeating-linear-gradient(90deg, rgba(227,219,207,0.10) 0 1px, transparent 1px var(--grid));
 
     opacity: 0.55;
     transform: translate3d(0,0,0);
@@ -198,18 +230,15 @@
     position: absolute;
     inset: 0;
 
-    /* Checker overlay like the moodboard, subtle */
     background:
-      linear-gradient(45deg, rgba(0,0,0,0.84) 25%, transparent 25%) 0 0 / 46px 46px,
-      linear-gradient(-45deg, rgba(0,0,0,0.84) 25%, transparent 25%) 0 23px / 46px 46px,
-      linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.84) 75%) 23px -23px / 46px 46px,
-      linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.84) 75%) 23px 0 / 46px 46px;
+      linear-gradient(45deg, rgba(0,0,0,0.84) 25%, transparent 25%) 0 0 / var(--checker) var(--checker),
+      linear-gradient(-45deg, rgba(0,0,0,0.84) 25%, transparent 25%) 0 calc(var(--checker) / 2) / var(--checker) var(--checker),
+      linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.84) 75%) calc(var(--checker) / 2) calc(var(--checker) * -0.5) / var(--checker) var(--checker),
+      linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.84) 75%) calc(var(--checker) / 2) 0 / var(--checker) var(--checker);
 
     opacity: 0.13;
     mix-blend-mode: overlay;
-    transform:
-      translate3d(calc((var(--mx) - 0.5) * -22px), calc((var(--my) - 0.5) * -18px), 0);
-
+    transform: translate3d(calc((var(--mx) - 0.5) * -22px), calc((var(--my) - 0.5) * -18px), 0);
     filter: blur(0.2px);
   }
 
@@ -218,7 +247,6 @@
     100% { transform: translate3d(18px, 10px, 0); opacity: 0.62; }
   }
 
-  /* Vignette + bottom fade (prevents harsh cut into the next section) */
   .vignette {
     position: absolute;
     inset: 0;
@@ -229,7 +257,6 @@
       linear-gradient(to bottom, transparent 0%, transparent 70%, rgba(7,6,7,0.92) 90%, rgba(7,6,7,1) 100%);
   }
 
-  /* Grain */
   .grain {
     position: absolute;
     inset: 0;
@@ -243,7 +270,6 @@
     filter: blur(0.2px);
   }
 
-  /* Intro sheen sweep (wow on load) */
   .sheen {
     position: absolute;
     inset: -20% -30%;
@@ -263,19 +289,7 @@
     100% { opacity: 0.0; transform: translate3d(18%, 12%, 0) rotate(20deg); }
   }
 
-  .wrap {
-    width: min(1040px, 100%);
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-  }
-
-  .content {
-    text-align: center;
-    max-width: 860px;
-    margin: 0 auto;
-  }
-
+  /* Typo + UI */
   .pill {
     display: inline-flex;
     align-items: center;
@@ -288,6 +302,7 @@
     box-shadow: 0 18px 65px rgba(0,0,0,0.35);
     margin-bottom: 1.55rem;
     transition: transform 0.35s var(--ease), border-color 0.35s var(--ease);
+    max-width: 100%;
   }
 
   .pill:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.16); }
@@ -299,6 +314,7 @@
     background: var(--orange);
     box-shadow: 0 0 0 6px rgba(230,115,10,0.12);
     animation: pulse 2.4s ease-in-out infinite;
+    flex: 0 0 auto;
   }
 
   @keyframes pulse {
@@ -311,12 +327,14 @@
     letter-spacing: 0.10em;
     text-transform: uppercase;
     color: rgba(227,219,207,0.92);
+    line-height: 1.2;
+    text-wrap: balance;
   }
 
   h1 {
     font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
     font-weight: 820;
-    font-size: clamp(2.75rem, 5.8vw, 5.1rem);
+    font-size: clamp(2.45rem, 5.6vw, 5.1rem);
     line-height: 1.02;
     letter-spacing: -0.045em;
     margin: 0 0 1.15rem;
@@ -329,28 +347,30 @@
   }
 
   .sub {
-    margin: 0 auto 2.25rem;
+    margin: 0 auto 2.15rem;
     color: var(--muted);
-    font-size: clamp(1.06rem, 2.05vw, 1.22rem);
+    font-size: clamp(1.02rem, 2.05vw, 1.22rem);
     line-height: 1.68;
-    max-width: 60ch;
+    max-width: 62ch;
   }
 
   .cta {
     display: flex;
     justify-content: center;
-    gap: 0.9rem;
+    gap: clamp(0.6rem, 2vw, 0.9rem);
     flex-wrap: wrap;
     align-items: center;
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.65rem;
+    width: 100%;
   }
 
   .btn {
     position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 0.7rem;
-    padding: 0.98rem 1.85rem;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: clamp(0.86rem, 2.6vw, 0.98rem) clamp(1.05rem, 4.2vw, 1.85rem);
     border-radius: 999px;
     text-decoration: none;
     font-weight: 680;
@@ -358,6 +378,22 @@
     transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), background 0.35s var(--ease), border-color 0.35s var(--ease);
     will-change: transform;
     transform: translate3d(0,0,0);
+
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    font-size: clamp(0.98rem, 2.2vw, 1.05rem);
+    line-height: 1.15;
+    text-align: center;
+    flex-wrap: wrap;
+  }
+
+  .label {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .primary {
@@ -375,9 +411,7 @@
     backdrop-filter: blur(10px);
   }
 
-  .primary:hover {
-    box-shadow: 0 32px 95px rgba(0,0,0,0.58);
-  }
+  .primary:hover { box-shadow: 0 32px 95px rgba(0,0,0,0.58); }
 
   .ghost:hover {
     border-color: rgba(255,255,255,0.22);
@@ -387,6 +421,7 @@
   .arrow {
     display: inline-block;
     transition: transform 0.28s var(--ease);
+    flex: 0 0 auto;
   }
 
   .primary:hover .arrow { transform: translateX(4px); }
@@ -407,13 +442,9 @@
     opacity: 0.7;
   }
 
-  .primary:hover .btn-shine {
-    animation: shine 0.9s var(--ease) forwards;
-  }
+  .primary:hover .btn-shine { animation: shine 0.9s var(--ease) forwards; }
 
-  @keyframes shine {
-    to { transform: translateX(120%); }
-  }
+  @keyframes shine { to { transform: translateX(120%); } }
 
   .proof {
     display: grid;
@@ -429,12 +460,10 @@
     background: rgba(255,255,255,0.02);
     backdrop-filter: blur(12px);
     transition: transform 0.35s var(--ease), border-color 0.35s var(--ease);
+    min-width: 0;
   }
 
-  .proof-item:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255,255,255,0.16);
-  }
+  .proof-item:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.16); }
 
   .k {
     display: block;
@@ -452,7 +481,6 @@
     font-weight: 620;
   }
 
-  /* Scroll cue */
   .scroll {
     display: inline-flex;
     justify-content: center;
@@ -462,7 +490,7 @@
     border-radius: 999px;
     border: 1px solid rgba(255,255,255,0.12);
     background: rgba(255,255,255,0.02);
-    margin: 2.4rem auto 0;
+    margin: 2.2rem auto 0;
     backdrop-filter: blur(10px);
     box-shadow: 0 18px 55px rgba(0,0,0,0.35);
   }
@@ -482,7 +510,7 @@
     100% { transform: translateY(0); opacity: 0.95; }
   }
 
-  /* Entrance animations */
+  /* Entrance */
   .in {
     opacity: 0;
     transform: translateY(26px) scale(0.985);
@@ -500,17 +528,27 @@
     to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
   }
 
-  /* Responsive */
+  /* Tablet */
   @media (max-width: 900px) {
+    .hero-w { min-height: auto; }
     .proof { grid-template-columns: 1fr; }
-    .hero-w { min-height: auto; padding-top: 5.8rem; }
     .bg::before { animation-duration: 8.2s; }
   }
 
+  /* Mobile */
   @media (max-width: 560px) {
     .cta { flex-direction: column; align-items: stretch; }
-    .btn { width: 100%; justify-content: center; }
+    .btn { width: 100%; }
     .h1-break { display: none; }
+
+    /* allow wrap instead of ellipsis on very small widths */
+    .label { text-overflow: unset; overflow: visible; }
+  }
+
+  /* very small phones */
+  @media (max-width: 380px) {
+    .btn { padding: 0.82rem 1.0rem; }
+    .pill-text { font-size: 0.80rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
