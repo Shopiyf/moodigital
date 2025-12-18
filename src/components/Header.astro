@@ -1,0 +1,167 @@
+---
+// Header.astro
+const links = [
+  { name: "Offre", href: "#offre" },
+  { name: "Preuves", href: "#preuves" },
+  { name: "Process", href: "#process" },
+  { name: "Tarifs", href: "#pricing" },
+];
+---
+
+<header id="main-header">
+  <div class="container">
+    <nav class="nav-wrapper">
+      
+      <a href="/" class="brand">
+        <div class="brand-logo"></div>
+        <span class="brand-text">Lyvora</span>
+      </a>
+
+      <ul class="nav-links">
+        {links.map((link) => (
+          <li>
+            <a href={link.href}>{link.name}</a>
+          </li>
+        ))}
+      </ul>
+
+      <div class="nav-action">
+        <a href="#demo" class="btn-sm">
+          Réserver
+        </a>
+      </div>
+
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Petit script pour gérer l'effet au scroll
+  const header = document.getElementById('main-header');
+  
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+</script>
+
+<style>
+  /* --- CONFIG --- */
+  :root {
+    --bg-dark: #070607;
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --accent-gold: #d9a441;
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* --- STRUCTURE --- */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 1rem 0;
+    transition: all 0.4s var(--ease-out-expo);
+    /* Animation d'entrée du header */
+    animation: slideDown 1s var(--ease-out-expo) forwards;
+  }
+
+  /* État au scroll (plus compact et flouté) */
+  header.scrolled {
+    padding: 0.8rem 0;
+    background: rgba(7, 6, 7, 0.6); /* Semi-transparent */
+    backdrop-filter: blur(12px);     /* Effet verre */
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .nav-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* --- LOGO --- */
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+  }
+  
+  .brand-logo {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #ffcc6a, #d9a441);
+    box-shadow: 0 0 15px rgba(217, 164, 65, 0.4);
+  }
+
+  /* --- LIENS --- */
+  .nav-links {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.3rem;
+    border-radius: 99px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.5rem 1.2rem;
+    border-radius: 99px;
+    transition: all 0.2s ease;
+    display: block;
+  }
+
+  .nav-links a:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* --- BOUTON --- */
+  .btn-sm {
+    background: #fff;
+    color: #000;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border-radius: 99px;
+    text-decoration: none;
+    transition: transform 0.2s var(--ease-out-expo);
+  }
+  .btn-sm:hover {
+    transform: scale(1.05);
+  }
+
+  /* --- ANIMATION ENTREE --- */
+  @keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 768px) {
+    .nav-links { display: none; } /* Cache les liens sur mobile pour rester propre */
+  }
+</style>
