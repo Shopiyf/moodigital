@@ -1,9 +1,9 @@
 ---
 // Header.astro
-// Responsive, sticky, glass, Mood Digital vibe (warm accent, subtle checker + grid)
+// Mood Digital: floating centered dock ("ilot"), transparent at top, glass on scroll, perfectly centered nav
 
 const defaults = {
-  brand: "Lyvora",
+  brand: "MOODIGITAL",
   homeHref: "/",
   links: [
     { label: "Offres", href: "#pricing" },
@@ -11,7 +11,6 @@ const defaults = {
     { label: "FAQ", href: "#faq" },
   ],
   cta: { label: "Reserver une demo", href: "#demo" },
-  secondary: { label: "Voir la demo", href: "#demo" },
 };
 
 const {
@@ -19,34 +18,25 @@ const {
   homeHref = defaults.homeHref,
   links = defaults.links,
   cta = defaults.cta,
-  secondary = defaults.secondary,
-  showSecondary = true,
   showCta = true,
-  showAnnouncement = false,
-  announcementText = "Offre: -10% ce mois-ci",
-  announcementHref = "#pricing",
+  phone = "",
+  phoneHref = "",
 } = Astro.props;
 ---
 
-<header class="hdr" data-header>
-  {showAnnouncement && (
-    <div class="ann" role="region" aria-label="Annonce">
-      <a class="ann-inner" href={announcementHref}>
-        <span class="ann-dot" aria-hidden="true"></span>
-        <span class="ann-text">{announcementText}</span>
-        <span class="ann-cta" aria-hidden="true">→</span>
-      </a>
-    </div>
-  )}
+<header class="hdr at-top" data-header>
+  <a class="skip" href="#main">Aller au contenu</a>
 
-  <div class="bar">
-    <a class="skip" href="#main">Aller au contenu</a>
+  <div class="dock" data-dock>
+    <div class="dock-bg" aria-hidden="true"></div>
 
-    <div class="bar-inner">
-      <a class="brand" href={homeHref} aria-label={`${brand} - Accueil`}>
-        <span class="mark" aria-hidden="true"></span>
-        <span class="brand-text">{brand}</span>
-      </a>
+    <div class="row">
+      <div class="left">
+        <a class="brand" href={homeHref} aria-label={`${brand} - Accueil`}>
+          <span class="sig" aria-hidden="true"></span>
+          <span class="brand-text">{brand}</span>
+        </a>
+      </div>
 
       <nav class="nav" aria-label="Navigation principale">
         <ul class="nav-list">
@@ -56,12 +46,16 @@ const {
         </ul>
       </nav>
 
-      <div class="actions">
-        {showSecondary && (
-          <a class="btn ghost" href={secondary.href}>{secondary.label}</a>
+      <div class="right">
+        {phone && phoneHref && (
+          <a class="phone" href={phoneHref} aria-label={`Appeler ${phone}`}>
+            <span class="phone-dot" aria-hidden="true"></span>
+            <span class="phone-text">{phone}</span>
+          </a>
         )}
+
         {showCta && (
-          <a class="btn primary" href={cta.href}>
+          <a class="btn" href={cta.href}>
             <span class="btn-label">{cta.label}</span>
             <span class="btn-icon" aria-hidden="true">→</span>
             <span class="btn-shine" aria-hidden="true"></span>
@@ -79,22 +73,24 @@ const {
       <div class="mobile-inner">
         <ul class="mobile-list">
           {links.map((l) => (
-            <li class="mobile-item"><a class="mobile-link" href={l.href} data-mobile-link>{l.label}</a></li>
+            <li class="mobile-item"><a class="mobile-link" href={l.href} data-mobile-link>{l.label}<span aria-hidden="true">→</span></a></li>
           ))}
         </ul>
 
-        <div class="mobile-actions">
-          {showSecondary && (
-            <a class="btn ghost full" href={secondary.href} data-mobile-link>{secondary.label}</a>
-          )}
-          {showCta && (
-            <a class="btn primary full" href={cta.href} data-mobile-link>
-              <span class="btn-label">{cta.label}</span>
-              <span class="btn-icon" aria-hidden="true">→</span>
-              <span class="btn-shine" aria-hidden="true"></span>
-            </a>
-          )}
-        </div>
+        {showCta && (
+          <a class="btn full" href={cta.href} data-mobile-link>
+            <span class="btn-label">{cta.label}</span>
+            <span class="btn-icon" aria-hidden="true">→</span>
+            <span class="btn-shine" aria-hidden="true"></span>
+          </a>
+        )}
+
+        {phone && phoneHref && (
+          <a class="phone mobile-phone" href={phoneHref} data-mobile-link>
+            <span class="phone-dot" aria-hidden="true"></span>
+            <span class="phone-text">{phone}</span>
+          </a>
+        )}
       </div>
     </div>
   </div>
@@ -104,9 +100,29 @@ const {
   const header = document.querySelector("[data-header]");
   const burger = document.querySelector("[data-burger]");
   const mobile = document.querySelector("[data-mobile]");
-  const links = document.querySelectorAll("[data-mobile-link]");
+  const mobileLinks = document.querySelectorAll("[data-mobile-link]");
 
   const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Transparent at top, glass after scroll
+  if (header) {
+    const set = () => {
+      const y = window.scrollY || 0;
+      header.classList.toggle("at-top", y < 6);
+      header.classList.toggle("scrolled", y >= 6);
+    };
+
+    set();
+    let raf = 0;
+    window.addEventListener(
+      "scroll",
+      () => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(set);
+      },
+      { passive: true }
+    );
+  }
 
   function setOpen(next) {
     if (!burger || !mobile) return;
@@ -114,12 +130,10 @@ const {
 
     if (next) {
       mobile.hidden = false;
-      mobile.dataset.state = "open";
       if (!reduce) requestAnimationFrame(() => mobile.classList.add("open"));
       document.documentElement.classList.add("menu-open");
     } else {
       mobile.classList.remove("open");
-      mobile.dataset.state = "closed";
       document.documentElement.classList.remove("menu-open");
 
       if (reduce) {
@@ -141,13 +155,12 @@ const {
       setOpen(!isOpen);
     });
 
-    links.forEach((a) => a.addEventListener("click", () => setOpen(false)));
+    mobileLinks.forEach((a) => a.addEventListener("click", () => setOpen(false)));
 
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape") setOpen(false);
     });
 
-    // Close if resized to desktop
     window.addEventListener("resize", () => {
       const isOpen = burger.getAttribute("aria-expanded") === "true";
       if (!isOpen) return;
@@ -166,8 +179,8 @@ const {
 
     --cream: #e3dbcf;
     --orange: #e6730a;
-
     --glass: rgba(255,255,255,0.10);
+
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
@@ -176,90 +189,9 @@ const {
   .hdr {
     position: sticky;
     top: 0;
-    z-index: 60;
-  }
-
-  .ann {
-    width: 100%;
-    background:
-      radial-gradient(800px 70px at 50% 0%, rgba(230,115,10,0.24), transparent 70%),
-      linear-gradient(180deg, rgba(12,10,8,0.92), rgba(7,6,7,0.82));
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .ann-inner {
-    width: min(1160px, 100%);
-    margin: 0 auto;
-    padding: 0.62rem 1.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    color: rgba(227,219,207,0.92);
-    text-decoration: none;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    font-size: 0.78rem;
-  }
-
-  .ann-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 999px;
-    background: var(--orange);
-    box-shadow: 0 0 0 6px rgba(230,115,10,0.12);
-    flex: 0 0 auto;
-  }
-
-  .ann-cta { opacity: 0.8; }
-
-  .bar {
-    background: rgba(7,6,7,0.68);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255,255,255,0.10);
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Subtle grid + checker texture (very light) */
-  .bar::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.26;
-    background:
-      repeating-linear-gradient(0deg, rgba(227,219,207,0.08) 0 1px, transparent 1px 56px),
-      repeating-linear-gradient(90deg, rgba(227,219,207,0.08) 0 1px, transparent 1px 56px);
-    transform: translate3d(0,0,0);
-    mask-image: radial-gradient(120% 120% at 50% 0%, #000 55%, transparent 100%);
-    -webkit-mask-image: radial-gradient(120% 120% at 50% 0%, #000 55%, transparent 100%);
-  }
-
-  .bar::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.08;
-    mix-blend-mode: overlay;
-    background:
-      linear-gradient(45deg, rgba(0,0,0,0.84) 25%, transparent 25%) 0 0 / 46px 46px,
-      linear-gradient(-45deg, rgba(0,0,0,0.84) 25%, transparent 25%) 0 23px / 46px 46px,
-      linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.84) 75%) 23px -23px / 46px 46px,
-      linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.84) 75%) 23px 0 / 46px 46px;
-  }
-
-  .bar-inner {
-    width: min(1160px, 100%);
-    margin: 0 auto;
-    padding: 0.85rem 1.25rem;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: 1rem;
-    position: relative;
-    z-index: 1;
+    z-index: 80;
+    padding: clamp(0.65rem, 1.8vw, 1rem) 1rem;
+    pointer-events: none; /* makes the "ilot" feel like it floats */
   }
 
   .skip {
@@ -270,9 +202,67 @@ const {
     color: #0b0a08;
     padding: 0.6rem 0.9rem;
     border-radius: 10px;
+    pointer-events: auto;
   }
 
-  .skip:focus { left: 1.25rem; top: 0.85rem; z-index: 100; }
+  .skip:focus { left: 1rem; top: 0.75rem; z-index: 100; }
+
+  .dock {
+    width: min(1060px, calc(100% - 0px));
+    margin: 0 auto;
+    border-radius: 999px;
+    position: relative;
+    pointer-events: auto;
+
+    transition: transform 0.35s var(--ease), background 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  }
+
+  /* Glass pill background + subtle textures (Limova-ish, but Mood Digital) */
+  .dock-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    pointer-events: none;
+    opacity: 1;
+
+    background:
+      radial-gradient(700px 120px at 20% 0%, rgba(230,115,10,0.22), transparent 70%),
+      radial-gradient(700px 120px at 80% 0%, rgba(227,219,207,0.14), transparent 70%),
+      linear-gradient(180deg, rgba(12,10,8,0.82), rgba(7,6,7,0.62));
+
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow:
+      0 20px 70px rgba(0,0,0,0.40),
+      inset 0 1px 0 rgba(255,255,255,0.10);
+
+    backdrop-filter: blur(16px);
+  }
+
+  .dock-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    opacity: 0.23;
+    background:
+      repeating-linear-gradient(0deg, rgba(227,219,207,0.08) 0 1px, transparent 1px 56px),
+      repeating-linear-gradient(90deg, rgba(227,219,207,0.08) 0 1px, transparent 1px 56px);
+    mask-image: radial-gradient(120% 120% at 50% 0%, #000 55%, transparent 100%);
+    -webkit-mask-image: radial-gradient(120% 120% at 50% 0%, #000 55%, transparent 100%);
+  }
+
+  .row {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr; /* ensures nav is perfectly centered */
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.72rem 0.95rem;
+  }
+
+  .left { justify-self: start; min-width: 0; }
+  .right { justify-self: end; display: inline-flex; align-items: center; gap: 0.6rem; min-width: 0; }
 
   .brand {
     display: inline-flex;
@@ -283,9 +273,9 @@ const {
     min-width: 0;
   }
 
-  .mark {
-    width: 12px;
-    height: 12px;
+  .sig {
+    width: 10px;
+    height: 10px;
     border-radius: 999px;
     background: var(--orange);
     box-shadow: 0 0 0 7px rgba(230,115,10,0.12);
@@ -293,24 +283,22 @@ const {
   }
 
   .brand-text {
-    font-weight: 780;
-    letter-spacing: 0.02em;
-    font-size: 1.05rem;
+    font-weight: 820;
+    letter-spacing: 0.22em;
+    font-size: 0.95rem;
+    text-transform: uppercase;
     white-space: nowrap;
   }
 
-  .nav {
-    display: flex;
-    justify-content: center;
-  }
+  .nav { display: flex; justify-content: center; }
 
   .nav-list {
-    display: inline-flex;
-    align-items: center;
-    gap: clamp(0.7rem, 2vw, 1.35rem);
     list-style: none;
     padding: 0;
     margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(0.55rem, 1.8vw, 1.25rem);
   }
 
   .nav-link {
@@ -319,7 +307,7 @@ const {
     padding: 0.55rem 0.45rem;
     text-decoration: none;
     color: rgba(243,243,244,0.88);
-    font-weight: 650;
+    font-weight: 680;
     transition: color 0.25s var(--ease);
   }
 
@@ -329,7 +317,7 @@ const {
     content: "";
     position: absolute;
     left: 50%;
-    bottom: 0.25rem;
+    bottom: 0.22rem;
     width: 0;
     height: 2px;
     border-radius: 999px;
@@ -340,10 +328,33 @@ const {
 
   .nav-link:hover::after { width: 100%; }
 
-  .actions {
+  .phone {
     display: inline-flex;
     align-items: center;
-    gap: 0.65rem;
+    gap: 0.5rem;
+    padding: 0.6rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.03);
+    color: rgba(243,243,244,0.90);
+    text-decoration: none;
+    font-weight: 650;
+    transition: background 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease);
+    max-width: 100%;
+  }
+
+  .phone:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.18);
+    transform: translateY(-1px);
+  }
+
+  .phone-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: rgba(227,219,207,0.85);
+    opacity: 0.85;
   }
 
   .btn {
@@ -355,41 +366,24 @@ const {
     padding: 0.72rem 1.05rem;
     border-radius: 999px;
     text-decoration: none;
-    font-weight: 700;
-    border: 1px solid transparent;
-    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease);
+    font-weight: 760;
+    border: 1px solid rgba(227,219,207,0.78);
+    background: var(--cream);
+    color: #0b0a08;
+    box-shadow: 0 18px 60px rgba(0,0,0,0.35);
+    overflow: hidden;
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
     transform: translate3d(0,0,0);
     max-width: 100%;
   }
 
-  .ghost {
-    background: rgba(255,255,255,0.04);
-    color: rgba(243,243,244,0.92);
-    border-color: rgba(255,255,255,0.10);
-    backdrop-filter: blur(10px);
-  }
-
-  .ghost:hover {
-    background: rgba(255,255,255,0.07);
-    border-color: rgba(255,255,255,0.18);
-    transform: translateY(-2px);
-  }
-
-  .primary {
-    background: var(--cream);
-    color: #0b0a08;
-    border-color: rgba(227,219,207,0.78);
-    box-shadow: 0 18px 60px rgba(0,0,0,0.35);
-    overflow: hidden;
-  }
-
-  .primary:hover {
+  .btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 28px 85px rgba(0,0,0,0.55);
   }
 
   .btn-icon { transition: transform 0.25s var(--ease); }
-  .primary:hover .btn-icon { transform: translateX(4px); }
+  .btn:hover .btn-icon { transform: translateX(4px); }
 
   .btn-shine {
     position: absolute;
@@ -400,7 +394,7 @@ const {
     opacity: 0.7;
   }
 
-  .primary:hover .btn-shine { animation: shine 0.9s var(--ease) forwards; }
+  .btn:hover .btn-shine { animation: shine 0.9s var(--ease) forwards; }
   @keyframes shine { to { transform: translateX(130%); } }
 
   .burger {
@@ -434,11 +428,30 @@ const {
     display: block;
   }
 
-  /* Mobile panel */
+  /* Transparent when at top (no "bar" feel) */
+  .hdr.at-top .dock-bg {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    opacity: 1;
+  }
+
+  .hdr.at-top .dock-bg::before { opacity: 0; }
+
+  .hdr.at-top .dock {
+    transform: translateY(-6px);
+  }
+
+  .hdr.scrolled .dock {
+    transform: translateY(0);
+  }
+
+  /* Mobile menu panel aligned with the same "ilot" width */
   .mobile {
-    position: relative;
-    z-index: 1;
-    border-top: 1px solid rgba(255,255,255,0.08);
+    margin-top: 0.6rem;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.10);
     background: rgba(7,6,7,0.78);
     backdrop-filter: blur(16px);
 
@@ -454,11 +467,9 @@ const {
   }
 
   .mobile-inner {
-    width: min(1160px, 100%);
-    margin: 0 auto;
-    padding: 1rem 1.25rem 1.25rem;
+    padding: 1rem 1rem 1.05rem;
     display: grid;
-    gap: 0.9rem;
+    gap: 0.75rem;
   }
 
   .mobile-list {
@@ -487,31 +498,27 @@ const {
     border-color: rgba(255,255,255,0.16);
   }
 
-  .mobile-actions {
-    display: grid;
-    gap: 0.65rem;
-  }
-
   .full { width: 100%; }
+  .mobile-phone { justify-content: center; }
 
-  /* Responsive */
   @media (max-width: 980px) {
     .nav { display: none; }
     .burger { display: inline-flex; }
   }
 
   @media (max-width: 560px) {
-    .bar-inner { grid-template-columns: 1fr auto; }
-    .actions .ghost { display: none; }
-    .actions .primary { display: none; }
+    .row { grid-template-columns: 1fr auto; }
+    .right .phone { display: none; }
+    .right .btn { display: none; }
+
+    .brand-text { letter-spacing: 0.18em; font-size: 0.9rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .btn, .nav-link, .burger, .mobile { transition: none; }
+    .dock, .nav-link, .phone, .btn, .burger, .mobile { transition: none; }
     .btn-shine { display: none; }
   }
 
-  /* Prevent background scroll when menu open */
   :global(html.menu-open) {
     overflow: hidden;
   }
