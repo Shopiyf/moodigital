@@ -1,5 +1,5 @@
 ---
-// Hero.astro
+// Hero.astro - Version Ultra Fluid
 ---
 
 <section class="hero-wrapper">
@@ -7,8 +7,8 @@
 
   <div class="container">
     
-    <div class="badge-container fade-in">
-      <div class="badge-pill">
+    <div class="badge-container float-slow">
+      <div class="badge-pill fade-in">
         <span class="badge-dot"></span>
         <span class="badge-text">Nouvelle version disponible v2.0</span>
       </div>
@@ -26,16 +26,16 @@
 
     <div class="cta-group fade-in delay-3">
       <a href="#pricing" class="btn btn-primary">
-        Voir les offres
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        <span>Voir les offres</span>
+        <svg class="icon-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
       </a>
       <a href="#demo" class="btn btn-secondary">
         Voir la démo
       </a>
     </div>
 
-    <div class="trust-container fade-in delay-3">
-      <div class="rating-badge">
+    <div class="trust-container fade-in delay-4">
+      <div class="rating-badge float-delayed">
         <span class="stars">★★★★★</span>
         <span class="separator">|</span>
         <span class="score">4.9/5</span>
@@ -47,7 +47,7 @@
 </section>
 
 <style>
-  /* --- 1. CONFIGURATION (Variables) --- */
+  /* --- 1. CONFIGURATION --- */
   :root {
     --bg-dark: #070607;
     --text-main: #f3f3f4;
@@ -55,16 +55,19 @@
     --accent-gold: #d9a441;
     --accent-light: #ffcc6a;
     --glass-border: rgba(255, 255, 255, 0.08);
+    
+    /* Le secret de la fluidité : une courbe de bézier personnalisée */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   /* --- 2. STRUCTURE --- */
   .hero-wrapper {
     position: relative;
-    background-color: #070607;
-    color: #f3f3f4;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
     overflow: hidden;
     padding: 8rem 1rem 6rem;
-    min-height: 80vh;
+    min-height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -77,31 +80,41 @@
     text-align: center;
     position: relative;
     z-index: 10;
+    perspective: 1000px; /* Pour donner de la profondeur */
   }
 
-  /* --- 3. FOND (Background) --- */
+  /* --- 3. FOND ANIMÉ (Breathing effect) --- */
   .bg-glow {
     position: absolute;
-    top: -20%;
+    top: -30%;
     left: 50%;
     transform: translateX(-50%);
-    width: 800px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(217,164,65,0.15) 0%, rgba(7,6,7,0) 70%);
+    width: 100vw;
+    max-width: 1000px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(217,164,65,0.12) 0%, rgba(7,6,7,0) 65%);
     z-index: 0;
     pointer-events: none;
+    /* Animation lente du fond */
+    animation: breathe 8s ease-in-out infinite alternate;
+    will-change: opacity, transform;
   }
 
-  /* --- 4. TYPOGRAPHIE & ELEMENTS --- */
+  @keyframes breathe {
+    0% { opacity: 0.8; transform: translateX(-50%) scale(1); }
+    100% { opacity: 0.5; transform: translateX(-50%) scale(1.1); }
+  }
+
+  /* --- 4. BADGES & ELEMENTS --- */
   
-  /* Badge du HAUT (Nouveauté) */
+  /* Badge Haut */
   .badge-container {
     display: flex;
     justify-content: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.8rem;
   }
   .badge-pill {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--glass-border);
     padding: 0.5rem 1rem;
     border-radius: 99px;
@@ -109,72 +122,77 @@
     color: var(--accent-light);
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    backdrop-filter: blur(10px);
+    gap: 0.6rem;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s var(--ease-out-expo), border-color 0.3s;
+  }
+  .badge-pill:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.02);
   }
   .badge-dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     background-color: var(--accent-gold);
     border-radius: 50%;
-    box-shadow: 0 0 10px var(--accent-gold);
+    box-shadow: 0 0 12px var(--accent-gold);
+    animation: pulse-dot 2s infinite;
+  }
+  @keyframes pulse-dot {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
   }
 
-  /* Badge du BAS (Avis Clients - Nouveau style) */
+  /* Badge Bas (Avis) */
   .trust-container {
     display: flex;
     justify-content: center;
     margin-top: 1rem;
   }
   .rating-badge {
-    background: rgba(255, 255, 255, 0.03); /* Fond plus léger que le haut */
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    padding: 0.6rem 1.2rem;
-    border-radius: 12px; /* Un peu moins arrondi pour différencier */
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0.7rem 1.4rem;
+    border-radius: 14px;
     display: inline-flex;
     align-items: center;
     gap: 0.8rem;
     font-size: 0.9rem;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s var(--ease-out-expo), background 0.3s;
   }
-  .stars { 
-    color: var(--accent-gold); 
-    letter-spacing: 2px;
+  .rating-badge:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
   }
-  .separator {
-    color: var(--glass-border);
-    font-weight: 300;
-  }
-  .score { 
-    color: #fff; 
-    font-weight: bold; 
-  }
-  .reviews {
-    color: var(--text-muted);
-    font-size: 0.85rem;
-  }
+  .stars { color: var(--accent-gold); letter-spacing: 2px; }
+  .separator { color: var(--glass-border); font-weight: 300; }
+  .score { color: #fff; font-weight: 700; }
+  .reviews { color: var(--text-muted); font-size: 0.85rem; }
 
-  /* Titre H1 */
+  /* Titres */
   h1 {
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-size: clamp(2.8rem, 6vw, 4.8rem);
     font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
     margin-bottom: 1.5rem;
   }
   .text-gradient {
-    background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent-gold) 100%);
+    background: linear-gradient(135deg, #fff 10%, var(--accent-gold) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
-  /* Sous-titre */
   .subtitle {
-    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
     color: var(--text-muted);
-    max-width: 600px;
-    margin: 0 auto 2.5rem;
+    max-width: 620px;
+    margin: 0 auto 2.8rem;
     line-height: 1.6;
+    font-weight: 400;
   }
 
   /* Boutons */
@@ -183,65 +201,86 @@
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 2rem; /* Réduit un peu l'espace avant les avis */
+    margin-bottom: 2.5rem;
   }
   
   .btn {
-    padding: 0.8rem 1.8rem;
-    border-radius: 50px;
+    padding: 0.9rem 2rem;
+    border-radius: 99px;
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.4s var(--ease-out-expo);
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
+    font-size: 1rem;
+    position: relative;
+    overflow: hidden;
   }
 
   .btn-primary {
-    background: linear-gradient(90deg, var(--accent-gold), var(--accent-light));
-    color: #0f0f12;
-    border: 1px solid transparent;
-    box-shadow: 0 4px 20px rgba(217, 164, 65, 0.3);
+    background: #fff; /* Fond blanc pour contraste max style Apple/Linear */
+    color: #000;
+    border: 1px solid #fff;
   }
   .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(217, 164, 65, 0.4);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 40px -10px rgba(255, 255, 255, 0.3);
   }
+  /* Animation flèche au survol */
+  .btn-primary:hover .icon-arrow {
+    transform: translateX(4px);
+  }
+  .icon-arrow { transition: transform 0.3s var(--ease-out-expo); }
 
   .btn-secondary {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.04);
     color: #fff;
     border: 1px solid var(--glass-border);
   }
   .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
   }
 
-  /* --- 5. ANIMATIONS --- */
+  /* --- 5. ANIMATIONS (Le coeur du smooth) --- */
+  
   .fade-in {
     opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s ease-out forwards;
+    /* On combine translation, scale et flou pour l'effet "WOW" */
+    transform: translateY(30px) scale(0.95);
+    filter: blur(10px);
+    animation: smoothReveal 1.2s var(--ease-out-expo) forwards;
+    will-change: opacity, transform, filter;
   }
-  .delay-1 { animation-delay: 0.2s; }
-  .delay-2 { animation-delay: 0.4s; }
-  .delay-3 { animation-delay: 0.6s; }
 
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
+  .delay-1 { animation-delay: 0.15s; }
+  .delay-2 { animation-delay: 0.3s; }
+  .delay-3 { animation-delay: 0.45s; }
+  .delay-4 { animation-delay: 0.6s; }
+
+  @keyframes smoothReveal {
     to {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
+      filter: blur(0);
     }
   }
 
-  /* Mobile Tweaks */
+  /* Effet de flottement continu pour les badges */
+  .float-slow { animation: float 6s ease-in-out infinite; }
+  .float-delayed { animation: float 7s ease-in-out 1s infinite; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  /* Mobile */
   @media (max-width: 768px) {
-    .hero-wrapper { padding-top: 6rem; }
-    .bg-glow { width: 100%; top: -10%; }
+    .hero-wrapper { padding-top: 5rem; }
+    h1 { margin-bottom: 1rem; }
+    .btn { width: 100%; justify-content: center; }
   }
 </style>
