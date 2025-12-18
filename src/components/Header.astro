@@ -1,77 +1,424 @@
 ---
-// src/pages/index.astro
-import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
+/**
+ * Header.astro (Astro)
+ * Usage:
+ *  <Header />
+ *  <Header brand="Lyvora" />
+ *  <Header links={[{ label: "Offre", href: "#offre" }]} />
+ */
+
+const {
+  brand = "Lyvora",
+  links = [
+    { label: "Offre", href: "#offre" },
+    { label: "Process", href: "#process" },
+    { label: "Résultats", href: "#resultats" },
+    { label: "FAQ", href: "#faq" },
+  ],
+  secondary = { label: "Voir le portfolio", href: "#portfolio" },
+  cta = { label: "Demander une preview", href: "#contact" },
+} = Astro.props;
 ---
 
-<html lang="fr">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Lyvora | Landing Page</title>
-        
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-	</head>
-	<body>
+<header class="header" data-header>
+  <a class="skip" href="#main">Aller au contenu</a>
 
-		<Header />
-		
-		<Hero />
-        
-	</body>
-</html>
+  <div class="wrap">
+    <div class="bar">
+      <a class="brand" href="/" aria-label={`${brand} - Accueil`}>
+        <span class="mark" aria-hidden="true"></span>
+        <span class="name">{brand}</span>
+      </a>
 
-<style is:global>
-    /* On définit les variables pour TOUT le site ici */
-    :root {
-        --bg-dark: #070607;
-        --text-main: #f3f3f4;
-        --text-muted: #b3b3b8;
-        --accent-gold: #d9a441;
-        --accent-light: #ffcc6a;
-        --glass-border: rgba(255, 255, 255, 0.08);
-        
-        /* La police magique */
-        --font-main: 'Inter', system-ui, -apple-system, sans-serif;
-        
-        /* La fluidité */
-        --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-    }
+      <nav class="nav" aria-label="Navigation principale">
+        {links.map((l) => (
+          <a class="navLink" href={l.href}>{l.label}</a>
+        ))}
+      </nav>
 
-    /* Reset de base pour enlever les marges moches */
-    html, body {
-        margin: 0;
-        padding: 0;
-        background-color: var(--bg-dark);
-        color: var(--text-main);
-        font-family: var(--font-main); /* On applique la police partout */
-        overflow-x: hidden; /* Empêche le scroll horizontal accidentel */
-        scroll-behavior: smooth;
-    }
+      <div class="actions">
+        <a class="btn ghost" href={secondary.href}>{secondary.label}</a>
+        <a class="btn primary" href={cta.href}>
+          {cta.label}
+          <span class="spark" aria-hidden="true"></span>
+        </a>
 
-    /* On s'assure que les titres sont beaux partout */
-    h1, h2, h3, h4, .brand {
-        font-family: var(--font-main);
-        letter-spacing: -0.03em; /* Resserre un peu les lettres pour faire "pro" */
-    }
+        <button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" data-burger>
+          <span class="burgerLines" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
 
-    /* Amélioration de la barre de défilement (Scrollbar) */
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-    ::-webkit-scrollbar-track {
-        background: var(--bg-dark);
-    }
-    ::-webkit-scrollbar-thumb {
-        background: #333;
-        border-radius: 5px;
-        border: 2px solid var(--bg-dark);
-    }
-    ::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
+    <div class="mobile" data-mobile hidden>
+      <div class="mobileCard" role="dialog" aria-label="Menu mobile">
+        <div class="mobileTop">
+          <span class="mobileTitle">Menu</span>
+          <button class="close" type="button" aria-label="Fermer le menu" data-close>
+            ✕
+          </button>
+        </div>
+
+        <div class="mobileLinks">
+          {links.map((l) => (
+            <a class="mobileLink" href={l.href} data-mobile-link>{l.label}</a>
+          ))}
+        </div>
+
+        <div class="mobileCtas">
+          <a class="btn ghost full" href={secondary.href} data-mobile-link>{secondary.label}</a>
+          <a class="btn primary full" href={cta.href} data-mobile-link>{cta.label}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector("[data-header]");
+  const burger = header?.querySelector("[data-burger]");
+  const mobile = header?.querySelector("[data-mobile]");
+  const close = header?.querySelector("[data-close]");
+  const mobileLinks = header?.querySelectorAll("[data-mobile-link]");
+
+  function setOpen(open) {
+    if (!burger || !mobile) return;
+    burger.setAttribute("aria-expanded", String(open));
+    mobile.hidden = !open;
+    header.dataset.open = open ? "1" : "0";
+    document.documentElement.style.overflow = open ? "hidden" : "";
+  }
+
+  burger?.addEventListener("click", () => {
+    const isOpen = burger.getAttribute("aria-expanded") === "true";
+    setOpen(!isOpen);
+  });
+
+  close?.addEventListener("click", () => setOpen(false));
+  mobile?.addEventListener("click", (e) => {
+    if (e.target === mobile) setOpen(false);
+  });
+
+  mobileLinks?.forEach((a) => a.addEventListener("click", () => setOpen(false)));
+
+  // petit effet: header plus "dense" au scroll
+  const onScroll = () => {
+    const y = window.scrollY || 0;
+    header?.classList.toggle("scrolled", y > 8);
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+</script>
+
+<style>
+  :root{
+    --bg: #070607;
+    --glass: rgba(255,255,255,.06);
+    --glass2: rgba(255,255,255,.10);
+    --stroke: rgba(255,255,255,.10);
+    --text: rgba(255,255,255,.92);
+    --muted: rgba(255,255,255,.70);
+    --shadow: 0 18px 60px rgba(0,0,0,.45);
+    --radius: 18px;
+  }
+
+  .header{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: 14px 16px;
+    background: linear-gradient(to bottom, rgba(7,6,7,.78), rgba(7,6,7,.35) 60%, rgba(7,6,7,0));
+    backdrop-filter: blur(10px);
+  }
+
+  .wrap{
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .bar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: var(--radius);
+    background: rgba(15,15,18,.62);
+    border: 1px solid var(--stroke);
+    box-shadow: var(--shadow);
+    transition: transform .25s ease, background .25s ease, border-color .25s ease;
+  }
+
+  .header.scrolled .bar{
+    background: rgba(15,15,18,.82);
+    border-color: rgba(255,255,255,.14);
+    transform: translateY(-1px);
+  }
+
+  .brand{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--text);
+    min-width: 160px;
+  }
+
+  .mark{
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    background:
+      radial-gradient(80% 80% at 30% 30%, rgba(255,255,255,.22), rgba(255,255,255,0) 60%),
+      linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.04));
+    border: 1px solid rgba(255,255,255,.12);
+    box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  }
+
+  .name{
+    font-weight: 800;
+    letter-spacing: .2px;
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .nav{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 6px;
+  }
+
+  .navLink{
+    position: relative;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 10px 10px;
+    border-radius: 12px;
+    transition: color .2s ease, background .2s ease;
+    outline: none;
+  }
+
+  .navLink:hover{
+    color: var(--text);
+    background: rgba(255,255,255,.06);
+  }
+
+  .navLink::after{
+    content: \"\";
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 7px;
+    height: 1px;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: linear-gradient(90deg, rgba(255,255,255,.0), rgba(255,255,255,.55), rgba(255,255,255,.0));
+    transition: transform .22s ease;
+    opacity: .85;
+  }
+
+  .navLink:hover::after{
+    transform: scaleX(1);
+  }
+
+  .actions{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .btn{
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 40px;
+    padding: 0 14px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,.10);
+    transition: transform .2s ease, background .2s ease, border-color .2s ease, color .2s ease;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .btn:active{ transform: translateY(1px); }
+
+  .ghost{
+    color: var(--text);
+    background: rgba(255,255,255,.05);
+  }
+
+  .ghost:hover{
+    background: rgba(255,255,255,.08);
+    border-color: rgba(255,255,255,.16);
+  }
+
+  .primary{
+    color: #0c0c10;
+    background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,255,255,.78));
+    border-color: rgba(255,255,255,.20);
+    box-shadow: 0 14px 40px rgba(0,0,0,.35);
+  }
+
+  .primary:hover{
+    transform: translateY(-1px);
+  }
+
+  .spark{
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(0,0,0,.55);
+    opacity: .55;
+    box-shadow: 0 0 0 6px rgba(0,0,0,.08);
+  }
+
+  .burger{
+    display: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.10);
+    color: var(--text);
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease;
+  }
+
+  .burger:hover{
+    background: rgba(255,255,255,.08);
+    border-color: rgba(255,255,255,.16);
+  }
+
+  .burgerLines{
+    display: inline-block;
+    width: 18px;
+    height: 12px;
+    position: relative;
+  }
+
+  .burgerLines::before,
+  .burgerLines::after{
+    content: \"\";
+    position: absolute;
+    left: 0;
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: rgba(255,255,255,.85);
+    transition: transform .22s ease, top .22s ease, opacity .22s ease;
+  }
+
+  .burgerLines::before{ top: 2px; }
+  .burgerLines::after{ top: 8px; }
+
+  /* Menu mobile overlay */
+  .mobile{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(8px);
+    display: grid;
+    place-items: start center;
+    padding: 78px 16px 16px;
+  }
+
+  .mobileCard{
+    width: 100%;
+    max-width: 560px;
+    border-radius: 22px;
+    background: rgba(15,15,18,.92);
+    border: 1px solid rgba(255,255,255,.14);
+    box-shadow: 0 24px 80px rgba(0,0,0,.55);
+    overflow: hidden;
+    animation: pop .18s ease-out;
+  }
+
+  @keyframes pop{
+    from{ transform: translateY(-8px); opacity: .0; }
+    to{ transform: translateY(0); opacity: 1; }
+  }
+
+  .mobileTop{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 14px 10px;
+    border-bottom: 1px solid rgba(255,255,255,.10);
+  }
+
+  .mobileTitle{
+    color: var(--text);
+    font-weight: 800;
+    letter-spacing: .2px;
+  }
+
+  .close{
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.10);
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .mobileLinks{
+    padding: 10px 10px 0;
+    display: grid;
+    gap: 8px;
+  }
+
+  .mobileLink{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 14px;
+    border-radius: 16px;
+    text-decoration: none;
+    color: var(--text);
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.10);
+  }
+
+  .mobileLink:hover{
+    background: rgba(255,255,255,.08);
+    border-color: rgba(255,255,255,.16);
+  }
+
+  .mobileCtas{
+    padding: 12px 10px 14px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .full{ width: 100%; }
+
+  .skip{
+    position: absolute;
+    left: -999px;
+    top: -999px;
+    background: #fff;
+    color: #000;
+    padding: 10px 12px;
+    border-radius: 10px;
+    z-index: 999;
+  }
+  .skip:focus{ left: 16px; top: 10px; }
+
+  /* Responsive */
+  @media (max-width: 940px){
+    .nav{ display: none; }
+    .burger{ display: inline-flex; align-items: center; justify-content: center; }
+    .actions .ghost{ display: none; } /* option: garder seulement CTA sur mobile */
+  }
+
+  /* Animation burger quand ouvert */
+  .header[data-open=\"1\"] .burgerLines::before{ top: 5px; transform: rotate(45deg); }
+  .header[data-open=\"1\"] .burgerLines::after{ top: 5px; transform: rotate(-45deg); }
 </style>
