@@ -1,29 +1,25 @@
 ---
-// Importation des composants
-import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
-import MoodDigitalCestQuoi from '../component/MoodDigitalCestQuoi.astro';
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import MoodDigitalCestQuoi from "../components/MoodDigitalCestQuoi.astro";
 ---
 
 <html lang="fr">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Lyvora | Landing Page</title>
-        
-        <style>
-            body { margin: 0; background-color: #070607; }
-        </style>
-	</head>
-	<body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Lyvora | Landing Page</title>
 
-        <Header />
-        
-        <Hero />
+    <style>
+      body { margin: 0; background-color: #070607; }
+    </style>
+  </head>
 
-		<MoodDigitalCestQuoi />
-        
-        </body>
+  <body>
+    <Header />
+    <Hero />
+    <MoodDigitalCestQuoi />
+  </body>
 </html>
