@@ -1,4 +1,101 @@
-<a data-modal-trigger="pricing" data-bg="yellow" href="#" class="announcement_bar w-inline-block">
-  <div class="weight-600 u-text-balance">🔥 Offre LEGEND :  -10% Mensuel | Code : LEGEND10</div>
-  <div class="weight-600 u-text-balance">-25% Annuel | Code : LEGEND25 🔥</div>
+---
+// AnnouncementBar.astro
+---
+
+<!-- 
+  L'attribut data-bg="yellow" permet de récupérer le dégradé défini dans le Layout.
+  La classe w-inline-block est une classe utilitaire Webflow (display: inline-block), 
+  ici surchargée par le flexbox du CSS local.
+-->
+<a 
+  href="#" 
+  class="announcement_bar w-inline-block" 
+  data-modal-trigger="pricing" 
+  data-bg="yellow"
+>
+  <div class="announcement_content">
+    <div class="weight-600 u-text-balance">🔥 Offre LEGEND : -10% Mensuel | Code : LEGEND10</div>
+    <div class="weight-600 u-text-balance">-25% Annuel | Code : LEGEND25 🔥</div>
+  </div>
 </a>
+
+<style>
+  /* Configuration de la barre */
+  .announcement_bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Au-dessus du Header (souvent 100 ou 999) */
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    width: 100%;
+    min-height: 2.5rem; /* Hauteur minimale */
+    padding: 0.5rem 1rem;
+    
+    text-decoration: none;
+    color: var(--neutral--white, #fff);
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.4;
+    
+    /* Background jaune/orange défini dans les variables globales */
+    background-color: var(--brand--yellow, #dc8e21);
+    /* Si la variable --gr-yellow du layout est chargée, elle s'applique ici */
+    background-image: var(--gr-yellow, linear-gradient(133deg, #f17324 -15.78%, #dc8e21 106.03%));
+    background-blend-mode: overlay, normal;
+    
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  /* Conteneur interne pour gérer l'espacement */
+  .announcement_content {
+    display: flex;
+    gap: 1.5rem; /* Espacement entre les deux offres */
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Typographie */
+  .weight-600 {
+    font-weight: 600;
+  }
+
+  .u-text-balance {
+    text-wrap: balance; /* Équilibre le texte sur plusieurs lignes si besoin */
+  }
+
+  /* Mobile : On empile les textes si l'écran est petit */
+  @media screen and (max-width: 767px) {
+    .announcement_content {
+      gap: 0.25rem;
+      flex-direction: column;
+    }
+    
+    .announcement_bar {
+      padding: 0.75rem;
+    }
+  }
+</style>
+
+<script>
+  // Script optionnel : Ajuster le padding du body/header si la barre est présente
+  // Cela évite que la barre ne cache le logo
+  document.addEventListener('DOMContentLoaded', () => {
+    const bar = document.querySelector('.announcement_bar');
+    const header = document.querySelector('.header') as HTMLElement;
+    
+    if (bar && header) {
+      // On ajoute une classe au body pour signaler la présence de la barre
+      document.body.classList.add('has-announcement');
+      
+      // On peut ajuster le padding-top du header dynamiquement
+      const barHeight = bar.clientHeight;
+      header.style.paddingTop = `calc(1.5em + ${barHeight}px)`;
+    }
+  });
+</script>

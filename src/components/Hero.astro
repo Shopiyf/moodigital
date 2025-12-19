@@ -2,290 +2,279 @@
 // src/components/Hero.astro
 ---
 
-<section class="hero-section">
-  <div class="hero-bg-wrap">
-    <div class="hero-bg-light left"></div>
-    <div class="hero-bg-light right"></div>
-  </div>
-
-  <div class="container">
-    <div class="hero-content">
+<section id="hero" class="hero-section">
+  
+  <div class="padding-global">
+    <div class="container text-center">
       
-      <div class="hero-visuals-row">
-        <div class="agent-avatar"><img src="https://via.placeholder.com/60" alt="Template 1" /></div>
-        <div class="agent-avatar"><img src="https://via.placeholder.com/60" alt="Template 2" /></div>
-        <div class="agent-avatar"><img src="https://via.placeholder.com/60" alt="Template 3" /></div>
-        <div class="agent-avatar"><img src="https://via.placeholder.com/60" alt="Template 4" /></div>
-        <div class="agent-avatar glass-pill"><span>+20 designs</span></div>
-      </div>
-
-      <h1 class="hero-title">
-        Identités Canva prêtes à vendre <br />
-        <span class="text-gradient">pour entrepreneuses ambitieuses</span>
-      </h1>
-
-      <div class="trust-pill">
-        <span class="text-bold">Excellent</span>
-        <span class="dot"></span>
-        <span>4.9 sur 5</span>
-        <div class="stars">★★★★★</div>
-      </div>
-
-      <div class="button-group">
-        <a href="#pricing" class="btn btn-primary">
-          <span>Voir les collections</span>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <a href="/contact" class="btn btn-glass">
-          <span>Réserver un appel</span>
-        </a>
-      </div>
-
-      <div class="marquee-container">
-        <p class="marquee-label">Elles nous font confiance</p>
-        <div class="marquee-mask">
-          <div class="marquee-track">
-            <div class="marquee-item">Canva</div>
-            <div class="marquee-item">Shopify</div>
-            <div class="marquee-item">Pinterest</div>
-            <div class="marquee-item">Instagram</div>
-            <div class="marquee-item">Etsy</div>
-            <div class="marquee-item">Canva</div> <div class="marquee-item">Shopify</div>
-            <div class="marquee-item">Pinterest</div>
-            <div class="marquee-item">Instagram</div>
-            <div class="marquee-item">Etsy</div>
-          </div>
+      <!-- CONTENU PRINCIPAL (TEXTE + AGENTS) -->
+      <div class="hero-content">
+        
+        <!-- 1. Liste des Agents (Visuels flottants) -->
+        <div class="agents-row">
+           <!-- J'utilise les images sources pour l'effet exact -->
+           <div class="agent-item"><img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/68323d71fe90bfcea8620b3a_agent_visual_06.avif" alt="Agent IA" loading="eager" /></div>
+           <div class="agent-item"><img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/68323d71636a5989332331b5_agent_visual_05.avif" alt="Agent IA" loading="eager" /></div>
+           <div class="agent-item"><img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/68323d711d22d62844a88866_agent_visual_04.avif" alt="Agent IA" loading="eager" /></div>
+           <div class="agent-item"><img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/68323d7177455fd18eae0577_agent_visual_03.avif" alt="Agent IA" loading="eager" /></div>
+           <div class="agent-item"><img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/68323d7137cebb7393ce1523_agent_visual_02.avif" alt="Agent IA" loading="eager" /></div>
+           <div class="agent-item"><img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/68323d71b18a41c31f20a560_agent_visual_01.avif" alt="Agent IA" loading="eager" /></div>
+           
+           <!-- Pillule "+9 agents" -->
+           <div class="agent-item glass-pill">
+              <div class="glass-bg"></div>
+              <div class="agent-count"><span class="text-gold">9</span> agents</div>
+           </div>
         </div>
-      </div>
 
+        <!-- 2. Titre H1 -->
+        <h1 class="hero-title">
+          Des agents IA autonomes au service de votre entreprise
+        </h1>
+
+        <!-- 3. Trustpilot -->
+        <div class="trustpilot-pill">
+           <span class="weight-500 text-xs">Excellent</span>
+           <span class="dot"></span>
+           <span class="weight-500 text-xs">4.9 sur 5</span>
+           <div class="stars">
+             <svg width="15" height="14" viewBox="0 0 15 14" fill="none"><path d="M7.5 10.4792L10.5417 9.70833L11.8125 13.625L7.5 10.4792ZM14.5 5.41667H9.14583L7.5 0.375L5.85417 5.41667H0.5L4.83334 8.54167L3.1875 13.5833L7.52083 10.4583L10.1875 8.54167L14.5 5.41667Z" fill="#00B67A"/></svg>
+           </div>
+           <svg width="56" height="11" viewBox="0 0 56 11" fill="none" class="tp-logo"><path d="M3.356 9V1.836H0.764V0.48H7.508V1.836H4.916V9H3.356ZM8.17897 9V2.592H9.61897L9.67897 4.368L9.54697 4.344C9.64297 3.728 9.82297 3.284 10.087 3.012C10.359 2.732 10.727 2.592 11.191 2.592H11.779V3.912H11.179C10.851 3.912 10.579 3.96 10.363 4.056C10.147 4.152 9.98297 4.304 9.87097 4.512C9.76697 4.712 9.71497 4.976 9.71497 5.304V9H8.17897ZM15.0323 9.144C14.3843 9.144 13.8683 8.932 13.4843 8.508C13.1083 8.076 12.9203 7.48 12.9203 6.72V2.592H14.4563V6.336C14.4563 6.872 14.5443 7.268 14.7203 7.524C14.9043 7.772 15.1803 7.896 15.5483 7.896C15.9643 7.896 16.2843 7.76 16.5083 7.488C16.7403 7.208 16.8563 6.804 16.8563 6.276V2.592H18.3923V9H16.9883L16.9523 7.236L17.1443 7.296C17.0483 7.904 16.8203 8.364 16.4603 8.676C16.1003 8.988 15.6243 9.144 15.0323 9.144ZM22.3641 9.144C21.7321 9.144 21.2001 9.052 20.7681 8.868C20.3361 8.684 20.0041 8.428 19.7721 8.1C19.5401 7.772 19.4081 7.4 19.3761 6.984L20.9481 6.912C21.0041 7.248 21.1441 7.508 21.3681 7.692C21.5921 7.876 21.9241 7.968 22.3641 7.968C22.7241 7.968 23.0041 7.912 23.2041 7.8C23.4121 7.68 23.5161 7.496 23.5161 7.248C23.5161 7.104 23.4801 6.984 23.4081 6.888C23.3441 6.792 23.2081 6.708 23.0001 6.636C22.8001 6.564 22.5041 6.492 22.1121 6.42C21.4561 6.308 20.9401 6.172 20.5641 6.012C20.1881 5.844 19.9201 5.636 19.7601 5.388C19.6081 5.14 19.5321 4.832 19.5321 4.464C19.5321 3.864 19.7601 3.38 20.2161 3.012C20.6801 2.636 21.3561 2.448 22.2441 2.448C22.8201 2.448 23.3041 2.544 23.6961 2.736C24.0881 2.92 24.3921 3.176 24.6081 3.504C24.8321 3.824 24.9761 4.192 25.0401 4.608L23.4801 4.68C23.4481 4.464 23.3761 4.276 23.2641 4.116C23.1601 3.956 23.0201 3.836 22.8441 3.756C22.6761 3.668 22.4721 3.624 22.2321 3.624C21.8641 3.624 21.5881 3.696 21.4041 3.84C21.2201 3.984 21.1281 4.176 21.1281 4.416C21.1281 4.584 21.1681 4.724 21.2481 4.836C21.3361 4.948 21.4761 5.04 21.6681 5.112C21.8601 5.176 22.1161 5.236 22.4361 5.292C23.1081 5.396 23.6361 5.532 24.0201 5.7C24.4121 5.86 24.6921 6.068 24.8601 6.324C25.0281 6.572 25.1121 6.872 25.1121 7.224C25.1121 7.632 24.9961 7.98 24.7641 8.268C24.5321 8.556 24.2081 8.776 23.7921 8.928C23.3841 9.072 22.9081 9.144 22.3641 9.144ZM28.4748 9C27.8348 9 27.3628 8.852 27.0588 8.556C26.7628 8.26 26.6148 7.796 26.6148 7.164V1.092H28.1508V7.02C28.1508 7.316 28.2148 7.524 28.3428 7.644C28.4708 7.756 28.6708 7.812 28.9428 7.812H29.8428V9H28.4748ZM25.6068 3.78V2.592H29.8428V3.78H25.6068ZM30.9059 10.8V2.592H32.3819L32.4179 3.96L32.2619 3.888C32.4219 3.416 32.6819 3.06 33.0419 2.82C33.4099 2.572 33.8379 2.448 34.3259 2.448C34.9339 2.448 35.4379 2.6 35.8379 2.904C36.2459 3.208 36.5499 3.612 36.7499 4.116C36.9499 4.62 37.0499 5.18 37.0499 5.796C37.0499 6.412 36.9459 6.972 36.7379 7.476C36.5379 7.98 36.2339 8.384 35.8259 8.688C35.4259 8.992 34.9219 9.144 34.3139 9.144C33.9939 9.144 33.6939 9.088 33.4139 8.976C33.1419 8.864 32.9059 8.704 32.7059 8.496C32.5139 8.288 32.3779 8.044 32.2979 7.764L32.4419 7.644V10.8H30.9059ZM33.9539 7.896C34.4179 7.896 34.7819 7.712 35.0459 7.344C35.3179 6.968 35.4539 6.452 35.4539 5.796C35.4539 5.14 35.3179 4.628 35.0459 4.26C34.7819 3.884 34.4179 3.696 33.9539 3.696C33.6419 3.696 33.3739 3.776 33.1499 3.936C32.9259 4.088 32.7499 4.32 32.6219 4.632C32.5019 4.944 32.4419 5.332 32.4419 5.796C32.4419 6.26 32.5019 6.648 32.6219 6.96C32.7419 7.272 32.9139 7.508 33.1379 7.668C33.3699 7.82 33.6419 7.896 33.9539 7.896ZM38.0027 9V2.592H39.5387V9H38.0027ZM37.9787 1.74V0.372H39.5747V1.74H37.9787ZM42.5574 9C42.0934 9 41.7214 8.88 41.4414 8.64C41.1614 8.4 41.0214 8.016 41.0214 7.488V0.48H42.5574V7.332C42.5574 7.492 42.5974 7.612 42.6774 7.692C42.7654 7.772 42.8854 7.812 43.0374 7.812H43.5054V9H42.5574ZM47.2933 9.144C46.6613 9.144 46.1093 9.008 45.6373 8.736C45.1653 8.456 44.7973 8.064 44.5333 7.56C44.2693 7.056 44.1373 6.468 44.1373 5.796C44.1373 5.116 44.2693 4.528 44.5333 4.032C44.7973 3.528 45.1653 3.14 45.6373 2.868C46.1093 2.588 46.6613 2.448 47.2933 2.448C47.9253 2.448 48.4773 2.588 48.9493 2.868C49.4213 3.14 49.7853 3.528 50.0413 4.032C50.3053 4.528 50.4373 5.116 50.4373 5.796C50.4373 6.468 50.3053 7.056 50.0413 7.56C49.7853 8.064 49.4213 8.456 48.9493 8.736C48.4773 9.008 47.9253 9.144 47.2933 9.144ZM47.2933 7.896C47.7893 7.896 48.1733 7.712 48.4453 7.344C48.7173 6.976 48.8533 6.46 48.8533 5.796C48.8533 5.14 48.7173 4.628 48.4453 4.26C48.1733 3.884 47.7893 3.696 47.2933 3.696C46.7973 3.696 46.4133 3.884 46.1413 4.26C45.8693 4.628 45.7333 5.14 45.7333 5.796C45.7333 6.46 45.8693 6.976 46.1413 7.344C46.4133 7.712 46.7973 7.896 47.2933 7.896ZM53.8103 9C53.1703 9 52.6983 8.852 52.3943 8.556C52.0983 8.26 51.9503 7.796 51.9503 7.164V1.092H53.4863V7.02C53.4863 7.316 53.5503 7.524 53.6783 7.644C53.8063 7.756 54.0063 7.812 54.2783 7.812H55.1783V9H53.8103ZM50.9423 3.78V2.592H55.1783V3.78H50.9423Z" fill="white"/></svg>
+           </div>
+        </div>
+
+        <!-- 4. Groupe de boutons -->
+        <div class="button-group">
+           <a href="#pricing" class="btn_wrap w-inline-block" data-wf--interactive-button--variant="main">
+             <div class="btn_inner">
+                <span class="btn_text">Essayez 7 jours gratuitement</span>
+                <div class="btn_icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="btn_arrow"><path d="M6 18L18 6M18 6H10M18 6V14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="btn_arrow"><path d="M6 18L18 6M18 6H10M18 6V14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+             </div>
+             <div class="btn_bg"></div>
+           </a>
+           
+           <a href="/contact" class="btn_wrap w-inline-block" data-wf--interactive-button--variant="glass">
+             <div class="btn_inner">
+                <span class="btn_text">Réserver une démo</span>
+                <div class="btn_icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="btn_arrow"><path d="M6 18L18 6M18 6H10M18 6V14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="btn_arrow"><path d="M6 18L18 6M18 6H10M18 6V14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+             </div>
+             <div class="btn_bg"></div>
+           </a>
+        </div>
+
+        <!-- 5. Marquee Logos (Défilement infini) -->
+        <div class="marquee-section">
+           <div class="marquee-label">Ils parlent de nous</div>
+           <div class="marquee-mask">
+              <div class="marquee-list">
+                 <!-- Logos dupliqués pour l'effet infini -->
+                 <img src="https://cdn.prod.website-files.com/68323bce3c689193488a549b/690e6dc6c783b6f54c1ee3d9_TF1_logo_2006.svg" alt="TF1" />
+                 <img src="https://cdn.prod.website-files.com/68323bce3c689193488a549b/6903d426be71073bc04c6c04_W9-Logo.svg" alt="W9" />
+                 <img src="https://cdn.prod.website-files.com/68323bce3c689193488a549b/6903d4186d2a539b11d11d7d_LCI_-_Logo_(Aou%CC%82t_2017).svg" alt="LCI" />
+                 <img src="https://cdn.prod.website-files.com/68323bce3c689193488a549b/6903d40ac646d6bd27097b83_Le_Figaro_logo.svg" alt="Le Figaro" />
+                 <img src="https://cdn.prod.website-files.com/68323bce3c689193488a549b/6903d3e3aab30392da138300_Canal_News_logo.svg" alt="Canal News" />
+                 <img src="https://cdn.prod.website-files.com/68323bce3c689193488a549b/6903d3d7ae9cd20d976c08c5_Logo_BFM_Business.svg" alt="BFM Business" />
+                 
+                 <!-- Duplicate -->
+                 <img src="https://cdn.prod.website-files.com/68323bce3c689193488a549b/690e6dc6c783b6f54c1ee3d9_TF1_logo_2006.svg" alt="TF1" />
+                 <img src="https://cdn.prod.website-files.com/68323bce3c689193488a549b/6903d426be71073bc04c6c04_W9-Logo.svg" alt="W9" />
+                 <img src="https://cdn.prod.website-files.com/68323bce3c689193488a549b/6903d4186d2a539b11d11d7d_LCI_-_Logo_(Aou%CC%82t_2017).svg" alt="LCI" />
+              </div>
+           </div>
+        </div>
+
+        <!-- 6. Screen Visual (Grand écran bas de hero) -->
+        <div class="hero-visual-container">
+            <div class="hero-screen-wrap">
+                <div class="hero-screen-border"></div>
+                <div class="hero-screen-inner">
+                    <div class="screen-glass-overlay"></div>
+                    <img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/68392bb788297678eaf43a5a_thumb.avif" alt="Dashboard" class="screen-img" />
+                </div>
+            </div>
+        </div>
+
+      </div>
     </div>
   </div>
+
+  <!-- 7. BACKGROUND EFFECTS (Lumières) -->
+  <div class="bg-wrap">
+    <div class="hero-bg-side left"><img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/6834602df85a766d054b340f_hero_bg_side_left.avif" alt="" /></div>
+    <div class="hero-bg-side right"><img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/6834602dba8769ca3f7fa091_hero_bg_side_right.avif" alt="" /></div>
+    <div class="hero-bg-mask">
+         <div class="hero-bg-circle c1"><img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/68345695b48a50a20b979f93_hero_circle_1.avif" alt="" /></div>
+         <div class="hero-bg-circle c2"><img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/683456967cd1444682c52e33_hero_circle_2.avif" alt="" /></div>
+    </div>
+  </div>
+
 </section>
 
 <style>
-  /* --- Styles Locaux du Hero --- */
+/* --- STYLES LOCAUX HERO (Pour compléter ce qui manque dans layout) --- */
 
-  .hero-section {
+.hero-section {
     position: relative;
-    padding: 8rem 1.5rem 6rem;
+    padding-top: 8em;
     overflow: hidden;
-    text-align: center;
-  }
+}
 
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-  }
-
-  /* --- Arrière-plan Lumières --- */
-  .hero-bg-wrap {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .hero-bg-light {
-    position: absolute;
-    width: 40vw;
-    height: 40vw;
-    border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.15;
-  }
-
-  .hero-bg-light.left {
-    background: var(--brand--yellow); /* Orange/Jaune */
-    top: -10%;
-    left: -10%;
-  }
-
-  .hero-bg-light.right {
-    background: #ffffff;
-    top: 10%;
-    right: -10%;
-    opacity: 0.08;
-  }
-
-  /* --- Contenu --- */
-  .hero-content {
+.hero-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
-  }
-
-  /* Visuels flottants (Avatars) */
-  .hero-visuals-row {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-  }
-
-  .agent-avatar {
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 50%;
-    border: 1px solid var(--alpha--white-12);
-    overflow: hidden;
-    margin-left: -0.75rem; /* Chevauchement */
+    gap: 1.5rem;
     position: relative;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    transition: transform 0.3s ease;
-  }
+    z-index: 2;
+}
 
-  .agent-avatar:first-child { margin-left: 0; }
-  
-  .agent-avatar:hover {
-    transform: translateY(-5px) scale(1.1);
-    z-index: 10;
-  }
-
-  .agent-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .glass-pill {
-    background: var(--gr-glass);
+/* Agents Row */
+.agents-row {
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--neutral--white);
-    backdrop-filter: blur(10px);
-  }
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+.agent-item {
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid var(--alpha--white-3);
+    position: relative;
+    margin-left: -0.75em;
+    transition: transform 0.3s ease;
+}
+.agent-item:first-child { margin-left: 0; }
+.agent-item:hover { transform: translateY(-5px) scale(1.1); z-index: 10; }
+.agent-item img { width: 100%; height: 100%; object-fit: cover; }
 
-  /* Typographie */
-  .hero-title {
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
+/* Pill "+9 agents" */
+.glass-pill {
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    background: var(--gr-glass); /* Fallback si layout manquant */
+    backdrop-filter: blur(10px);
+}
+.agent-count { font-size: 0.75rem; font-weight: 600; color: white; }
+
+/* Title */
+.hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 600;
     line-height: 1.1;
-    letter-spacing: -0.02em;
-    color: var(--neutral--white);
-  }
+    color: white;
+    max-width: 20ch;
+}
 
-  .text-gradient {
-    background: linear-gradient(135deg, #ffffff 0%, var(--brand--yellow) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* Trustpilot Pill */
-  .trust-pill {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: 99em;
-    background: var(--alpha--white-6);
-    border: 1px solid var(--alpha--white-6);
-    font-size: 0.875rem;
-    color: var(--neutral--white);
-  }
-
-  .dot {
-    width: 4px;
-    height: 4px;
-    background: var(--alpha--white-50);
-    border-radius: 50%;
-  }
-
-  .stars {
-    color: #00b67a; /* Vert Trustpilot */
-  }
-
-  /* Boutons */
-  .button-group {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .btn {
+/* Trustpilot */
+.trustpilot-pill {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
+    gap: 0.5em;
+    padding: 0.5em 1em;
     border-radius: 99em;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-  }
-
-  .btn-primary {
-    background: var(--brand--yellow);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
     color: white;
-    box-shadow: var(--sh-btn);
-  }
-  
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px -5px rgba(220, 142, 33, 0.4);
-  }
+    margin-top: 1rem;
+}
+.dot { width: 3px; height: 3px; background: rgba(255,255,255,0.5); border-radius: 50%; }
+.tp-logo { height: 11px; width: auto; fill: white; }
 
-  .btn-glass {
-    background: var(--gr-glass);
-    border: 1px solid var(--alpha--white-12);
-    color: white;
-    backdrop-filter: blur(10px);
-  }
+/* Buttons */
+.button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
 
-  .btn-glass:hover {
-    background: var(--alpha--white-12);
-  }
-
-  /* Marquee */
-  .marquee-container {
+/* Marquee */
+.marquee-section {
     margin-top: 4rem;
     width: 100%;
-    max-width: 800px;
-    opacity: 0.7;
-  }
-
-  .marquee-label {
-    font-size: 0.875rem;
-    color: var(--alpha--white-50);
-    margin-bottom: 1.5rem;
-  }
-
-  .marquee-mask {
+    overflow: hidden;
+    text-align: center;
+}
+.marquee-label { margin-bottom: 1.5rem; font-size: 0.875rem; color: rgba(255,255,255,0.5); font-weight: 500; }
+.marquee-mask {
+    display: flex;
     overflow: hidden;
     mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
-  }
-
-  .marquee-track {
+}
+.marquee-list {
     display: flex;
-    gap: 3rem;
+    gap: 4rem;
     animation: scroll 30s linear infinite;
     width: max-content;
-  }
+    align-items: center;
+    opacity: 0.6;
+}
+.marquee-list img { height: 2rem; width: auto; }
 
-  .marquee-item {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--alpha--white-50);
-    /* Tu peux remplacer le texte par des <img> ici */
-  }
-
-  @keyframes scroll {
+@keyframes scroll {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
-  }
+}
 
-  /* Mobile */
-  @media (max-width: 768px) {
-    .hero-title { font-size: 2rem; }
-    .hero-section { padding-top: 6rem; }
-  }
+/* Hero Screen Visual */
+.hero-visual-container {
+    margin-top: 5rem;
+    width: 100%;
+    max-width: 1000px;
+    margin-left: auto; 
+    margin-right: auto;
+    position: relative;
+    z-index: 2;
+}
+.hero-screen-wrap {
+    position: relative;
+    border-radius: 1.5rem;
+    padding: 1px; /* Pour la bordure gradient */
+    background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+    overflow: hidden;
+}
+.hero-screen-inner {
+    border-radius: 1.5rem;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 16/9;
+}
+.screen-img { width: 100%; height: 100%; object-fit: cover; }
+.screen-glass-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255,255,255,0) 0%, rgba(0,0,0,0.4) 100%);
+    pointer-events: none;
+}
+
+/* Background Effects */
+.bg-wrap { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.hero-bg-side { position: absolute; top: 0; width: 50%; opacity: 0.6; }
+.hero-bg-side.left { left: 0; }
+.hero-bg-side.right { right: 0; }
+.hero-bg-mask { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; }
+.hero-bg-circle { position: absolute; width: 60vw; height: 60vw; max-width: 800px; max-height: 800px; opacity: 0.4; }
+.hero-bg-circle.c1 { animation: rotate 20s linear infinite; }
+.hero-bg-circle.c2 { animation: rotate 25s linear infinite reverse; }
+
+@keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* Mobile */
+@media (max-width: 768px) {
+    .hero-title { font-size: 2.5rem; }
+    .button-group { flex-direction: column; align-items: center; width: 100%; }
+    .btn_wrap { width: 100%; justify-content: center; }
+}
+
 </style>
