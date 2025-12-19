@@ -1,21 +1,69 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import AnnouncementBar from '../components/AnnouncementBar.astro';
+import Layout from "../layouts/Layout.astro";
+import AnnouncementBar from "../components/AnnouncementBar.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+
+
+const title = "Landing Astro";
+const description = "Starter pack Astro: barre d'annonce, header sticky, hero premium.";
 ---
 
-<Layout title="Limova.ai - Accueil">
-  
-  <Header />
 
-  <div class="main-wrapper">
-      <section class="section cc-space">
-          <div class="container" style="height: 50vh; display:flex; align-items:center; justify-content:center;">
-              <h1 class="h1 text-center">Test d'intégration du Header</h1>
-          </div>
-      </section>
-  </div>
+<Layout title={title} description={description}>
+<AnnouncementBar
+text="Nouveau: -25% sur l'offre annuelle avec le code LEGEND25"
+href="#pricing"
+/>
 
-  <AnnouncementBar />
 
-</Layout>
+<Header brandName="Lyvora" ctaText="Reserver une demo" ctaHref="#contact" />
+
+
+<main id="main">
+<Hero
+title="Une landing page qui vend, vraiment"
+subtitle="Base Astro propre: header sticky, menu mobile, reveal animations, CTA solides. Tu peux brancher tes sections ensuite."
+primaryCtaText="Reserver une demo"
+primaryCtaHref="#contact"
+secondaryCtaText="Voir les fonctionnalites"
+secondaryCtaHref="#features"
+/>
+
+
+<!-- Sections minimalistes pour que les ancres du header fonctionnent -->
+<section id="features" class="section">
+<div class="container" data-reveal>
+<h2 class="h2">Fonctionnalites</h2>
+<p class="muted">Remplace cette section par tes blocs. (Je peux te generer les blocs ensuite: proof, features grid, pricing, FAQ, footer.)</p>
+</div>
+</section>
+
+
+<section id="pricing" class="section">
+<div class="container" data-reveal>
+<h2 class="h2">Tarifs</h2>
+<p class="muted">Placeholder.</p>
+</div>
+</section>
+
+
+<section id="faq" class="section">
+<div class="container" data-reveal>
+<h2 class="h2">FAQ</h2>
+<p class="muted">Placeholder.</p>
+</div>
+</section>
+
+
+<section id="contact" class="section">
+<div class="container" data-reveal>
+<h2 class="h2">Contact</h2>
+<div class="card" style="padding: 1rem; margin-top: 0.8rem;">
+<p class="muted" style="margin: 0;">Ajoute ici un formulaire, Calendly, ou un simple mailto.</p>
+</div>
+</div>
+</section>
+
+
+</style>
