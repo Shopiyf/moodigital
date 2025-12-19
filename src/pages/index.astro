@@ -1,21 +1,188 @@
 ---
-// src/pages/index.astro
-import Layout from "../layouts/Layout.astro";
-import Hero from "../components/Hero.astro";
-import MoodDigitalCestQuoi from "../components/MoodDigitalCestQuoi.astro";
-import Footer from "../components/Footer.astro";
+import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout 
-  title="Moodigital | Identités Canva qui vendent"
-  description="Moodigital : identités Canva prêtes à vendre, cadre business et accompagnement premium pour entrepreneuses ambitieuses."
->
+<Layout title="Limova.ai – Assistants IA pour automatiser votre entreprise">
   
-  <main>
-    <Hero />
-    <MoodDigitalCestQuoi />
-  </main>
+  <div data-theme="light" data-nav-bar-height="" class="header">
+    <nav class="nav_wrap">
+      <div class="nav_inner">
+        <div class="nav_left_row">
+          <a href="/" data-nav-button="" aria-current="page" class="nav_logo w-inline-block w--current">
+             <img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/683234d3065607a97217435f_Logo.svg" alt="Limova Logo" width="148" />
+          </a>
+        </div>
+        <div class="nav_menu">
+          <div class="nav_menu_links_wrap">
+            <div class="nav_menu_links_list cc-legend">
+              <a href="/legend" data-menu-reveal="" class="navlink w-inline-block">
+                <div class="navlink_text">Legend</div>
+              </a>
+            </div>
+            <div class="nav_menu_links_divider hide-td cc-legend"></div>
+            <div class="nav_menu_links_list">
+              <a href="/agents-ia" data-menu-reveal="" class="navlink w-inline-block">
+                <div class="navlink_text">Agents IA</div>
+              </a>
+              <a href="https://www.limova.ai/agents/charly" data-menu-reveal="" class="navlink w-inline-block">
+                <div class="navlink_text">Charly<span class="text-white weight-500">+</span></div>
+              </a>
+            </div>
+            <div class="nav_menu_links_divider hide-td"></div>
+            <div class="nav_menu_links_list">
+              <a href="/pricing" data-menu-reveal="" class="navlink w-inline-block">
+                <div class="navlink_text">Nos Offres</div>
+              </a>
+              <a href="#faq" data-menu-reveal="" class="navlink w-inline-block">
+                <div class="navlink_text">F.A.Q</div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="nav_button_row">
+          <div data-nav-button="" class="nav_button_wrap">
+            <a data-modal-trigger="" data-wf--interactive-button--variant="glass-small" href="/contact" class="btn_wrap w-inline-block">
+              <div class="btn_inner"><span class="btn_text">Reserver une démo</span></div>
+              <div class="btn_bg"></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="header_bg"></div>
+  </div>
 
-  <Footer />
+  <div class="main-wrapper">
+    
+    <section id="hero" class="section cc-space overflow-hidden">
+      <div data-pb="" data-pt="" class="padding-section z-1">
+        <div data-small="false" class="padding-global">
+          <div class="container cc-1200 text-center">
+            <div data-load-wrap="" class="section_layout cc-72">
+              <div class="section_layout">
+                <div class="flex-col gap-20">
+                  <div class="flex-col gap-24">
+                    <div class="home_hero_agent_list m-center">
+                        <div class="home_hero_agent_item"><div class="home_hero_agent_inner"><img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/68323d71fe90bfcea8620b3a_agent_visual_06.avif" loading="eager" alt=""/></div></div>
+                        <div class="home_hero_agent_item"><div class="home_hero_agent_inner"><img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/68323d71636a5989332331b5_agent_visual_05.avif" loading="eager" alt=""/></div></div>
+                        <div class="home_hero_agent_item"><div class="home_hero_agent_inner"><img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/68323d711d22d62844a88866_agent_visual_04.avif" loading="eager" alt=""/></div></div>
+                        <div class="home_hero_agent_item cc-content">
+                            <div class="home_hero_agent_inner cc-absolute"><img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/68323de5c6e3217f1807e6dc_agent_visual_multiple.avif" loading="lazy" alt=""/></div>
+                            <div class="z-1"><div class="weight-500"><span class="text-gold">9</span> agents</div></div>
+                        </div>
+                    </div>
+                    <div style="max-width: 80ch;" class="heading_wrap m-center">
+                      <h1 class="" data-split="lines" data-reveal="">Des agents IA autonomes au service de votre entreprise</h1>
+                    </div>
+                  </div>
+                  
+                  <div data-load-translate="" class="tustpilot_pill m-center">
+                    <div class="text-xs weight-500 z-1">Excellent</div>
+                    <div class="tustpilot_dot z-1"></div>
+                    <div class="text-xs weight-500 z-1">4.9 sur 5</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div data-load-translate="" class="_w-full">
+                <div data-wf--build-button-group--variant="align-center" class="button-group">
+                  <a data-modal-trigger="pricing" data-wf--interactive-button--variant="main" href="#" class="btn_wrap w-inline-block">
+                    <div class="btn_inner"><span class="btn_text">Essayez 7 jours gratuitement</span></div>
+                    <div class="btn_bg"></div>
+                  </a>
+                  <a data-modal-trigger="" data-wf--interactive-button--variant="glass" href="/contact" class="btn_wrap w-inline-block">
+                    <div class="btn_inner"><span class="btn_text">Réserver une démo</span></div>
+                    <div class="btn_bg"></div>
+                  </a>
+                </div>
+              </div>
 
+              <div class="flex-col gap-16" style="margin-top: 40px;">
+                <div style="max-width: 200ch;" class="p_wrap text-center"><p class="weight-500 text-s">Ils parlent de nous</p></div>
+                <div class="marquee_mask cc-large-ld">
+                    <div class="marquee_list" style="display:flex; gap: 40px; justify-content: center; opacity: 0.6;">
+                        <img src="https://cdn.prod.website-files.com/68323bce3c689193488a549b/690e6dc6c783b6f54c1ee3d9_TF1_logo_2006.svg" loading="lazy" height="30" alt=""/>
+                        <img src="https://cdn.prod.website-files.com/68323bce3c689193488a549b/6903d426be71073bc04c6c04_W9-Logo.svg" loading="lazy" height="30" alt=""/>
+                        <img src="https://cdn.prod.website-files.com/68323bce3c689193488a549b/6903d40ac646d6bd27097b83_Le_Figaro_logo.svg" loading="lazy" height="30" alt=""/>
+                        <img src="https://cdn.prod.website-files.com/68323bce3c689193488a549b/6903d3d7ae9cd20d976c08c5_Logo_BFM_Business.svg" loading="lazy" height="30" alt=""/>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-wrap">
+        <div class="hero_bg_wrap">
+           <div class="hero_bg_side cc-left"><img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/6834602df85a766d054b340f_hero_bg_side_left.avif" loading="lazy" alt=""/></div>
+           <div class="hero_bg_side cc-right"><img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/6834602dba8769ca3f7fa091_hero_bg_side_right.avif" loading="lazy" alt=""/></div>
+           <div class="hero_bg_mask">
+             <div class="hero_bg_large_wrap">
+                <div class="hero_bg_circle cc-1"><img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/68345695b48a50a20b979f93_hero_circle_1.avif" loading="lazy" alt=""/></div>
+                <div class="hero_bg_circle cc-2"><img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/683456967cd1444682c52e33_hero_circle_2.avif" loading="lazy" alt=""/></div>
+             </div>
+           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="agent" class="section">
+        <div class="padding-section">
+            <div class="padding-global">
+                <div class="container cc-1200">
+                    <div class="flex-col gap-28">
+                         <div style="max-width: 60ch;" class="heading_wrap text-center m-center">
+                            <h2 class="">Concentrez-vous sur ce qui compte vraiment.</h2>
+                         </div>
+                    </div>
+                    <div class="agent_tabs_wrap" style="margin-top: 40px;">
+                        <img src="https://cdn.prod.website-files.com/68323bce3c689193488a549b/68382f9c6f346a9a6f975418_Tom.avif" style="width: 100%; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);" alt="Agent Tom" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="charly" class="section">
+        <div class="padding-global">
+            <div class="container cc-charly cc-1200">
+                <div class="padding-section">
+                    <div style="max-width: 60ch;" class="heading_wrap m-center">
+                        <h2 class="text-center">Pilotez votre entreprise sur WhatsApp avec Charly</h2>
+                    </div>
+                    <div class="charly_wrap" style="margin-top: 40px; display: flex; justify-content: center;">
+                        <img src="https://cdn.prod.website-files.com/6831d8ad2505f0a9d75030e4/683332e076c3b033ca1796c8_iphone%20(1).avif" width="300" alt="Iphone Charly" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="padding-global">
+            <div class="container cc-1440">
+                <div class="footer-inner" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <div class="footer-nav grid-3" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px;">
+                        <div class="footer-nav-list flex-col gap-16">
+                            <div class="weight-500">Navigation</div>
+                            <a href="/" class="footer-link">Accueil</a>
+                            <a href="/agents-ia" class="footer-link">Agents IA</a>
+                            <a href="/pricing" class="footer-link">Nos offres</a>
+                        </div>
+                        <div class="footer-nav-list flex-col gap-16">
+                            <div class="weight-500">Légal</div>
+                            <a href="#" class="footer-link">Mentions légales</a>
+                            <a href="#" class="footer-link">CGV</a>
+                        </div>
+                    </div>
+                    <div class="footer-bottom" style="margin-top: 40px; text-align: center; color: rgba(255,255,255,0.5);">
+                        <div class="text-s">@ 2025 Limova AI, all rights reserved</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+  </div>
 </Layout>
