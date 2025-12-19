@@ -1,576 +1,488 @@
 ---
 // Header.astro
-// Mood Digital: fixed floating "ilot" from the first pixel (no wasted space),
-// mobile menu = header expands downward (no separate dropdown),
-// clean 3-line hamburger morph to X, no blur bugs.
-
-const defaults = {
-  brand: "MOODIGITAL",
-  homeHref: "/",
-  links: [
-    { label: "Offres", href: "#pricing" },
-    { label: "Process", href: "#process" },
-    { label: "FAQ", href: "#faq" },
-  ],
-  cta: { label: "Reserver un diagnostic", href: "#demo" },
-};
-
-const {
-  brand = defaults.brand,
-  homeHref = defaults.homeHref,
-  links = defaults.links,
-  cta = defaults.cta,
-  showCta = true,
-} = Astro.props;
+// Ce composant reproduit le header de Limova.ai en utilisant la structure et les styles extraits.
 ---
 
-<header class="hdr is-top" data-header>
-  <a class="skip" href="#main">Aller au contenu</a>
-
-  <div class="dock" data-dock>
-    <div class="dock-bg" aria-hidden="true"></div>
-
-    <div class="row">
-      <div class="left">
-        <a class="brand" href={homeHref} aria-label={`${brand} - Accueil`}>
-          <span class="sig" aria-hidden="true"></span>
-          <span class="brand-text">{brand}</span>
+<header class="header" data-theme="light">
+  <nav class="nav_wrap">
+    <div class="nav_inner">
+      <div class="nav_left_row">
+        <a href="/" aria-current="page" class="nav_logo w-inline-block">
+          <svg xmlns="http://www.w3.org/2000/svg" width="148" height="36" viewBox="0 0 148 36" fill="none">
+            <path d="M8.67005 8.6507V27.3484C3.88136 27.3484 0 23.4754 0 18.6977V0C4.78796 0 8.67005 3.87302 8.67005 8.6507Z" fill="url(#paint0_linear_logo)"/>
+            <path d="M26.2666 36H8.67005C3.88136 36 0 32.1265 0 27.3486V18.6979C0 23.4756 3.88136 27.3486 8.67005 27.3486H17.5967C19.9911 27.3486 22.1584 28.317 23.7272 29.8824C25.296 31.4479 26.2666 33.6108 26.2666 35.9998V36Z" fill="url(#paint1_linear_logo)"/>
+            <path d="M145.752 13.362C145.089 13.362 144.593 13.2124 144.261 12.9133C143.93 12.5985 143.764 12.1656 143.764 11.6147C143.764 11.0637 143.977 10.6072 144.403 10.2452C144.845 9.86736 145.389 9.67847 146.036 9.67847C146.62 9.67847 147.093 9.82014 147.456 10.1035C147.819 10.3868 148 10.7882 148 11.3077C148 11.9374 147.795 12.4411 147.385 12.8189C146.975 13.1809 146.43 13.362 145.752 13.362ZM143.48 26.0417C142.976 26.0417 142.629 25.9394 142.439 25.7348C142.25 25.5301 142.155 25.2074 142.155 24.7667C142.155 24.6407 142.171 24.4203 142.203 24.1055C142.455 21.2248 142.873 18.6039 143.457 16.2427C143.583 15.7547 143.788 15.4162 144.072 15.2273C144.372 15.0227 144.845 14.9204 145.492 14.9204C146.17 14.9204 146.509 15.1958 146.509 15.7468C146.509 15.8255 146.493 15.975 146.462 16.1954C145.752 19.5641 145.326 22.3897 145.184 24.6722C145.153 25.1759 145.003 25.5301 144.735 25.7348C144.466 25.9394 144.048 26.0417 143.48 26.0417Z" fill="url(#paint2_linear_logo)"/>
+            <path d="M134.282 26.0415C133.304 26.0415 132.523 25.6873 131.939 24.9789C131.355 24.2706 131.064 23.3418 131.064 22.1927C131.064 20.9334 131.355 19.7449 131.939 18.6273C132.523 17.4939 133.296 16.5887 134.258 15.9119C135.236 15.2192 136.269 14.8729 137.358 14.8729C137.705 14.8729 137.934 14.9438 138.044 15.0854C138.17 15.2114 138.273 15.4475 138.352 15.7938C138.683 15.7308 139.03 15.6994 139.393 15.6994C140.166 15.6994 140.552 15.9748 140.552 16.5258C140.552 16.8563 140.434 17.6434 140.198 18.887C139.835 20.6973 139.653 21.9566 139.653 22.6649C139.653 22.9011 139.708 23.09 139.819 23.2316C139.945 23.3733 140.103 23.4441 140.292 23.4441C140.592 23.4441 140.955 23.2552 141.381 22.8775C141.807 22.4839 142.382 21.8543 143.108 20.9885C143.297 20.7681 143.51 20.6579 143.747 20.6579C143.952 20.6579 144.11 20.7524 144.22 20.9413C144.346 21.1302 144.41 21.3899 144.41 21.7205C144.41 22.3501 144.26 22.8381 143.96 23.1844C143.313 23.9872 142.627 24.6641 141.901 25.2151C141.176 25.766 140.474 26.0415 139.795 26.0415C139.275 26.0415 138.794 25.8683 138.352 25.522C137.926 25.16 137.602 24.672 137.382 24.0581C136.561 25.3803 135.528 26.0415 134.282 26.0415ZM135.134 23.6567C135.481 23.6567 135.812 23.452 136.127 23.0427C136.443 22.6335 136.672 22.0904 136.814 21.4135L137.689 17.0689C137.027 17.0846 136.411 17.3365 135.844 17.8244C135.291 18.2967 134.85 18.9263 134.518 19.7134C134.187 20.5005 134.021 21.3348 134.021 22.2163C134.021 22.7043 134.116 23.0664 134.305 23.3025C134.511 23.5386 134.787 23.6567 135.134 23.6567Z" fill="url(#paint3_linear_logo)"/>
+            <path d="M127.391 26.0886C126.902 26.0886 126.492 25.9233 126.161 25.5928C125.83 25.2622 125.664 24.8529 125.664 24.3649C125.664 23.8769 125.83 23.4677 126.161 23.1371C126.492 22.8065 126.902 22.6412 127.391 22.6412C127.865 22.6412 128.267 22.8065 128.598 23.1371C128.93 23.4677 129.095 23.8769 129.095 24.3649C129.095 24.8529 128.93 25.2622 128.598 25.5928C128.267 25.9233 127.865 26.0886 127.391 26.0886Z" fill="url(#paint4_linear_logo)"/>
+            <path d="M119.759 22.5993H112.932L111.759 25.9235H108.967L114.808 9.63007H117.905L123.747 25.9235H120.932L119.759 22.5993ZM119.008 20.4221L116.357 12.8607L113.682 20.4221H119.008Z" fill="url(#paint5_linear_logo)"/>
+            <path d="M107.693 9.65338L101.57 25.9234H98.4728L92.3262 9.65338H95.1884L100.021 23.1845L104.878 9.65338H107.693Z" fill="url(#paint6_linear_logo)"/>
+            <path d="M82.6791 26.0874C81.162 26.0874 79.7622 25.7362 78.4796 25.0339C77.2128 24.316 76.204 23.325 75.4532 22.0608C74.7181 20.7811 74.3506 19.3452 74.3506 17.7534C74.3506 16.1615 74.7181 14.7334 75.4532 13.4693C76.204 12.2051 77.2128 11.2219 78.4796 10.5196C79.7622 9.80171 81.162 9.44275 82.6791 9.44275C84.2118 9.44275 85.6116 9.80171 86.8785 10.5196C88.161 11.2219 89.1698 12.2051 89.9049 13.4693C90.64 14.7334 91.0076 16.1615 91.0076 17.7534C91.0076 19.3452 90.64 20.7811 89.9049 22.0608C89.1698 23.325 88.161 24.316 86.8785 25.0339C85.6116 25.7362 84.2118 26.0874 82.6791 26.0874ZM82.6791 23.7698C83.7583 23.7698 84.7201 23.5279 85.5647 23.0441C86.4093 22.5446 87.0662 21.8423 87.5354 20.9371C88.0203 20.0163 88.2627 18.9551 88.2627 17.7534C88.2627 16.5516 88.0203 15.4982 87.5354 14.593C87.0662 13.6878 86.4093 12.9933 85.5647 12.5095C84.7201 12.0257 83.7583 11.7838 82.6791 11.7838C81.5999 11.7838 80.638 12.0257 79.7934 12.5095C78.9489 12.9933 78.2841 13.6878 77.7993 14.593C77.3301 15.4982 77.0955 16.5516 77.0955 17.7534C77.0955 18.9551 77.3301 20.0163 77.7993 20.9371C78.2841 21.8423 78.9489 22.5446 79.7934 23.0441C80.638 23.5279 81.5999 23.7698 82.6791 23.7698Z" fill="url(#paint7_linear_logo)"/>
+            <path d="M71.7268 9.65338V25.9234H69.0523V14.7802L64.0787 25.9234H62.2253L57.2282 14.7802V25.9234H54.5537V9.65338H57.4394L63.1637 22.4119L68.8646 9.65338H71.7268Z" fill="url(#paint8_linear_logo)"/>
+            <path d="M51.0425 9.65338V25.9234H48.368V9.65338H51.0425Z" fill="url(#paint9_linear_logo)"/>
+            <path d="M40.6179 23.7697H46.1311V25.9234H37.9434V9.65338H40.6179V23.7697Z" fill="url(#paint10_linear_logo)"/>
+            <defs>
+              <linearGradient id="paint0_linear_logo" x1="4.21392" y1="38.4323" x2="4.44192" y2="-8.39167" gradientUnits="userSpaceOnUse"><stop offset="0.13" stop-color="#F15A24"></stop><stop offset="0.81" stop-color="#D9E021"></stop></linearGradient>
+              <linearGradient id="paint1_linear_logo" x1="38.8816" y1="27.0319" x2="-16.741" y2="27.72" gradientUnits="userSpaceOnUse"><stop offset="0.03" stop-color="#F15A24"></stop><stop offset="0.7" stop-color="#D9E021"></stop></linearGradient>
+              <linearGradient id="paint2_linear_logo" x1="144.996" y1="32.6735" x2="145.117" y2="4.65738" gradientUnits="userSpaceOnUse"><stop offset="0.13" stop-color="#F15A24"></stop><stop offset="0.81" stop-color="#D9E021"></stop></linearGradient>
+              <linearGradient id="paint3_linear_logo" x1="137.55" y1="30.5679" x2="137.575" y2="11.4455" gradientUnits="userSpaceOnUse"><stop offset="0.13" stop-color="#F15A24"></stop><stop offset="0.81" stop-color="#D9E021"></stop></linearGradient>
+              <linearGradient id="paint4_linear_logo" x1="127.332" y1="27.4858" x2="127.341" y2="21.5833" gradientUnits="userSpaceOnUse"><stop offset="0.13" stop-color="#F15A24"></stop><stop offset="0.81" stop-color="#D9E021"></stop></linearGradient>
+              <linearGradient id="paint5_linear_logo" x1="116.15" y1="32.527" x2="116.198" y2="4.62995" gradientUnits="userSpaceOnUse"><stop offset="0.13" stop-color="#F15A24"></stop><stop offset="0.81" stop-color="#D9E021"></stop></linearGradient>
+              <linearGradient id="paint6_linear_logo" x1="99.7949" y1="32.5174" x2="99.8404" y2="4.66044" gradientUnits="userSpaceOnUse"><stop offset="0.13" stop-color="#F15A24"></stop><stop offset="0.81" stop-color="#D9E021"></stop></linearGradient>
+              <linearGradient id="paint7_linear_logo" x1="82.4464" y1="32.8332" x2="82.4904" y2="4.33486" gradientUnits="userSpaceOnUse"><stop offset="0.13" stop-color="#F15A24"></stop><stop offset="0.81" stop-color="#D9E021"></stop></linearGradient>
+              <linearGradient id="paint8_linear_logo" x1="62.9004" y1="32.5174" x2="62.9411" y2="4.66043" gradientUnits="userSpaceOnUse"><stop offset="0.13" stop-color="#F15A24"></stop><stop offset="0.81" stop-color="#D9E021"></stop></linearGradient>
+              <linearGradient id="paint9_linear_logo" x1="49.6679" y1="32.5174" x2="49.9295" y2="4.66283" gradientUnits="userSpaceOnUse"><stop offset="0.13" stop-color="#F15A24"></stop><stop offset="0.81" stop-color="#D9E021"></stop></linearGradient>
+              <linearGradient id="paint10_linear_logo" x1="41.9229" y1="32.5174" x2="42.0083" y2="4.66063" gradientUnits="userSpaceOnUse"><stop offset="0.13" stop-color="#F15A24"></stop><stop offset="0.81" stop-color="#D9E021"></stop></linearGradient>
+            </defs>
+          </svg>
         </a>
       </div>
 
-      <nav class="nav" aria-label="Navigation principale">
-        <ul class="nav-list">
-          {links.map((l) => (
-            <li class="nav-item"><a class="nav-link" href={l.href}>{l.label}</a></li>
-          ))}
-        </ul>
-      </nav>
-
-      <div class="right">
-        {showCta && (
-          <a class="btn" href={cta.href}>
-            <span class="btn-label">{cta.label}</span>
-            <span class="btn-icon" aria-hidden="true">→</span>
-            <span class="btn-shine" aria-hidden="true"></span>
+      <div class="nav_menu">
+        <div class="nav_menu_links_wrap">
+          <div class="nav_menu_links_list cc-legend">
+            <a href="/legend" class="navlink w-inline-block">
+              <div class="navlink_text">Legend</div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" class="nav-link-arrow">
+                <path d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z" fill="currentColor"/>
+              </svg>
+            </a>
+          </div>
+          <div class="nav_menu_links_divider hide-td cc-legend"></div>
+          
+          <div class="nav_menu_links_list">
+            <a href="/agents-ia" class="navlink w-inline-block">
+              <div class="navlink_text">Agents IA</div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" class="nav-link-arrow">
+                <path d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z" fill="currentColor"/>
+              </svg>
+            </a>
+            <a href="https://www.limova.ai/agents/charly" class="navlink w-inline-block">
+              <div class="navlink_text">Charly<span class="text-white weight-500">+</span></div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" class="nav-link-arrow">
+                <path d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z" fill="currentColor"/>
+              </svg>
+            </a>
+          </div>
+          
+          <div class="nav_menu_links_divider hide-td"></div>
+          
+          <div class="nav_menu_links_list">
+            <a href="/pricing" class="navlink w-inline-block">
+              <div class="navlink_text">Nos Offres</div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" class="nav-link-arrow">
+                <path d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z" fill="currentColor"/>
+              </svg>
+            </a>
+            <a href="https://www.limova.ai/#faq" class="navlink w-inline-block">
+              <div class="navlink_text">F.A.Q</div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" class="nav-link-arrow">
+                <path d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z" fill="currentColor"/>
+              </svg>
+            </a>
+          </div>
+          
+          <div class="nav_menu_links_divider hide-td"></div>
+          
+          <div class="nav_menu_links_list">
+            <a href="https://www.limova.ai/#process" class="navlink w-inline-block">
+              <div class="navlink_text">Processus</div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" class="nav-link-arrow">
+                <path d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z" fill="currentColor"/>
+              </svg>
+            </a>
+            <a href="/integrations" class="navlink w-inline-block">
+              <div class="navlink_text">Intégrations</div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" class="nav-link-arrow">
+                <path d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z" fill="currentColor"/>
+              </svg>
+            </a>
+          </div>
+          
+          <div class="nav_menu_links_divider hide-td"></div>
+          
+          <div class="nav_menu_links_list">
+            <a href="https://new.limova.ai/welcome" class="navlink w-inline-block">
+              <div class="navlink_text">Se connecter</div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" class="nav-link-arrow">
+                <path d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z" fill="currentColor"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <div class="nav_menu_eyebrow"><div>Menu</div></div>
+        <div class="nav_menu_button">
+             <a href="/contact" class="btn_wrap w-inline-block" data-wf-interactive-button-variant="main">
+                 <div class="btn_inner">
+                    <span class="btn_text">Reserver une démo</span>
+                 </div>
+                 <div class="btn_bg"></div>
+             </a>
+        </div>
+      </div>
+      
+      <div class="nav_button_row">
+        <div class="nav_button_wrap">
+          <a href="/contact" class="btn_wrap w-inline-block" data-wf-interactive-button-variant="glass-small">
+            <div class="btn_inner">
+              <span class="btn_text">Reserver une démo</span>
+              <div class="btn_icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="btn_arrow"><path d="M6 18L18 6M18 6H10M18 6V14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="btn_arrow"><path d="M6 18L18 6M18 6H10M18 6V14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+            <div class="btn_bg"></div>
           </a>
-        )}
-
-        <button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu" data-burger>
-          <span class="icon icon-burger" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-              <path fill="currentColor" d="M1 8h30a1 1 0 0 0 0-2H1a1 1 0 0 0 0 2zM31 15H1a1 1 0 0 0 0 2h30a1 1 0 0 0 0-2zM31 24H1a1 1 0 0 0 0 2h30a1 1 0 0 0 0-2z"></path>
-            </svg>
-          </span>
-          <span class="icon icon-close" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
-              <path fill="currentColor" d="m53.657 48 25.171-25.172a4 4 0 1 0-5.656-5.656L48 42.343 22.829 17.172a4 4 0 0 0-5.657 5.656L42.344 48 17.172 73.172a4 4 0 1 0 5.657 5.656L48 53.657l25.172 25.171C73.953 79.609 74.977 80 76 80s2.048-.391 2.828-1.172a4 4 0 0 0 0-5.656L53.657 48z"></path>
-            </svg>
-          </span>
+        </div>
+        
+        <button aria-label="toggle menu" class="menu-button" id="menu-toggle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none" class="menu-button__icon">
+            <path d="M7.02441 0.2C7.02441 0.0895426 7.11396 0 7.22441 0H8.57441C8.68487 0 8.77441 0.0895431 8.77441 0.2V13.8C8.77441 13.9105 8.68487 14 8.57441 14H7.22441C7.11396 14 7.02441 13.9105 7.02441 13.8V0.2Z" fill="currentColor"/>
+            <path d="M14.6994 6.125C14.8099 6.125 14.8994 6.21454 14.8994 6.325V7.675C14.8994 7.78546 14.8099 7.875 14.6994 7.875L1.09941 7.875C0.988957 7.875 0.899414 7.78546 0.899414 7.675L0.899414 6.325C0.899414 6.21454 0.988957 6.125 1.09941 6.125L14.6994 6.125Z" fill="currentColor"/>
+            <path d="M8.77441 4.375V6.125H10.5244C9.55798 6.125 8.77441 5.34143 8.77441 4.375Z" fill="currentColor"/>
+            <path d="M8.77441 9.625V7.875H10.5244C9.55798 7.875 8.77441 8.65857 8.77441 9.625Z" fill="currentColor"/>
+            <path d="M7.02441 4.375V6.125H5.27441C6.24084 6.125 7.02441 5.34143 7.02441 4.375Z" fill="currentColor"/>
+            <path d="M7.02441 9.625V7.875H5.27441C6.24084 7.875 7.02441 8.65857 7.02441 9.625Z" fill="currentColor"/>
+          </svg>
+          <div data-bg="glass" class="menu-button_bg"></div>
         </button>
       </div>
     </div>
-
-    <!-- Mobile menu lives INSIDE the ilot, so the header "expands" downward -->
-    <div class="mobile" id="mobileMenu" data-mobile hidden>
-      <div class="mobile-clip">
-        <div class="mobile-inner">
-          <ul class="mobile-list">
-            {links.map((l) => (
-              <li class="mobile-item">
-                <a class="mobile-link" href={l.href} data-mobile-link>
-                  <span>{l.label}</span>
-                  <span aria-hidden="true">→</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          {showCta && (
-            <a class="btn full" href={cta.href} data-mobile-link>
-              <span class="btn-label">{cta.label}</span>
-              <span class="btn-icon" aria-hidden="true">→</span>
-              <span class="btn-shine" aria-hidden="true"></span>
-            </a>
-          )}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <button class="overlay" type="button" aria-label="Fermer le menu" data-overlay hidden></button>
+  </nav>
+  <div class="header_bg"></div>
+  <div class="menu_bg"></div>
 </header>
 
-<script is:inline>
-  const header = document.querySelector("[data-header]");
-  const dock = document.querySelector("[data-dock]");
-  const burger = document.querySelector("[data-burger]");
-  const mobile = document.querySelector("[data-mobile]");
-  const overlay = document.querySelector("[data-overlay]");
-  const mobileLinks = document.querySelectorAll("[data-mobile-link]");
+<script>
+    // Logique d'ouverture du menu mobile
+    const menuButton = document.getElementById('menu-toggle');
+    const body = document.body;
 
-  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  // Transparent at top, glass after scroll
-  if (header) {
-    const set = () => {
-      const y = window.scrollY || 0;
-      header.classList.toggle("is-top", y < 8);
-      header.classList.toggle("is-scrolled", y >= 8);
-    };
-
-    set();
-    let raf = 0;
-    window.addEventListener(
-      "scroll",
-      () => {
-        cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(set);
-      },
-      { passive: true }
-    );
-  }
-
-  function setOpen(next) {
-    if (!header || !dock || !burger || !mobile || !overlay) return;
-
-    burger.setAttribute("aria-expanded", String(next));
-    header.classList.toggle("menu-active", next);
-    dock.classList.toggle("menu-open", next);
-
-    if (next) {
-      mobile.hidden = false;
-      overlay.hidden = false;
-
-      if (!reduce) {
-        requestAnimationFrame(() => {
-          mobile.classList.add("open");
-          overlay.classList.add("open");
+    if (menuButton) {
+        menuButton.addEventListener('click', () => {
+            const isClosed = body.getAttribute('data-nav-status') === 'closed';
+            const newState = isClosed ? 'open' : 'closed';
+            
+            body.setAttribute('data-nav-status', newState);
+            menuButton.classList.toggle('close', isClosed);
         });
-      } else {
-        mobile.classList.add("open");
-        overlay.classList.add("open");
-      }
-
-      document.documentElement.classList.add("menu-open");
-    } else {
-      mobile.classList.remove("open");
-      overlay.classList.remove("open");
-      document.documentElement.classList.remove("menu-open");
-
-      if (reduce) {
-        mobile.hidden = true;
-        overlay.hidden = true;
-        return;
-      }
-
-      const done = (e) => {
-        if (e && e.target !== mobile) return;
-        mobile.hidden = true;
-        overlay.hidden = true;
-        mobile.removeEventListener("transitionend", done);
-      };
-      mobile.addEventListener("transitionend", done);
     }
-  }
 
-  if (burger && mobile && overlay) {
-    burger.addEventListener("click", () => {
-      const isOpen = burger.getAttribute("aria-expanded") === "true";
-      setOpen(!isOpen);
+    // Logique de scroll pour l'apparence du header
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY > 50;
+        body.setAttribute('data-scrolling-started', scrolled.toString());
     });
 
-    overlay.addEventListener("click", () => setOpen(false));
-    mobileLinks.forEach((a) => a.addEventListener("click", () => setOpen(false)));
-
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") setOpen(false);
-    });
-
-    window.addEventListener("resize", () => {
-      const isOpen = burger.getAttribute("aria-expanded") === "true";
-      if (!isOpen) return;
-      if (window.innerWidth >= 980) setOpen(false);
-    });
-  }
+    // Initial state
+    body.setAttribute('data-nav-status', 'closed');
+    body.setAttribute('data-scrolling-started', 'false');
 </script>
 
 <style>
-  :root {
-    --text: #f3f3f4;
-    --muted: rgba(243, 243, 244, 0.72);
-    --cream: #e3dbcf;
-    --orange: #e6730a;
-    --bg0: #070607;
-    --bg1: #0c0a08;
-    --glass: rgba(255, 255, 255, 0.06);
-    --grid: clamp(38px, 6vw, 58px);
-    --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  }
+    /* VARIABLES (Extraites du CSS global pour fonctionnement autonome) */
+    :root {
+        --neutral--white: #ffffff;
+        --neutral--dark: #060403;
+        --brand--yellow: #dc8e21;
+        --alpha--white-3: rgba(255, 255, 255, 0.03);
+        --alpha--white-6: rgba(255, 255, 255, 0.06);
+        --alpha--white-12: rgba(255, 255, 255, 0.12);
+        --alpha--white-50: rgba(255, 255, 255, 0.5);
+        --alpha--white-73: rgba(255, 255, 255, 0.73);
+        
+        --gr-glass: radial-gradient(100.01% 100% at 50.75% 0%, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 100%), rgba(255, 255, 255, 0.02);
+        --sh-glass: 0px 0px 30.5px 0px rgba(255, 255, 255, 0.06) inset;
+        
+        --duration-half: 0.45s;
+        --ease-main: cubic-bezier(0.6, 0.6, 0, 1);
+        --animation-default: 0.8s cubic-bezier(0.6, 0.6, 0, 1);
+        --site--max-width: 1440px;
+    }
 
-  * { box-sizing: border-box; }
+    /* Styles de base */
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        padding: 1.5em; /* Ajusté */
+        transition: padding 0.4s var(--ease-main);
+    }
+    
+    .nav_wrap {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: var(--site--max-width);
+        margin: 0 auto;
+    }
 
-  /* Overlay header: does not consume layout height */
-  .hdr {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 200;
-    padding: calc(env(safe-area-inset-top) + 0.7rem) 1rem 0.6rem;
-    pointer-events: none;
-    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  }
+    .nav_inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 3.5rem; /* Ajuster selon besoin */
+    }
 
-  .skip {
-    position: absolute;
-    left: -9999px;
-    top: 0;
-    background: var(--cream);
-    color: #0b0a08;
-    padding: 0.6rem 0.9rem;
-    border-radius: 10px;
-    pointer-events: auto;
-  }
+    /* Logo */
+    .nav_left_row {
+        flex: 1;
+        display: flex;
+        align-items: center;
+    }
+    .nav_logo {
+        color: var(--neutral--white);
+        width: 9.25em; /* 148px / 16 */
+    }
+    
+    /* Menu Links Desktop */
+    .nav_menu {
+        flex: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-  .skip:focus { left: 1rem; top: 0.75rem; z-index: 260; }
+    .nav_menu_links_wrap {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.35rem;
+        border-radius: 99em;
+        /* Glass effect desktop */
+        background: var(--gr-glass);
+        border: 1px solid var(--alpha--white-3);
+    }
 
-  .dock {
-    width: min(1060px, 100%);
-    margin: 0 auto;
-    position: relative;
-    border-radius: 999px;
-    pointer-events: auto;
-    transition: border-radius 0.35s var(--ease);
-  }
+    .nav_menu_links_list {
+        display: flex;
+        align-items: center;
+    }
 
-  .dock.menu-open {
-    border-radius: 26px;
-    overflow: hidden; /* makes the expansion feel like one single component */
-  }
+    .nav_menu_links_divider {
+        width: 1px;
+        height: 1.5em;
+        background-color: var(--alpha--white-6);
+        margin: 0 0.5em;
+    }
 
-  .dock-bg {
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
+    /* Links */
+    .navlink {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        padding: 0.5em 1em;
+        border-radius: 99em;
+        text-decoration: none;
+        color: var(--neutral--white);
+        overflow: hidden;
+    }
 
-    background:
-      radial-gradient(700px 120px at 18% 0%, rgba(230,115,10,0.24), transparent 72%),
-      radial-gradient(720px 140px at 82% 0%, rgba(227,219,207,0.16), transparent 72%),
-      radial-gradient(360px 240px at 50% 0%, rgba(35,32,30,0.46), transparent 75%),
-      linear-gradient(180deg, rgba(12,10,8,0.9), rgba(7,6,7,0.7));
+    .navlink_text {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--alpha--white-73);
+        transition: color var(--duration-half) var(--ease-main);
+        z-index: 2;
+    }
+    
+    .nav-link-arrow {
+        width: 0.75em;
+        display: none; /* Often hidden in desktop unless specific state */
+    }
 
-    border: 1px solid rgba(255,255,255,0.12);
-    box-shadow:
-      0 20px 70px rgba(0,0,0,0.40),
-      inset 0 1px 0 rgba(255,255,255,0.10);
+    /* Hover effect */
+    .navlink::after {
+        content: '';
+        position: absolute;
+        inset: 0px;
+        transition: all var(--duration-half) var(--ease-main);
+        background: var(--alpha--white-6);
+        transform: scale(0.9);
+        z-index: 1;
+        opacity: 0;
+        border-radius: inherit;
+    }
 
-    backdrop-filter: blur(16px);
-    transition: background 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease), backdrop-filter 0.35s var(--ease);
-  }
+    .navlink:hover::after, .navlink.w--current::after {
+        transform: scale(1);
+        opacity: 1;
+    }
+    .navlink:hover .navlink_text, .navlink.w--current .navlink_text {
+        color: var(--neutral--white);
+    }
 
-  .dock-bg::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    opacity: 0.23;
-    background:
-      repeating-linear-gradient(0deg, rgba(227,219,207,0.08) 0 1px, transparent 1px var(--grid)),
-      repeating-linear-gradient(90deg, rgba(227,219,207,0.08) 0 1px, transparent 1px var(--grid));
-    mask-image: radial-gradient(120% 120% at 50% 0%, #000 55%, transparent 100%);
-    -webkit-mask-image: radial-gradient(120% 120% at 50% 0%, #000 55%, transparent 100%);
-    transition: opacity 0.35s var(--ease);
-  }
+    /* Right Buttons */
+    .nav_button_row {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .menu-button {
+        display: none; /* Hidden on desktop */
+        width: 3rem;
+        height: 3rem;
+        background: transparent;
+        border: none;
+        color: white;
+        position: relative;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .menu-button_bg {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--gr-glass);
+        border: 1px solid var(--alpha--white-6);
+        z-index: -1;
+    }
 
-  .dock::after {
-    content: "";
-    position: absolute;
-    inset: 1px;
-    border-radius: inherit;
-    pointer-events: none;
-    background-image:
-      repeating-radial-gradient(circle at 20% 40%, rgba(255,255,255,0.18) 0 1px, transparent 1px 9px),
-      repeating-radial-gradient(circle at 78% 32%, rgba(0,0,0,0.4) 0 1px, transparent 1px 9px);
-    opacity: 0.14;
-    mix-blend-mode: overlay;
-    z-index: 0;
-  }
+    /* Mobile specifics (Eyebrow, etc) */
+    .nav_menu_eyebrow, .nav_menu_button {
+        display: none; 
+    }
 
-  .row {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 0.85rem;
-    padding: 0.72rem 0.95rem;
-  }
+    /* Button Wrap Styles (extracted) */
+    .btn_wrap {
+        position: relative;
+        display: inline-flex;
+        text-decoration: none;
+        border-radius: 99em;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    
+    .btn_wrap[data-wf-interactive-button-variant="glass-small"] {
+        padding: 0.5625em 0.9375em;
+        color: var(--neutral--white);
+    }
 
-  .left { justify-self: start; min-width: 0; }
-  .right { justify-self: end; display: inline-flex; align-items: center; gap: 0.6rem; }
+    .btn_bg {
+        position: absolute;
+        inset: 0;
+        background: var(--gr-glass);
+        box-shadow: var(--sh-glass);
+        border: 1px solid var(--alpha--white-6);
+        border-radius: inherit;
+        transition: inset 0.3s ease;
+    }
+    
+    .btn_wrap:hover .btn_bg {
+        inset: 2px;
+    }
 
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.7rem;
-    text-decoration: none;
-    color: var(--text);
-    min-width: 0;
-  }
+    .btn_inner {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+    }
+    
+    .btn_text {
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+    
+    .btn_icon {
+        display: none; /* Often hidden for small variant */
+    }
 
-  .sig {
-    width: 10px;
-    height: 10px;
-    border-radius: 999px;
-    background: var(--orange);
-    box-shadow: 0 0 0 7px rgba(230,115,10,0.12);
-    flex: 0 0 auto;
-  }
+    /* Header BG On Scroll */
+    .header_bg {
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(rgba(6, 4, 3, 1) 0%, rgba(6, 4, 3, 0) 100%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+    }
 
-  .brand-text {
-    font-weight: 820;
-    letter-spacing: 0.22em;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
+    :global(body[data-scrolling-started='true']) .header_bg {
+        opacity: 1;
+    }
 
-  .nav { display: flex; justify-content: center; }
+    /* RESPONSIVE TABLET / MOBILE */
+    @media screen and (max-width: 991px) {
+        .nav_menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--neutral--dark);
+            padding: 6rem 1.5rem 2rem;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+            transform: translateY(-100%);
+            transition: transform 0.6s var(--ease-main);
+            z-index: 1; /* Below logo/button row */
+        }
 
-  .nav-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: clamp(0.55rem, 1.8vw, 1.25rem);
-  }
+        :global(body[data-nav-status='open']) .nav_menu {
+            transform: translateY(0%);
+        }
 
-  .nav-link {
-    position: relative;
-    display: inline-flex;
-    padding: 0.55rem 0.45rem;
-    text-decoration: none;
-    color: var(--muted);
-    font-weight: 680;
-    transition: color 0.25s var(--ease);
-  }
+        .nav_menu_links_wrap {
+            flex-direction: column;
+            align-items: flex-start;
+            background: transparent;
+            border: none;
+            width: 100%;
+        }
 
-  .nav-link:hover { color: rgba(243,243,244,1); }
+        .nav_menu_links_list {
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+        }
+        
+        .navlink {
+            width: 100%;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--alpha--white-6);
+            border-radius: 0;
+            justify-content: space-between;
+        }
+        
+        .navlink::after { display: none; }
+        
+        .navlink_text {
+            font-size: 1.5rem;
+            color: var(--neutral--white);
+        }
+        
+        .nav-link-arrow {
+            display: block;
+        }
 
-  .nav-link::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: 0.22rem;
-    width: 0;
-    height: 2px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, rgba(227,219,207,0.0), rgba(227,219,207,0.9), rgba(230,115,10,0.95));
-    transform: translateX(-50%);
-    transition: width 0.28s var(--ease);
-  }
-
-  .nav-link:hover::after { width: 100%; }
-
-  .btn {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.65rem;
-    padding: clamp(0.82rem, 2vw, 0.94rem) clamp(1.05rem, 3.6vw, 1.65rem);
-    border-radius: 999px;
-    text-decoration: none;
-    font-weight: 760;
-    font-size: clamp(0.95rem, 2.1vw, 1rem);
-    line-height: 1.12;
-    border: 1px solid rgba(227,219,207,0.78);
-    background: var(--cream);
-    color: #0b0a08;
-    box-shadow: 0 22px 70px rgba(0,0,0,0.40);
-    overflow: hidden;
-    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease);
-    transform: translate3d(0,0,0);
-    white-space: nowrap;
-  }
-
-  .btn:hover { transform: translateY(-2px); box-shadow: 0 30px 92px rgba(0,0,0,0.55); }
-
-  .btn-icon { transition: transform 0.25s var(--ease); }
-  .btn:hover .btn-icon { transform: translateX(4px); }
-
-  .btn-shine {
-    position: absolute;
-    inset: -2px;
-    pointer-events: none;
-    background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.00) 38%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0.00) 62%, transparent 100%);
-    transform: translateX(-130%);
-    opacity: 0.7;
-  }
-
-  .btn:hover .btn-shine { animation: shine 0.9s var(--ease) forwards; }
-  @keyframes shine { to { transform: translateX(130%); } }
-
-  .brand:focus-visible,
-  .nav-link:focus-visible,
-  .btn:focus-visible,
-  .burger:focus-visible,
-  .mobile-link:focus-visible {
-    outline: 2px solid var(--cream);
-    outline-offset: 3px;
-    box-shadow: 0 0 0 8px rgba(227,219,207,0.12);
-  }
-
-  /* Burger button + provided SVG icons */
-  .burger {
-    width: 44px;
-    height: 44px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.12);
-    background: rgba(255,255,255,0.03);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    cursor: pointer;
-    backdrop-filter: blur(10px);
-    color: rgba(243,243,244,0.92);
-    position: relative;
-    overflow: hidden;
-    transition: background 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease);
-  }
-
-  .burger:hover {
-    background: rgba(255,255,255,0.06);
-    border-color: rgba(255,255,255,0.20);
-    transform: translateY(-1px);
-  }
-
-  .icon {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    transition: opacity 0.22s var(--ease), transform 0.22s var(--ease);
-  }
-
-  .icon svg {
-    width: 18px;
-    height: 18px;
-    display: block;
-  }
-
-  .icon-burger { opacity: 1; transform: scale(1) rotate(0deg); }
-  .icon-close { opacity: 0; transform: scale(0.92) rotate(-8deg); }
-
-  .burger[aria-expanded="true"] .icon-burger { opacity: 0; transform: scale(0.92) rotate(8deg); }
-  .burger[aria-expanded="true"] .icon-close { opacity: 1; transform: scale(1) rotate(0deg); }
-
-/* Top state: transparent, BUT if menu opens, we force the glass so it is visible */
-  .hdr.is-top .dock-bg { background: transparent; border-color: transparent; box-shadow: none; backdrop-filter: none; }
-  .hdr.is-top .dock-bg::before { opacity: 0; }
-
-  .hdr.menu-active .dock-bg {
-    background:
-      radial-gradient(700px 120px at 18% 0%, rgba(230,115,10,0.24), transparent 72%),
-      radial-gradient(720px 140px at 82% 0%, rgba(227,219,207,0.16), transparent 72%),
-      radial-gradient(360px 240px at 50% 0%, rgba(35,32,30,0.46), transparent 75%),
-      linear-gradient(180deg, rgba(12,10,8,0.9), rgba(7,6,7,0.7));
-    border: 1px solid rgba(255,255,255,0.12);
-    box-shadow:
-      0 20px 70px rgba(0,0,0,0.40),
-      inset 0 1px 0 rgba(255,255,255,0.10);
-    backdrop-filter: blur(16px);
-  }
-
-  .hdr.menu-active .dock-bg::before { opacity: 0.23; }
-
-  /* Mobile: expansion panel inside dock */
-  .mobile {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-rows: 0fr;
-    opacity: 0;
-    transform: translateY(-6px);
-    transition: grid-template-rows 0.32s var(--ease), opacity 0.28s var(--ease), transform 0.32s var(--ease);
-    border-top: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .mobile.open {
-    grid-template-rows: 1fr;
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .mobile-clip { overflow: hidden; }
-
-  .mobile-inner {
-    padding: 0.9rem 0.95rem 1.05rem;
-    display: grid;
-    gap: 0.7rem;
-  }
-
-  .mobile-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 0.35rem;
-  }
-
-  .mobile-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.95rem 0.85rem;
-    border-radius: 14px;
-    text-decoration: none;
-    color: rgba(243,243,244,0.92);
-    border: 1px solid rgba(255,255,255,0.08);
-    background: rgba(255,255,255,0.02);
-    transition: background 0.25s var(--ease), border-color 0.25s var(--ease);
-  }
-
-  .mobile-link:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.16); }
-
-  .full { width: 100%; }
-
-  /* Overlay: darken only, no blur (fixes the blur bug) */
-  .overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 150;
-    background: rgba(0,0,0,0.48);
-    opacity: 0;
-    transition: opacity 0.22s var(--ease);
-    pointer-events: none;
-    border: 0;
-    padding: 0;
-  }
-
-  .overlay.open { opacity: 1; pointer-events: auto; }
-
-  /* Ensure the dock stays above overlay so the menu is NEVER blurred/covered */
-  .dock { z-index: 210; }
-
-  @media (max-width: 980px) {
-    .nav { display: none; }
-    .burger { display: inline-flex; }
-  }
-
-  @media (max-width: 560px) {
-    .row { grid-template-columns: 1fr auto; }
-    .right .btn { display: none; }
-    .brand-text { letter-spacing: 0.18em; font-size: 0.9rem; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .dock, .dock-bg, .nav-link, .btn, .burger, .mobile, .overlay { transition: none; }
-    .btn-shine { display: none; }
-  }
-
-  :global(html.menu-open) { overflow: hidden; }
+        .hide-td { display: none !important; }
+        
+        .nav_button_wrap { display: none; } /* Hide desktop CTA */
+        .menu-button { display: flex; z-index: 101; }
+        
+        /* Mobile Menu Content */
+        .nav_menu_eyebrow {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--alpha--white-50);
+            margin-bottom: 1rem;
+        }
+        
+        .nav_menu_button {
+            display: block;
+            margin-top: 2rem;
+        }
+    }
 </style>
