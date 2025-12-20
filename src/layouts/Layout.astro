@@ -1,4 +1,6 @@
 ---
+import SpeedInsights from '@vercel/speed-insights/astro';
+
 export interface Props {
 title?: string;
 description?: string;
@@ -63,6 +65,10 @@ return "";
 --max: 1120px;
 --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
-
-
+</style>
+</head>
+<body>
+<slot />
+<SpeedInsights />
+</body>
 </html>
